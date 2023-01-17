@@ -115,7 +115,7 @@ return [
     |
     | This key is used by the Illuminate encrypter service and should be set
     | to a random, 32 character string, otherwise these encrypted strings
-    | will not be safe. Please do this before deploying an application!
+    | will not be safe. Please do this before dep Barryvdh\DomPDF\ServiceProvider::class,loying an application!
     |
     */
 
@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Milon\Barcode\BarcodeServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
 
     ],
 
@@ -234,6 +235,8 @@ return [
 
         'DNS1D' => Milon\Barcode\Facades\DNS1DFacade::class,
         'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,
+
+        'PDF' => Barryvdh\DomPDF\Facade::class,
 
     ],
 

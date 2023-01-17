@@ -23,5 +23,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/produk',[Cproduk::class,'load'])->name('produk.load');
 Route::get('/produk/{id}',[Cproduk::class,'get'])->name('produk.get');
 Route::post('/produk',[Cproduk::class,'store'])->name('produk.store');
-Route::post('/produk/{id}',[Cproduk::class,'update'])->name('product.update');
+Route::post('/produk/{id}',[Cproduk::class,'update'])->name('produk.update');
 // Route::get('/generate_barcode/{id}', [Cproduk::class, 'generate_barcode'])->name('generate.barcode');

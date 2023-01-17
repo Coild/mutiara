@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Cproduk;
 use App\Http\Controllers\kasir;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +24,7 @@ Route::get('/produk',[kasir::class,'produk'])->name('produk');
 Route::get('/jual',[kasir::class,'jual'])->name('jual');
 Route::get('/riwayat',[kasir::class,'riwayat'])->name('riwayat');
 Route::get('/setting',[kasir::class,'setting'])->name('setting');
+Route::get('/dummy',[Cproduk::class,'cetakBarcode'])->name('cetak');
 
 
 Route::get('/product',[ProductController::class,'index'])->name('product.index');

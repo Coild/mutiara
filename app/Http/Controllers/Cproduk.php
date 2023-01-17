@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\produk;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\PDF;
 
 class Cproduk extends Controller
 {
@@ -12,7 +13,7 @@ class Cproduk extends Controller
     {
 
         $produk = Produk::latest()->first() ?? new Produk();
-        $request['kode_produk'] = 'P'. tambah_nol_didepan((int)$produk->id_produk +1, 6);
+        $request['kode_produk'] = 'P' . tambah_nol_didepan((int)$produk->id_produk + 1, 6);
 
         $produk = Produk::create($request->all());
 
@@ -43,5 +44,20 @@ class Cproduk extends Controller
         }
 
         return response(null, 204);
+    }
+
+    public function cetakBarcode(Request $request)
+    {
+        $dataproduk = array();
+        // foreach ($request->id_produk as $id) {
+        //     $produk = Produk::find($id);
+        //     $dataproduk[] = $produk;
+        // }
+
+        // $no  = 1;
+        // $pdf = PDF::loadView('produk.barcode', compact('dataproduk', 'no'));
+        // $pdf->setPaper('a4', 'potrait');
+        // return $pdf->stream('produk.pdf');
+        return view('kasir.barcode');
     }
 }
