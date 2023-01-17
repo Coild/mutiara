@@ -22,6 +22,7 @@ class CreateProductTable extends Migration
             $table->string('size');
             $table->integer('karat');
             $table->float('weight');
+            $table->string('grade');
             $table->bigInteger('price');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));

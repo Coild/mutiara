@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Codedge\Fpdf\Fpdf\Fpdf;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
@@ -35,6 +36,23 @@ class ProductController extends Controller
 	    }
     }
 
+    public function getByBarcode($barcode){
+        $data = Product::where('barcode',$barcode)->first();
+        if($data){
+	        return response()->json([
+	            'status' => 'success',
+	            'message' => 'Detail Product Found',
+	            'data' => $data
+	        ], 200);
+	    }else{
+	    	return response()->json([
+	            'status' => 'error',
+	            'message' => 'Detail Product Not Found',
+	            'data' => null
+	        ], 404);
+	    }
+    }
+
     public function store(Request $request){
         // return $request;
         $validator = Validator::make($request->all(),[
@@ -43,6 +61,7 @@ class ProductController extends Controller
             "type" => "required",
             "karat" => "required",
             "weight" => "required",
+            "grade" => "required",
             "price" => "required",
         ]);
 
@@ -63,6 +82,7 @@ class ProductController extends Controller
         $data->type = $request->type;
         $data->karat = $request->karat;
         $data->weight = $request->weight;
+        $data->grade = $request->grade;
         $data->price = $request->price;
 
         $data->save();
@@ -80,6 +100,7 @@ class ProductController extends Controller
             "type" => "required",
             "karat" => "required",
             "weight" => "required",
+            "grade" => "required",
             "price" => "required",
         ]);
 
@@ -97,6 +118,7 @@ class ProductController extends Controller
             $data->type = $request->type;
             $data->karat = $request->karat;
             $data->weight = $request->weight;
+            $data->grade = $request->grade;
             $data->price = $request->price;
             $data->update();
             return response()->json([
@@ -123,14 +145,9 @@ class ProductController extends Controller
         ], 201);
     }
 
-    public function generate_barcode($id){
+    public function print_barcode($id){
         $data = Product::where('id',$id)->first();
         if($data){
-	        // return response()->json([
-	        //     'status' => 'success',
-	        //     'message' => 'Detail Product Found',
-	        //     'data' => $data
-	        // ], 200);
             return view('product',["barcode"=>$data->barcode]);
 	    }else{
 	    	return response()->json([
@@ -139,6 +156,44 @@ class ProductController extends Controller
 	            'data' => null
 	        ], 404);
 	    }
+    }
 
+    public function print_sertificate($id){
+        // return $id;
+        $data = Product::where('id',$id)->first();
+        // return $data;
+        $pdf = new Fpdf('L','mm','A5');
+
+		$pdf->SetFont('Arial', 'B', 15);
+        $pdf->AddPage();
+        
+        $pdf->Image("storage/img/sertifikat_mutiara.jpg",0,0,210,148);
+        $pdf->SetMargins(0, 10, 0);
+        $pdf->Ln(65);
+
+        $pdf->SetFont('Arial','B',14);
+        // $pdf->SetTextColor(255,255,255);
+        $pdf->Cell(68,5,'',0, 0,'L');
+		$pdf->Cell(40,5,'Material',0, 0,'L');
+		$pdf->Cell(100,5,': Material',0, 0,'L');
+		$pdf->Ln(6);
+        $pdf->Cell(68,5,'',0, 0,'L');
+		$pdf->Cell(40,5,'Pearl',0, 0,'L');
+		$pdf->Cell(100,5,': '.$data->type,0, 0,'L');
+		$pdf->Ln(6);
+        $pdf->Cell(68,5,'',0, 0,'L');
+		$pdf->Cell(40,5,'Pearl Weight',0, 0,'L');
+		$pdf->Cell(100,5,': '.$data->weight,0, 0,'L');
+		$pdf->Ln(6);
+        $pdf->Cell(68,5,'',0, 0,'L');
+		$pdf->Cell(40,5,'Grade',0, 0,'L');
+		$pdf->Cell(100,5,': '.$data->grade,0, 0,'L');
+		$pdf->Ln(6);
+        $pdf->Cell(68,5,'',0, 0,'L');
+		$pdf->Cell(40,5,'Color',0, 0,'L');
+		$pdf->Cell(100,5,': Material',0, 0,'L');
+		$pdf->Ln(6);
+        $pdf->Output();
+        exit;
     }
 }
