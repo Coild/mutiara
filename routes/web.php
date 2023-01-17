@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\kasir;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,7 +17,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
+
+Route::get('/produk',[kasir::class,'produk'])->name('produk');
+Route::get('/jual',[kasir::class,'jual'])->name('jual');
+Route::get('/riwayat',[kasir::class,'riwayat'])->name('riwayat');
+Route::get('/setting',[kasir::class,'setting'])->name('setting');
+
 
 Route::get('/product',[ProductController::class,'index'])->name('product.index');
 Route::get('/product/{id}',[ProductController::class,'get'])->name('product.get');
