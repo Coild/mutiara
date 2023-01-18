@@ -84,6 +84,7 @@ class ProductController extends Controller
         $data->weight = $request->weight;
         $data->grade = $request->grade;
         $data->price = $request->price;
+        $data->status = 0;
 
         $data->save();
         return response()->json([

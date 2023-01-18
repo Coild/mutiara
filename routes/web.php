@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\Cproduk;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\kasir;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,3 +37,5 @@ Route::delete('/product/{id}',[ProductController::class,'destroy'])->name('produ
 Route::get('/product/print_barcode/{id}', [ProductController::class, 'print_barcode'])->name('print.barcode');
 Route::get('/product/sertificate/{id}',[ProductController::class, 'print_sertificate'])->name('user.print.sertificate');
 
+Route::post('/order',[OrderController::class,'store'])->name('order.store');
+Route::get('/order/invoice/{id}',[OrderController::class,'print_invoice'])->name('order.print_invoice');
