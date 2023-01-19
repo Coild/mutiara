@@ -2,22 +2,38 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\produk;
 use Illuminate\Http\Request;
-use Barryvdh\DomPDF\PDF;
-
 class Cproduk extends Controller
 {
     //
+    public function index(Request $request)
+    {
+
+        $data = Product::all();
+        return view('kasir.produk', compact('data'));
+    }
+
     public function store(Request $request)
     {
 
-        $produk = Produk::latest()->first() ?? new Produk();
-        $request['kode_produk'] = 'P' . tambah_nol_didepan((int)$produk->id_produk + 1, 6);
+        $string = uniqid(rand());
+        $randomString = substr($string, 0, 8);
 
-        $produk = Produk::create($request->all());
+        $data = new Product();
+        $data->name = $request->name;
+        $data->barcode = $randomString;
+        $data->size = $request->size;
+        $data->type = $request->type;
+        $data->karat = $request->karat;
+        $data->weight = $request->weight;
+        $data->grade = $request->grade;
+        $data->price = $request->price;
+        $data->status = 0;
 
-        return response()->json('Data berhasil disimpan', 200);
+        $data->save();
+        return redirect('produk');
     }
 
     public function update(Request $request, $id)

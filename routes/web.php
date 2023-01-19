@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Cproduk;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\kasir;
 use App\Http\Controllers\OrderController;
@@ -21,7 +22,8 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::get('/produk',[kasir::class,'produk'])->name('produk');
+Route::post('/produk',[Cproduk::class,'store'])->name('produk.post');
+Route::get('/produk',[Cproduk::class,'index'])->name('produk');
 Route::get('/jual',[kasir::class,'jual'])->name('jual');
 Route::get('/riwayat',[kasir::class,'riwayat'])->name('riwayat');
 Route::get('/setting',[kasir::class,'setting'])->name('setting');

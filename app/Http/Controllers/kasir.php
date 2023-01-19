@@ -11,10 +11,10 @@ class kasir extends Controller
     }
 
     public function jual () {
-        return view('kasir.jual');
+        return view('kasir.riwayat');
     }
 
     public function riwayat () {
-        return view('kasir.riwayat');
+        return view('kasir.jual');
     }
 }
