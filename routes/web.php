@@ -23,6 +23,8 @@ Route::get('/', function () {
 })->name('home');
 
 Route::post('/produk',[Cproduk::class,'store'])->name('produk.post');
+Route::post('/produkedit',[Cproduk::class,'update'])->name('produk.edit');
+Route::get('/produkhapus',[Cproduk::class,'destroy'])->name('produk.hapus');
 Route::get('/produk',[Cproduk::class,'index'])->name('produk');
 Route::get('/jual',[kasir::class,'jual'])->name('jual');
 Route::get('/riwayat',[kasir::class,'riwayat'])->name('riwayat');
