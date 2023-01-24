@@ -36,20 +36,20 @@ class Cproduk extends Controller
         return redirect('produk');
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $produk = Produk::find($id);
-        $produk->update($request->all());
+        $produk = Product::find($request->id);
+        $produk->update($request->except(['_token']));
 
-        return response()->json('Data berhasil disimpan', 200);
+        return redirect(route('produk'));
     }
 
-    public function destroy($id)
+    public function destroy(Request $req)
     {
-        $produk = Produk::find($id);
+        $produk = Product::find($req->id);
         $produk->delete();
 
-        return response(null, 204);
+        return redirect(route('produk'));
     }
 
     public function deleteSelected(Request $request)
