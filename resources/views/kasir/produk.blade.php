@@ -40,6 +40,8 @@
 
                             <td>
                                 <a data-toggle="modal" data-target="#edit" class="btn btn-primary" onclick='lempar(@json($product))'><i class="fas fa-edit"></i></a>
+                                <button class="btn btn-success" onclick="window.location.href='/product/sertificate/{{$product->id}}'"><i
+                                    class="fas fa-print"></i></button>
                                 <button class="btn btn-danger btn-delete" onclick="window.location.href='produkhapus?id={{$product->id}}'"><i
                                         class="fas fa-trash"></i></button>
                             </td>
