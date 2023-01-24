@@ -116,6 +116,76 @@ class OrderController extends Controller
         $pdf->Ln(5);
         $pdf->Output();
         exit;
-        // return $order;
+    }
+
+    public function agregat(Request $request){
+        $validator = Validator::make($request->all(),[
+            "start" => "required",
+            "end" => "required",
+        ]);
+
+        if($validator->fails()){
+            return response()->json([
+                'status' => 'Error',
+                'message' => $validator->messages()->all()
+            ],501);
+        }
+
+        $order = Order::with(['product'])->get();
+        return $order->product;
+        // $pro = [];
+        // foreach($order as $or){
+        //     array_push($pro, $product->name);
+        // }
+        // return $pro;
+        
+        $start = $request->start;
+        $end = $request->end;
+
+        $pdf = new Fpdf('P','mm','A4');
+
+		$pdf->SetFont('Arial', 'B', 15);
+        $pdf->AddPage();
+        
+        // $pdf->Image("images/abitour.jpeg",0,0,205,297);
+        // $pdf->SetMargins(20, 10, 0);
+        $pdf->Ln(6);
+
+        $pdf->SetFont('Arial','B',16);
+        $pdf->Image("storage/img/logo_mutiara.png",12,8,34,22.455);
+		// $pdf->Cell(40,5,'',1, 0,'C');
+        // $pdf->Cell(145,5,'LAPORAN KEUANGAN',1, 0,'L');
+       
+		$pdf->Ln(15);
+        $pdf->Cell(190,5,'------------------------------------------------------------------------------------------------------',0, 1,'C');
+		$pdf->Ln(5);
+        $pdf->Cell(190,5,'LAPORAN KEUANGAN',0, 1,'C');
+		$pdf->Ln(5);
+		$pdf->SetFont('Arial','B',10);
+        $pdf->Cell(10,6,'No',1, 0,'C');
+        $pdf->Cell(25,6,'Tanggal',1, 0,'C');
+        $pdf->Cell(50,6,'Pembeli',1, 0,'C');
+        $pdf->Cell(55,6,'Produk',1, 0,'C');
+        $pdf->Cell(50,6,'Jumlah',1, 1,'C');
+
+        $pdf->SetFont('Arial','',10);
+        $pdf->Cell(10,6,'No',1, 0,'C');
+        $pdf->Cell(25,6,$order[0]->date,1, 0,'C');
+        $pdf->Cell(50,6,$order[0]->name,1, 0,'C');
+
+        
+
+        $pdf->Cell(55,6,'Produk',1, 0,'C');
+        $pdf->Cell(50,6,'Jumlah',1, 0,'C');
+
+		
+
+        $pdf->Output();
+
+        exit;
+    }
+
+    function list_product(array $product){
+
     }
 }
