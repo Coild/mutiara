@@ -16,14 +16,20 @@ class CreateProductTable extends Migration
     {
         Schema::create('product', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('barcode');
             $table->string('type');
-            $table->string('size');
-            $table->integer('karat');
+            $table->string('metal');
+            $table->integer('carat');
             $table->float('weight');
+            $table->string('pearls');
+            $table->string('color');
+            $table->string('shape');
             $table->string('grade');
+            $table->integer('size');
             $table->bigInteger('price');
+            $table->bigInteger('price_sell');
+            $table->bigInteger('price_discount');
+            $table->string('barcode');
+            $table->integer('discount');
             $table->integer('status');
             $table->integer('order_id')->nullable();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));

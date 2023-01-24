@@ -51,12 +51,19 @@ class OrderController extends Controller
         $total=0;
         foreach($request->order as $r){
             // return $r['product_id'];
-
+            
             $product = Product::where('id','=',$r['product_id'])->first();
             // return $product;
-        
+            if($r['discount'] != 0){
+                $discount = ($r['discount']/100)*$product->price_sell;
+                $price_sell = $product->price_sell-$discount;
+                $product->price_discount=$price_sell;
+                $product->discount = $r['discount'];
+                $total+=$price_sell;
+            }else{
+                $total+=$product->price_sell;
+            }
             // return $product->price;
-            $total+=$product->price;
             $product->status=1;
             $product->order_id = $data->id;
             $product->update();
@@ -75,21 +82,21 @@ class OrderController extends Controller
     public function print_invoice($id){
         $order = Order::with(['product'])->where('id','=',$id)->first();
         // return $order;
-        $pdf = new FPDF('P','mm',array(100,150));
+        $pdf = new FPDF('L','mm',array(215,138));
         $pdf->SetFont('Arial', 'b', 12);
         $pdf->AddPage();
-        $pdf->Cell(0,5,'Nota Pembelian',0, 0,'C');
+        $pdf->Cell(0,5,'Nota Pembelian',1, 0,'C');
         $pdf->Ln(5);
-        $pdf->Cell(0,5,'LOMBOK MUTIARA',0, 0,'C');
+        $pdf->Cell(0,5,'LOMBOK MUTIARA',1, 0,'C');
         $pdf->Ln(5);
-        $pdf->Cell(0,5,'---------------------------------------------------------',0, 0,'C');
+        $pdf->Cell(0,5,'---------------------------------------------------------',1, 0,'C');
         $pdf->Ln(5);
         $pdf->SetFont('Arial', '', 10);
-        $pdf->Cell(20,5,'Kasir',0, 0,'L');
-        $pdf->Cell(20,5,': Fulan',0, 0,'L');
+        $pdf->Cell(20,5,'Kasir',1, 0,'L');
+        $pdf->Cell(20,5,': Fulan',1, 0,'L');
         $pdf->Ln(5);
-        $pdf->Cell(20,5,'Pembeli',0, 0,'L');
-        $pdf->Cell(20,5,': '.$order->name,0, 0,'L');
+        $pdf->Cell(20,5,'Pembeli',1, 0,'L');
+        $pdf->Cell(20,5,': '.$order->name,1, 0,'L');
         $pdf->Ln(8);
         $pdf->Cell(10,5,'Qty',1, 0,'L');
         $pdf->Cell(20,5,'Product',1, 0,'L');
@@ -104,15 +111,15 @@ class OrderController extends Controller
             $pdf->Cell(15,5,number_format($or->price, 0, ',', '.'),1, 1,'L');
         }
         $pdf->Ln(5);
-        $pdf->Cell(0,5,'----------------------------------',0, 0,'L');
+        $pdf->Cell(0,5,'----------------------------------',1, 0,'L');
         $pdf->Ln(5);
-        $pdf->Cell(15,5,'Total',0, 0,'L');
-        $pdf->Cell(20,5,': Rp.'.number_format($order->total, 0, ',', '.'),0, 1,'L');
-        $pdf->Cell(15,5,'Uang',0, 0,'L');
-        $pdf->Cell(20,5,': Rp.'.number_format($order->uang, 0, ',', '.'),0, 1,'L');
-        $pdf->Cell(15,5,'Kembali',0, 0,'L');
-        $pdf->Cell(20,5,': Rp.'.number_format($order->kembalian, 0, ',', '.'),0, 1,'L');
-        $pdf->Cell(0,5,'-----------------------------------',0, 0,'L');
+        $pdf->Cell(15,5,'Total',1, 0,'L');
+        $pdf->Cell(20,5,': Rp.'.number_format($order->total, 0, ',', '.'),1, 1,'L');
+        $pdf->Cell(15,5,'Uang',1, 0,'L');
+        $pdf->Cell(20,5,': Rp.'.number_format($order->uang, 0, ',', '.'),1, 1,'L');
+        $pdf->Cell(15,5,'Kembali',1, 0,'L');
+        $pdf->Cell(20,5,': Rp.'.number_format($order->kembalian, 0, ',', '.'),1, 1,'L');
+        $pdf->Cell(0,5,'-----------------------------------',1, 0,'L');
         $pdf->Ln(5);
         $pdf->Output();
         exit;
