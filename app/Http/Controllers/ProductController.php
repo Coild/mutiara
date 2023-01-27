@@ -187,32 +187,62 @@ class ProductController extends Controller
 		$pdf->SetFont('Arial', 'B', 15);
         $pdf->AddPage();
         
-        $pdf->Image("storage/img/sertifikat_mutiara.jpg",0,0,210,148);
-        $pdf->SetMargins(0, 10, 0);
-        $pdf->Ln(65);
+        // $pdf->Image("storage/img/sertifikat_mutiara.jpg",0,0,210,148);
+        $pdf->SetMargins(5, 0, 5);
+        $pdf->Ln();
 
         $pdf->SetFont('Arial','B',14);
         // $pdf->SetTextColor(255,255,255);
-        $pdf->Cell(68,5,'',0, 0,'L');
-		$pdf->Cell(40,5,'Material',0, 0,'L');
-		$pdf->Cell(100,5,': Material',0, 0,'L');
-		$pdf->Ln(6);
-        $pdf->Cell(68,5,'',0, 0,'L');
-		$pdf->Cell(40,5,'Pearl',0, 0,'L');
-		$pdf->Cell(100,5,': '.$data->type,0, 0,'L');
-		$pdf->Ln(6);
-        $pdf->Cell(68,5,'',0, 0,'L');
-		$pdf->Cell(40,5,'Pearl Weight',0, 0,'L');
-		$pdf->Cell(100,5,': '.$data->weight,0, 0,'L');
-		$pdf->Ln(6);
-        $pdf->Cell(68,5,'',0, 0,'L');
-		$pdf->Cell(40,5,'Grade',0, 0,'L');
-		$pdf->Cell(100,5,': '.$data->grade,0, 0,'L');
-		$pdf->Ln(6);
-        $pdf->Cell(68,5,'',0, 0,'L');
-		$pdf->Cell(40,5,'Color',0, 0,'L');
-		$pdf->Cell(100,5,': Material',0, 0,'L');
-		$pdf->Ln(6);
+        // $pdf->Cell(95,5,'tes',1, 0,'L');
+        $pdf->MultiCell(95, 7, '    Founded in 2019 Lombok Mutiara Sekarbela is a Jewelry gallery that focus on Pearls, Golds, and Silver.
+    
+    We create our jewelry from scratch and by our experience artisan we process it to a beautiful jewelry that will enhance your looks with our modern and traditional design.
+    
+    Since our material mostly use 91,6% gold, 70-75% White gold, 92,5% silver and the best pearls in Lombok our jewelry can also be your investment. Ana pearls is your place to go to buy your jewelry that will not only enhance', 1);
+        $pdf->SetXY(110,10);
+        // $pdf->MultiCell(95, 5, 'Founded in 2019 Lombok Mutiara Sekarbela is a Jewelry gallery that focus on Pearls, Golds, and Silver.', 1);
+        $pdf->SetFont('Arial', 'B', 20);
+        $pdf->Cell(95,10,'CERTIFICATE',0, 1,'C');
+        $pdf->SetXY(110,20);
+		$pdf->Cell(95,10,'OF AUTHENTICITY',0, 1,'C');
+        $pdf->SetXY(110,30);
+        $pdf->SetFont('Arial', 'B', 15);
+        $pdf->Cell(95,7,'This certificate owned by',0, 1,'C');
+        $pdf->SetXY(110,37);
+        $pdf->Cell(95,7,'Lombok Mutiara Sekarbela',0, 1,'C');
+        $pdf->SetXY(110,44);
+        $pdf->Cell(95,7,'The authenticity of the item as follow',0, 1,'C');
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->SetXY(110,55);
+        $pdf->Cell(30,5,'Product Type',0, 0,'L');
+        $pdf->Cell(65,5,': Product Type',0, 1,'L');
+        $pdf->SetXY(110,61);
+        $pdf->Cell(30,5,'Product Type',0, 0,'L');
+        $pdf->Cell(65,5,': Product Type',0, 1,'L');
+        $pdf->SetXY(110,67);
+        $pdf->Cell(30,5,'Product Type',0, 0,'L');
+        $pdf->Cell(65,5,': Product Type',0, 1,'L');
+        $pdf->SetXY(110,73);
+        $pdf->Cell(30,5,'Product Type',0, 0,'L');
+        $pdf->Cell(65,5,': Product Type',0, 1,'L');
+        $pdf->SetXY(110,79);
+        $pdf->Cell(30,5,'Product Type',0, 0,'L');
+        $pdf->Cell(65,5,': Product Type',0, 1,'L');
+        $pdf->SetXY(110,85);
+        $pdf->Cell(30,5,'Product Type',0, 0,'L');
+        $pdf->Cell(65,5,': Product Type',0, 1,'L');
+        $pdf->SetXY(110,91);
+        $pdf->Cell(30,5,'Product Type',0, 0,'L');
+        $pdf->Cell(65,5,': Product Type',0, 1,'L');
+        $pdf->SetXY(110,97);
+        $pdf->Cell(30,5,'Product Type',0, 0,'L');
+        $pdf->Cell(65,5,': Product Type',0, 1,'L');
+        $pdf->SetXY(110,103);
+        $pdf->Cell(30,5,'Product Type',0, 0,'L');
+        $pdf->Cell(65,5,': Product Type',0, 1,'L');
+        $pdf->SetXY(110,109);
+        $pdf->Cell(30,5,'Product Type',0, 0,'L');
+        $pdf->Cell(65,5,': Product Type',0, 1,'L');
         $pdf->Output();
         exit;
     }

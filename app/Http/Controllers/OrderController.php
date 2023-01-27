@@ -81,7 +81,7 @@ class OrderController extends Controller
 
     public function print_invoice($id){
         $order = Order::with(['product'])->where('id','=',$id)->first();
-        // return $order;
+        // return sizeof($order->product);
         if (!$order){
             return response()->json([
                 'status' => 'error',
@@ -92,6 +92,9 @@ class OrderController extends Controller
 
 
         $pdf = new FPDF('L','mm',array(215,138));
+
+        for($i=0;$i<sizeof($order->product);$i++){
+
         $pdf->SetFont('Arial', 'b', 12);
         $pdf->AddPage();
         $pdf->Cell(0,5,'Nota Pembelian',0, 0,'C');
@@ -126,45 +129,35 @@ class OrderController extends Controller
 
         $pdf->Cell(10,5,'1',0, 0,'L');
         $pdf->Cell(10,5,'1',0, 0,'L');
-        $pdf->Cell(20,5,$order->product[0]->type,0, 0,'L');
+        $pdf->Cell(20,5,$order->product[$i]->type,0, 0,'L');
         $pdf->Cell(100,5,
-        $order->product[0]->shape.", ".
-        $order->product[0]->pearls.", ".
-        $order->product[0]->color.", ".
-        $order->product[0]->size." mm, "
+        $order->product[$i]->shape.", ".
+        $order->product[$i]->pearls.", ".
+        $order->product[$i]->color.", ".
+        $order->product[$i]->size." mm, "
         ,0, 0,'L');
-        $pdf->Cell(15,5,$order->product[0]->price_sell,0, 0,'L');
-        $pdf->Cell(15,5,$order->product[0]->discount.' %',0, 0,'L');
-        $pdf->Cell(25,5,$order->product[0]->price_discount,0, 1,'L');
+        $pdf->Cell(15,5,$order->product[$i]->price_sell,0, 0,'L');
+        $pdf->Cell(15,5,$order->product[$i]->discount.' %',0, 0,'L');
+        $pdf->Cell(25,5,$order->product[$i]->price_discount,0, 1,'L');
         $pdf->Cell(10,5,'',0, 0,'L');
         $pdf->Cell(10,5,'',0, 0,'L');
         $pdf->Cell(20,5,'',0, 0,'L');
         $pdf->Cell(100,5, 
-        "Grade ".$order->product[0]->grade.", ".
-        $order->product[0]->weight." gr, ".
-        $order->product[0]->carat." carat, "
+        "Grade ".$order->product[$i]->grade.", ".
+        $order->product[$i]->weight." gr, ".
+        $order->product[$i]->carat." carat, "
         ,0, 0,'L');
         $pdf->Cell(15,5,'',0, 0,'L');
         $pdf->Cell(15,5,'',0, 0,'L');
         $pdf->Cell(25,5,'',0, 1,'L');
 
-        // $pdf->Cell(20,5,$order[0]->name,1, 0,'L');
-        // $pdf->Cell(15,5,$order[0]->weight.' gr',1, 0,'L');
-        // $pdf->Cell(15,5,$order[0]->karat.' K',1, 0,'L');
-        // $pdf->Cell(15,5,number_format($or->price, 0, ',', '.'),1, 1,'L');
-        // foreach($order->product as $or){
-        //     $pdf->Cell(10,5,'1',1, 0,'L');
-        //     $pdf->Cell(20,5,$or->name,1, 0,'L');
-        //     $pdf->Cell(15,5,$or->weight.' gr',1, 0,'L');
-        //     $pdf->Cell(15,5,$or->karat.' K',1, 0,'L');
-        //     $pdf->Cell(15,5,number_format($or->price, 0, ',', '.'),1, 1,'L');
-        // }
         $pdf->Ln(5);
         $pdf->Cell(0,5,'Diterima Oleh',0, 0,'L');
         $pdf->Ln(25);
         $pdf->Cell(0,5,'-----------------------------------',0, 1,'L');
         $pdf->Cell(0,5,$order->name,0, 0,'L');
         $pdf->Ln(5);
+        }
         $pdf->Output();
         exit;
     }
