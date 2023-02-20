@@ -151,7 +151,7 @@ $_scripts = array(
                 "responsive": true,
                 "lengthChange": false,
                 "autoWidth": false,
-                "buttons": [ "colvis"]
+                "buttons": ["colvis"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
                 "paging": true,
@@ -164,6 +164,22 @@ $_scripts = array(
             });
         });
     </script>
+    <script>
+        $(document).ready(function() {
+
+            $('.tampil-bayar').text('Kembali: Rp. ' + "0");
+            $('.tampil-terbilang').text("Nol");
+        });
+
+        function tampilProduk() {
+            $('#modal-produk').modal('show');
+        }
+
+        function hideProduk() {
+            $('#modal-produk').modal('hide');
+        }
+    </script>
+
 </body>
 
 </html>

@@ -1,5 +1,5 @@
 <x-layout>
-    @push('css')
+   
         <style>
             .tampil-bayar {
                 font-size: 5em;
@@ -12,7 +12,7 @@
                 background: #f0f0f0;
             }
 
-            .table-penjualan tbody tr:last-child {
+            .table-pembelian tbody tr:last-child {
                 display: none;
             }
 
@@ -24,7 +24,6 @@
                 }
             }
         </style>
-    @endpush
     <x-item.pageheader> </x-item.pageheader>
     <div class="row">
         <div class="col-lg-12">
@@ -38,7 +37,7 @@
                             <div class="col-lg-5">
                                 <div class="input-group">
                                     <input type="hidden" name="id_penjualan" id="id_penjualan"
-                                        value="{{ 10 }}">
+                                        value="{{ '$id_penjualan' }}">
                                     <input type="hidden" name="id_produk" id="id_produk">
                                     <input type="text" class="form-control" name="kode_produk" id="kode_produk">
                                     <span class="input-group-btn">
@@ -61,28 +60,6 @@
                             <th>Subtotal</th>
                             <th width="15%"><i class="fa fa-cog"></i></th>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td widtd="5%">1</td>
-                                <td>123</td>
-                                <td>Mutiara</td>
-                                <td>Rp1000000</td>
-                                <td widtd="15%">1</td>
-                                <td>0</td>
-                                <td>Rp1000000</td>
-                                <td width="15%"><i class="fa fa-cog"></i></td>
-                            </tr>
-                            <tr>
-                                <td widtd="5%">1</td>
-                                <td>121</td>
-                                <td>Emas</td>
-                                <td>Rp2000000</td>
-                                <td widtd="15%">1</td>
-                                <td>0</td>
-                                <td>Rp2000000</td>
-                                <td width="15%"><i class="fa fa-cog"></i></td>
-                            </tr>
-                        </tbody>
                     </table>
 
                     <div class="row">
@@ -93,16 +70,17 @@
                         <div class="col-lg-4">
                             <form action="{{ '#' }}" class="form-penjualan" method="post">
                                 @csrf
-                                <input type="hidden" name="id_penjualan" value="{{ 10 }}">
+                                <input type="hidden" name="id_penjualan" value="{{ '$id_penjualan' }}">
                                 <input type="hidden" name="total" id="total">
                                 <input type="hidden" name="total_item" id="total_item">
                                 <input type="hidden" name="bayar" id="bayar">
-                                <input type="hidden" name="id_member" id="id_member" value="{{ 'memeber' }}">
+                                <input type="hidden" name="id_member" id="id_member"
+                                    value="{{ '$memberSelected->id_member' }}">
 
                                 <div class="form-group row">
                                     <label for="totalrp" class="col-lg-2 control-label">Total</label>
                                     <div class="col-lg-8">
-                                        <input type="text" id="totalrp" value="200000" class="form-control" readonly>
+                                        <input type="text" id="totalrp" class="form-control" readonly>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -110,7 +88,7 @@
                                     <div class="col-lg-8">
                                         <div class="input-group">
                                             <input type="text" class="form-control" id="kode_member"
-                                                value="{{ 'member' }}">
+                                                value="{{ '$memberSelected->kode_member' }}">
                                             <span class="input-group-btn">
                                                 <button onclick="tampilMember()" class="btn btn-info btn-flat"
                                                     type="button"><i class="fa fa-arrow-right"></i></button>
@@ -122,7 +100,7 @@
                                     <label for="diskon" class="col-lg-2 control-label">Diskon</label>
                                     <div class="col-lg-8">
                                         <input type="number" name="diskon" id="diskon" class="form-control"
-                                            value="{{ 0 }}" readonly>
+                                            value="{{ !empty($memberSelected->id_member) ? '$diskon' : 0 }}" readonly>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -157,4 +135,6 @@
             </div>
         </div>
     </div>
+    <x-item.tabel_produk> </x-item.tabel_produk>
+    
 </x-layout>
