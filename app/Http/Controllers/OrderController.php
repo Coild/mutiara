@@ -97,6 +97,7 @@ class OrderController extends Controller
 
         $pdf->SetFont('Arial', 'b', 12);
         $pdf->AddPage();
+        $pdf->Image("storage/img/nota.jpg",0,0,215,138);
         $pdf->Cell(0,5,'Nota Pembelian',0, 0,'C');
         $pdf->Ln(5);
         $pdf->Cell(0,5,'LOMBOK MUTIARA',0, 0,'C');
