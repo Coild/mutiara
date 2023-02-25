@@ -3,8 +3,6 @@
         <x-slot name="name"> Produk </x-slot>
        
     </x-item.pageheader>
-    
-
     <div class="card">
         <div class="card-header">
             <h2 class="card-title">List Produk</h2>
@@ -16,13 +14,17 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Name</th>
                         <th>Type</th>
-                        <th>Size</th>
-                        <th>Karat</th>
+                        <th>Metal</th>
+                        <th>Carat</th>
                         <th>Weight</th>
+                        <th>Pearls</th>
+                        <th>Color</th>
+                        <th>Shape</th>
                         <th>Grade</th>
+                        <th>Size</th>
                         <th>Price</th>
+                        <th>Price Sell</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -30,13 +32,17 @@
                     @foreach ($data as $product)
                         <tr>
                             <td>{{ $loop->index+1}}</td>
-                            <td>{{ $product->name }}</td>
                             <td>{{ $product->type }}</td>
-                            <td>{{ $product->size }}</td>
-                            <td>{{ $product->karat }}</td>
+                            <td>{{ $product->metal }}</td>
+                            <td>{{ $product->carat }}</td>
                             <td>{{ $product->weight . ' gr' }}</td>
+                            <td>{{ $product->pearls }}</td>
+                            <td>{{ $product->color }}</td>
+                            <td>{{ $product->shape }}</td>
                             <td>{{ $product->grade }}</td>
+                            <td>{{ $product->size }}</td>
                             <td>{{ 'Rp.' . $product->price }}</td>
+                            <td>{{ 'Rp.' . $product->price_sell }}</td>
 
                             <td>
                                 <a data-toggle="modal" data-target="#edit" class="btn btn-primary" onclick='lempar(@json($product))'><i class="fas fa-edit"></i></a>
@@ -51,13 +57,17 @@
                 <tfoot>
                     <tr>
                         <th>ID</th>
-                        <th>Name</th>
                         <th>Type</th>
-                        <th>Size</th>
-                        <th>Karat</th>
+                        <th>Metal</th>
+                        <th>Carat</th>
                         <th>Weight</th>
+                        <th>Pearls</th>
+                        <th>Color</th>
+                        <th>Shape</th>
                         <th>Grade</th>
+                        <th>Size</th>
                         <th>Price</th>
+                        <th>Price Sell</th>
                         <th>Actions</th>
                     </tr>
                 </tfoot>
@@ -79,31 +89,7 @@
                         @csrf
 
                         <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" name="name"
-                                class="form-control @error('name') is-invalid @enderror" id="name"
-                                placeholder="Name" value="{{ old('name') }}">
-                            @error('name')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label for="name">Size</label>
-                            <input type="text" name="size"
-                                class="form-control @error('name') is-invalid @enderror" id="name"
-                                placeholder="Name" value="{{ old('name') }}">
-                            @error('name')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label for="name">Tyoe</label>
+                            <label for="name">Type</label>
                             <input type="text" name="type"
                                 class="form-control @error('name') is-invalid @enderror" id="name"
                                 placeholder="Type" value="{{ old('name') }}">
@@ -115,8 +101,20 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="name">Karat</label>
-                            <input type="text" name="karat"
+                            <label for="name">Metal</label>
+                            <input type="text" name="metal"
+                                class="form-control @error('name') is-invalid @enderror" id="name"
+                                placeholder="Name" value="{{ old('name') }}">
+                            @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">Carat</label>
+                            <input type="text" name="carat"
                                 class="form-control @error('name') is-invalid @enderror" id="name"
                                 placeholder="Name" value="{{ old('name') }}">
                             @error('name')
@@ -139,6 +137,42 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="name">Pearls</label>
+                            <input type="text" name="pearls"
+                                class="form-control @error('name') is-invalid @enderror" id="name"
+                                placeholder="Name" value="{{ old('name') }}">
+                            @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">Color</label>
+                            <input type="text" name="color"
+                                class="form-control @error('name') is-invalid @enderror" id="name"
+                                placeholder="Name" value="{{ old('name') }}">
+                            @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">Shape</label>
+                            <input type="text" name="shape"
+                                class="form-control @error('name') is-invalid @enderror" id="name"
+                                placeholder="Name" value="{{ old('name') }}">
+                            @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
                             <label for="name">Grade</label>
                             <input type="text" name="grade"
                                 class="form-control @error('name') is-invalid @enderror" id="name"
@@ -151,8 +185,32 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="name">Size</label>
+                            <input type="text" name="size"
+                                class="form-control @error('name') is-invalid @enderror" id="name"
+                                placeholder="Name" value="{{ old('name') }}">
+                            @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
                             <label for="name">Price</label>
                             <input type="text" name="price"
+                                class="form-control @error('name') is-invalid @enderror" id="name"
+                                placeholder="Name" value="{{ old('name') }}">
+                            @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">Price Sell</label>
+                            <input type="text" name="price_sell"
                                 class="form-control @error('name') is-invalid @enderror" id="name"
                                 placeholder="Name" value="{{ old('name') }}">
                             @error('name')
@@ -190,31 +248,7 @@
                         <input type="hidden" id="xid" name="id">
 
                         <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" name="name"
-                                class="form-control @error('name') is-invalid @enderror" id="xname"
-                                placeholder="Name" value="{{ old('name') }}">
-                            @error('name')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label for="name">Size</label>
-                            <input type="text" name="size"
-                                class="form-control @error('name') is-invalid @enderror" id="xsize"
-                                placeholder="Name" value="{{ old('name') }}">
-                            @error('name')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label for="name">Tyoe</label>
+                            <label for="name">Type</label>
                             <input type="text" name="type"
                                 class="form-control @error('name') is-invalid @enderror" id="xtype"
                                 placeholder="Type" value="{{ old('name') }}">
@@ -226,9 +260,21 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="name">Karat</label>
-                            <input type="text" name="karat"
-                                class="form-control @error('name') is-invalid @enderror" id="xkarat"
+                            <label for="name">Metal</label>
+                            <input type="text" name="metal"
+                                class="form-control @error('name') is-invalid @enderror" id="xmetal"
+                                placeholder="Name" value="{{ old('name') }}">
+                            @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">Carat</label>
+                            <input type="text" name="carat"
+                                class="form-control @error('name') is-invalid @enderror" id="xcarat"
                                 placeholder="Name" value="{{ old('name') }}">
                             @error('name')
                                 <span class="invalid-feedback" role="alert">
@@ -250,6 +296,42 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="name">Pearls</label>
+                            <input type="text" name="pearls"
+                                class="form-control @error('name') is-invalid @enderror" id="xpearls"
+                                placeholder="Name" value="{{ old('name') }}">
+                            @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">Color</label>
+                            <input type="text" name="color"
+                                class="form-control @error('name') is-invalid @enderror" id="xcolor"
+                                placeholder="Name" value="{{ old('name') }}">
+                            @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">Shape</label>
+                            <input type="text" name="shape"
+                                class="form-control @error('name') is-invalid @enderror" id="xshape"
+                                placeholder="Name" value="{{ old('name') }}">
+                            @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
                             <label for="name">Grade</label>
                             <input type="text" name="grade"
                                 class="form-control @error('name') is-invalid @enderror" id="xgrade"
@@ -262,9 +344,33 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="name">Size</label>
+                            <input type="text" name="size"
+                                class="form-control @error('name') is-invalid @enderror" id="xsize"
+                                placeholder="Name" value="{{ old('name') }}">
+                            @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
                             <label for="name">Price</label>
                             <input type="text" name="price"
                                 class="form-control @error('name') is-invalid @enderror" id="xprice"
+                                placeholder="Name" value="{{ old('name') }}">
+                            @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">Price Sell</label>
+                            <input type="text" name="price_sell"
+                                class="form-control @error('name') is-invalid @enderror" id="xprice_sell"
                                 placeholder="Name" value="{{ old('name') }}">
                             @error('name')
                                 <span class="invalid-feedback" role="alert">
@@ -291,13 +397,17 @@
         function lempar(data) {
             console.log(data['id']);  
             document.getElementById("xid").value = data['id'];
-            document.getElementById("xname").value = data['name'];
-            document.getElementById("xsize").value = data['size'];
             document.getElementById("xtype").value = data['type'];
-            document.getElementById("xkarat").value = data['karat'];
+            document.getElementById("xmetal").value = data['metal'];
+            document.getElementById("xcarat").value = data['carat'];
             document.getElementById("xweight").value = data['weight'];
+            document.getElementById("xpearls").value = data['pearls'];
+            document.getElementById("xcolor").value = data['color'];
+            document.getElementById("xshape").value = data['shape'];
             document.getElementById("xgrade").value = data['grade'];
+            document.getElementById("xsize").value = data['size'];
             document.getElementById("xprice").value = data['price'];
+            document.getElementById("xprice_sell").value = data['price_sell'];
         }
     </script>
 </x-layout>
