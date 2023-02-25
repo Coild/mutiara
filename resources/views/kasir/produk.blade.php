@@ -6,7 +6,8 @@
     <div class="card">
         <div class="card-header">
             <h2 class="card-title">List Produk</h2>
-            <button class="btn btn-primary float-right  mr-3    " data-toggle="modal" data-target="#tambah">Tambah</button>
+            <button class="btn btn-primary float-right mr-3" data-toggle="modal" data-target="#tambah">Tambah</button>
+            <button class="btn btn-primary float-right mr-3" data-toggle="modal" data-target="#upload">Upload</button>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -233,6 +234,37 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
+    <div class="modal fade" id="upload">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Upload Produk</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('import.product') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        Download Template <a href="">disini</a>
+                        <div class="form-group">
+                            {{-- <label for="name">File</label> --}}
+                            <input type="file" name="uploaded_file" >
+                        </div>
+
+                        <div class="flex justify-content-between">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary float-right">Submit</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
     <div class="modal fade" id="edit">
         <div class="modal-dialog">
             <div class="modal-content">
