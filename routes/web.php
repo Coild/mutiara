@@ -22,25 +22,26 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::post('/produk',[Cproduk::class,'store'])->name('produk.post');
-Route::post('/produkedit',[Cproduk::class,'update'])->name('produk.edit');
-Route::get('/produkhapus',[Cproduk::class,'destroy'])->name('produk.hapus');
-Route::get('/produk',[Cproduk::class,'index'])->name('produk');
-Route::get('/jual',[kasir::class,'jual'])->name('jual');
-Route::get('/riwayat',[kasir::class,'riwayat'])->name('riwayat');
-Route::get('/setting',[kasir::class,'setting'])->name('setting');
-Route::get('/dummy',[Cproduk::class,'cetakBarcode'])->name('cetak');
+Route::post('/produk', [Cproduk::class, 'store'])->name('produk.post');
+Route::post('/produkedit', [Cproduk::class, 'update'])->name('produk.edit');
+Route::get('/produkhapus', [Cproduk::class, 'destroy'])->name('produk.hapus');
+Route::get('/produk', [Cproduk::class, 'index'])->name('produk');
+Route::get('/jual', [kasir::class, 'jual'])->name('jual');
+Route::get('/riwayat', [kasir::class, 'riwayat'])->name('riwayat');
+Route::get('/setting', [kasir::class, 'setting'])->name('setting');
+Route::get('/dummy', [Cproduk::class, 'cetakBarcode'])->name('cetak');
 
 
-Route::get('/product',[ProductController::class,'index'])->name('product.index');
-Route::get('/product/{id}',[ProductController::class,'get'])->name('product.get');
-Route::get('/product/barcode/{barcode}',[ProductController::class,'getByBarcode'])->name('product.getByBarcode');
-Route::post('/product',[ProductController::class,'store'])->name('product.store');
-Route::put('/product/{id}',[ProductController::class,'update'])->name('product.update');
-Route::delete('/product/{id}',[ProductController::class,'destroy'])->name('product.destroy');
+Route::get('/product', [ProductController::class, 'index'])->name('product.index');
+Route::get('/product/{id}', [ProductController::class, 'get'])->name('product.get');
+Route::get('/product/barcode/{barcode}', [ProductController::class, 'getByBarcode'])->name('product.getByBarcode');
+Route::post('/product', [ProductController::class, 'store'])->name('product.store');
+Route::put('/product/{id}', [ProductController::class, 'update'])->name('product.update');
+Route::delete('/product/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
 Route::get('/product/print_barcode/{id}', [ProductController::class, 'print_barcode'])->name('print.barcode');
-Route::get('/product/sertificate/{id}',[ProductController::class, 'print_sertificate'])->name('user.print.sertificate');
+Route::get('/product/sertificate/{id}', [ProductController::class, 'print_sertificate'])->name('user.print.sertificate');
+Route::post('/product/upload-content', [ProductController::class, 'uploadContent'])->name('import.product');
 
-Route::post('/order',[OrderController::class,'store'])->name('order.store');
-Route::post('/order/agregat',[OrderController::class,'agregat'])->name('order.agregat');
-Route::get('/order/invoice/{id}',[OrderController::class,'print_invoice'])->name('order.print_invoice');
+Route::post('/order', [OrderController::class, 'store'])->name('order.store');
+Route::post('/order/agregat', [OrderController::class, 'agregat'])->name('order.agregat');
+Route::get('/order/invoice/{id}', [OrderController::class, 'print_invoice'])->name('order.print_invoice');

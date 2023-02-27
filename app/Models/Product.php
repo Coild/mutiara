@@ -12,12 +12,16 @@ class Product extends Model
 
     protected $fillable = [
         'id',
-        'name',
-        'size',
         'type',
-        'karat',
+        'metal',
+        'carat',
         'weight',
+        'pearls',
+        'color',
+        'shape',
         'grade',
-        'price'
+        'size',
+        'price',
+        'price_sell',
     ];
 }

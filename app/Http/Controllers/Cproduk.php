@@ -22,14 +22,20 @@ class Cproduk extends Controller
         $randomString = substr($string, 0, 8);
 
         $data = new Product();
-        $data->name = $request->name;
-        $data->barcode = $randomString;
-        $data->size = $request->size;
         $data->type = $request->type;
-        $data->karat = $request->karat;
+        $data->metal = $request->metal;
+        $data->carat = $request->carat;
         $data->weight = $request->weight;
+        $data->pearls = $request->pearls;
+        $data->color = $request->color;
+        $data->shape = $request->shape;
         $data->grade = $request->grade;
+        $data->size = $request->size;
         $data->price = $request->price;
+        $data->price_sell = $request->price_sell;
+        $data->price_discount = $request->price_sell;
+        $data->barcode = $randomString;
+        $data->discount = 0;
         $data->status = 0;
 
         $data->save();
