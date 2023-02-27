@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Codedge\Fpdf\Fpdf\Fpdf;
 use Illuminate\Support\Str;
 use Illuminate\Http\Response;
-
+use Milon\Barcode\DNS1D;
 
 class ProductController extends Controller
 {
@@ -187,6 +187,21 @@ class ProductController extends Controller
         }
     }
 
+    public function print_all_barcode()
+    {
+        // return "tes";
+        $data = Product::all();
+        if ($data) {
+            return view('barcode', compact('data'));
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Detail Product Not Found',
+                'data' => null
+            ], 404);
+        }
+    }
+
     public function print_sertificate($id)
     {
         // return $id;
@@ -293,8 +308,6 @@ class ProductController extends Controller
             fclose($file); //Close after reading
             $j = 0;
             foreach ($importData_arr as $importData) {
-                // $name = $importData[1]; //Get user names
-                // $email = $importData[3]; //Get the user emails
                 $j++;
                 try {
                     $string = uniqid(rand());

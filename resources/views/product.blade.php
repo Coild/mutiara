@@ -7,8 +7,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
 </head>
 <body>
-    <div class="container mt-4">
-        <div class="mb-3">{!! DNS1D::getBarcodeHTML($barcode, 'C128') !!}</div>        
-    </div>
+    <table style="display: inline-block;margin: 2.5px;width: 190px;overflow:hidden;position:relative;padding: 1px;margin: 0px; background:; ">
+        <tbody>
+            <tr>
+                <td>
+                    {!!'<img src="data:image/png;base64,' . DNS1D::getBarcodePNG($barcode, 'C128',2,50,array(1,1,1), true) . '" alt="barcode"   />'!!}
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </body>
 </html>
