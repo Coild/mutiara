@@ -176,6 +176,10 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Milon\Barcode\BarcodeServiceProvider::class,
+        // Yajra\DataTables\DataTablesServiceProvider::class,
+
+        Livewire\LivewireServiceProvider::class,
+
 
     ],
 
@@ -234,6 +238,9 @@ return [
 
         'DNS1D' => Milon\Barcode\Facades\DNS1DFacade::class,
         'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,
+
+        // 'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+
 
     ],
 
