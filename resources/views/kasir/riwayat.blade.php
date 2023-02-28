@@ -33,17 +33,11 @@
                     <form class="form-produk">
                         @csrf
                         <div class="form-group row">
-                            <label for="kode_produk" class="col-lg-2">Kode Produk</label>
                             <div class="col-lg-5">
                                 <div class="input-group">
-                                    <input type="hidden" name="id_penjualan" id="id_penjualan"
-                                        value="{{ '$id_penjualan' }}">
-                                    <input type="hidden" name="id_produk" id="id_produk">
-                                    <input type="text" class="form-control" name="kode_produk" id="kode_produk">
-                                    <span class="input-group-btn">
                                         <button onclick="tampilProduk()" class="btn btn-info btn-flat" type="button"><i
-                                                class="fa fa-arrow-right"></i></button>
-                                    </span>
+                                                class="fa fa-plus mr-3"></i> Tambah Produk</button>
+                            
                                 </div>
                             </div>
                         </div>
@@ -55,11 +49,22 @@
                             <th>Kode</th>
                             <th>Nama</th>
                             <th>Harga</th>
-                            <th width="15%">Jumlah</th>
                             <th>Diskon</th>
                             <th>Subtotal</th>
-                            <th width="15%"><i class="fa fa-cog"></i></th>
+                            {{-- <th width="15%"><i class="fa fa-cog"></i></th> --}}
                         </thead>
+                        <tbody>
+                            @foreach ($cek as $product)
+                                <tr>
+                                    <td>{{ $loop->index+1}}</td>
+                                    <td>{{ "100" }}</td>
+                                    <td>{{ "100" }}</td>
+                                    <td>{{ "100" }}</td>
+                                    <td>{{ "100" }}</td>
+                                    <td>{{ "100" . ' gr' }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
                     </table>
 
                     <div class="row">
@@ -96,19 +101,19 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group row">
+                                {{-- <div class="form-group row">
                                     <label for="diskon" class="col-lg-2 control-label">Diskon</label>
                                     <div class="col-lg-8">
                                         <input type="number" name="diskon" id="diskon" class="form-control"
                                             value="{{ !empty($memberSelected->id_member) ? '$diskon' : 0 }}" readonly>
                                     </div>
-                                </div>
-                                <div class="form-group row">
+                                </div> --}}
+                                {{-- <div class="form-group row">
                                     <label for="bayar" class="col-lg-2 control-label">Bayar</label>
                                     <div class="col-lg-8">
                                         <input type="text" id="bayarrp" class="form-control" readonly>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="form-group row">
                                     <label for="diterima" class="col-lg-2 control-label">Diterima</label>
                                     <div class="col-lg-8">

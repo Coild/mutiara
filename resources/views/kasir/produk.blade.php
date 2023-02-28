@@ -246,10 +246,16 @@
                 <div class="modal-body">
                     <form action="{{ route('import.product') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        Download Template <a href="">disini</a>
-                        <div class="form-group">
-                            {{-- <label for="name">File</label> --}}
-                            <input type="file" name="uploaded_file" >
+                        {{-- Download Template <a href="">disini</a> --}}
+                        {{-- <div class="form-group">
+                            <label for="name">File</label>
+                            <input type="file" name="uploaded_file" class="form-control">
+                        </div> --}}
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Pilih File</label>
+                            <div class="col-sm-10">
+                                <input type="file" name="uploaded_file" class="form-control">
+                            </div>
                         </div>
 
                         <div class="flex justify-content-between">

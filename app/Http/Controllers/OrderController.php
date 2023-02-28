@@ -54,8 +54,8 @@ class OrderController extends Controller
             
             $product = Product::where('id','=',$r['product_id'])->first();
             // return $product;
-            // if($r['discount'] != 0){
-            if(0 != 0){
+            if($r['discount'] != 0){
+            // if(0 != 0){
 
                 $discount = ($r['discount']/100)*$product->price_sell;
                 $price_sell = $product->price_sell-$discount;
