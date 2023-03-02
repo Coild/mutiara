@@ -6,9 +6,9 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Codedge\Fpdf\Fpdf\Fpdf;
-use Illuminate\Support\Str;
 use Illuminate\Http\Response;
-use Milon\Barcode\DNS1D;
+use App\Imports\ProductImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
@@ -270,6 +270,13 @@ class ProductController extends Controller
         $pdf->Cell(65, 5, ': ' . $data->size, 0, 1, 'L');
         $pdf->Output();
         exit;
+    }
+
+    public function import(Request $request)
+    {
+        $file = $request->file('uploaded_file');
+        Excel::import(new ProductImport, $file->store('files'));
+        return redirect('/')->with('success', 'All good!');
     }
 
     public function uploadContent(Request $request)
