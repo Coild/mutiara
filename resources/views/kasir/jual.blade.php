@@ -23,36 +23,31 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Customer Name</th>
+                    <th>No</th>
+                    <th>Nama Pembeli</th>
                     <th>Total</th>
-                    <th>Received Amount</th>
-                    <th>Status</th>
-                    <th>To Pay</th>
-                    <th>Created At</th>
+                    {{-- <th>Received Amount</th> --}}
+                    {{-- <th>Status</th> --}}
+                    {{-- <th>To Pay</th> --}}
+                    <th>Tanggal Transaksi</th>
+                    <th>Detail</th>
                 </tr>
             </thead>
             <tbody>
-                
+                @foreach ($data as $item)
                 <tr>
-                    <td>{{'1'}}</td>
-                    <td>{{'Reza R'}}</td>
-                    <td>{{ '$' }} {{'100000'}}</td>
-                    <td>{{ '$' }} {{'10000'}}</td>
+                    <td>{{$loop->index+1}}</td>
+                    <td>{{$item['name']}}</td>
+                    <td>{{ 'Rp' }} {{$item['total']}}</td>
+                    <td>{{$item['date']}}</td>
                     <td>
-                        @if(0 == 0)
-                            <span class="badge badge-danger">Not Paid</span>
-                        @elseif(0 < 1)
-                            <span class="badge badge-warning">Partial</span>
-                        @elseif(0 == 1)
-                            <span class="badge badge-success">Paid</span>
-                        @elseif(0 > 1)
-                            <span class="badge badge-info">Change</span>
-                        @endif
+                        {{-- /order/invoice/{id_order} --}}
+                        <button class="btn btn-success" onclick="window.location.href='{{ route('detil.transaksi') }}?id={{$item['id']}}'"><i class="fa fa-eye">Lihat</i></button>
+                        <button class="btn btn-primary" onclick="window.location.href='{{ '/order/invoice/'.$item['id']}}'"><i class="fa fa-book">Cetak</i></button>
                     </td>
-                    <td>{{'$'}} {{'100000'}}</td>
-                    <td>{{'15000'}}</td>
                 </tr>
+                @endforeach
+                
                 
             </tbody>
             <tfoot>

@@ -14,6 +14,8 @@ class ListProduk extends Component
     public $count;
     public $cart;
     public $id_produk;
+    public $total;
+    // public $id_produk;
 
     protected $listeners = [
         'resetCount' => 'add',
@@ -27,11 +29,14 @@ class ListProduk extends Component
             $count = Product::where('barcode', $this->id_produk)->count();
             // dd($count);
             if ($count != 0) {
-                $isi = Product::where('barcode', $this->id_produk)->get();
+                $isi = Product::where('barcode', $this->id_produk)->first();
                 // dd($isi);
                 $data = Session::get('data') ?? [];
                 array_push($data, $isi);
 
+                $this->total+= $isi['price_sell'];
+
+                Session::put('total',$this->total);
                 Session::put('data', $data);
                 $this->id_produk = '';
             } else {
@@ -40,16 +45,6 @@ class ListProduk extends Component
         }
     }
 
-    public function increment()
-    {
-        $this->count++;
-        $this->emit('resetCount');
-    }
-
-    public function add()
-    {
-        $this->count;
-    }
 
     // public function cek_insert()
     // {
@@ -74,16 +69,19 @@ class ListProduk extends Component
     }
 
 
-    public function addproduct($product)
+    public function addproduct($key)
     {
-        $isi = Product::find($product)->get();
+        // $isi = Product::find($product)->get();
         // dd(100);
         $data = Session::get('data') ?? [];
+        $total = Session::get('total') ?? 0;
+        $total -= $data[$key]['price_sell'];
+        unset($data[$key]);
 
-
-        array_push($data, $isi);
+        // array_push($data, $isi);
 
         Session::put('data', $data);
+        Session::put('total', $total);
         // dd($this->cart);
         // $this->data = $data;
     }
@@ -91,6 +89,8 @@ class ListProduk extends Component
     public function mount()
     {
         $this->count = 0;
+        $this->total = Session::get('total')??0;
+
         $this->cart = [];
         // $this->content = $post->content;
     }

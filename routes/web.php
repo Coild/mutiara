@@ -32,7 +32,9 @@ Route::get('/produkhapus', [Cproduk::class, 'destroy'])->name('produk.hapus');
 Route::get('/produk', [Cproduk::class, 'index'])->name('produk');
 Route::get('/jual', [kasir::class, 'jual'])->name('jual');
 Route::get('/riwayat', [kasir::class, 'riwayat'])->name('riwayat');
+Route::get('/detil_transaksi', [kasir::class, 'detil_transaksi'])->name('detil.transaksi');
 Route::get('/setting', [kasir::class, 'setting'])->name('setting');
+Route::post('/buy', [kasir::class, 'beli'])->name('beli');
 Route::get('/dummy', [Cproduk::class, 'cetakBarcode'])->name('cetak');
 
 
