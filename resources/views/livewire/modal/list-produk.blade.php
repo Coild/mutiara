@@ -81,7 +81,7 @@
                                 <div class="input-group">
                                         {{-- <button onclick="tampilProduk()" class="btn btn-info btn-flat" type="button"><i
                                                 class="fa fa-plus mr-3"></i> Tambah Produk</button> --}}
-                                                <input type="text" wire:model="id_produk" wire:change="cek_insert">
+                                                <input type="text" wire:model="id_produk" id="myInput">
 
                             
                                 </div>
@@ -116,12 +116,9 @@
                         </tbody>
                     </table>
     
-                    <div class="row">
+                    <div class="row p-3">
+                        
                         <div class="col-lg-8">
-                            <div class="tampil-bayar bg-primary"></div>
-                            <div class="tampil-terbilang"></div>
-                        </div>
-                        <div class="col-lg-4">
                             <form action="{{ '#' }}" class="form-penjualan" method="post">
                                 @csrf
                                 <input type="hidden" name="id_penjualan" value="{{ '$id_penjualan' }}">
@@ -182,10 +179,10 @@
                 </div>
     
                 <div class="box-footer">
-                    <button type="submit" class="btn btn-primary btn-sm btn-flat pull-right btn-simpan"><i
+                    <button type="submit" class="btn btn-primary btn-sm btn-flat pull-right btn-simpan ml-5 mb-3"><i
                             class="fa fa-floppy-o"></i> Simpan Transaksi</button>
                 </div>
             </div>
         </div>
     </div>
-</div>   
+</div>

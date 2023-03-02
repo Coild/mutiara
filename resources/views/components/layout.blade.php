@@ -171,6 +171,15 @@ $_scripts = array(
 
             $('.tampil-bayar').text('Kembali: Rp. ' + "0");
             $('.tampil-terbilang').text("Nol Asu");
+
+            const input = document.getElementById("myInput");
+
+            input.addEventListener("keydown", function(event) {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                }
+            });
+
         });
 
         // function tampilProduk() {

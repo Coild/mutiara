@@ -24,10 +24,10 @@ class ListProduk extends Component
     {
         // This code will execute whenever the $count property is updated
         if ($propertyName === 'id_produk') {
-            $count = Product::where('id', $this->id_produk)->count();
+            $count = Product::where('barcode', $this->id_produk)->count();
             // dd($count);
             if ($count != 0) {
-                $isi = Product::find($this->id_produk)->get();
+                $isi = Product::where('barcode', $this->id_produk)->get();
                 // dd($isi);
                 $data = Session::get('data') ?? [];
                 array_push($data, $isi);
