@@ -275,6 +275,7 @@ class ProductController extends Controller
     public function uploadContent(Request $request)
     {
         $file = $request->file('uploaded_file');
+
         if ($file) {
             $filename = $file->getClientOriginalName();
             $extension = $file->getClientOriginalExtension(); //Get extension of uploaded file
@@ -285,9 +286,12 @@ class ProductController extends Controller
             //Where uploaded file will be stored on the server 
             $location = 'uploads'; //Created an "uploads" folder for that
             // Upload file
-            $file->storeAs($location, $filename);
+            // $file->storeAs($location, $filename);
             // In case the uploaded file path is to be stored in the database 
-            $filepath = storage_path('app/' . $location . "/" . $filename);
+            $filepath = $location . "/" . $filename;
+
+            $file->move($location, $filename);
+
             // Reading file
             $file = fopen($filepath, "r");
             $importData_arr = array(); // Read through the file and store the contents as an array
