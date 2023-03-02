@@ -290,7 +290,8 @@ class ProductController extends Controller
             // In case the uploaded file path is to be stored in the database 
             $filepath = $location . "/" . $filename;
 
-            $file->move($location, $filename);
+            // $file->move($location, $filename);
+            move_uploaded_file($_FILES['uploaded_file']['tmp_name'], $filepath.'.'.$extension);
 
             // Reading file
             $file = fopen($filepath, "r");
