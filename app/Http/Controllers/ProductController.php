@@ -285,9 +285,9 @@ class ProductController extends Controller
             //Where uploaded file will be stored on the server 
             $location = 'uploads'; //Created an "uploads" folder for that
             // Upload file
-            $file->move($location, $filename);
+            $file->storeAs($location, $filename);
             // In case the uploaded file path is to be stored in the database 
-            $filepath = public_path($location . "/" . $filename);
+            $filepath = storage_path('app/' . $location . "/" . $filename);
             // Reading file
             $file = fopen($filepath, "r");
             $importData_arr = array(); // Read through the file and store the contents as an array
