@@ -108,9 +108,6 @@
                                     <td>{{ "100" }}</td>
                                     <td>{{ "100" }}</td>
                                     <td>{{ "100" . ' gr' }}</td>
-                                    
-            
-                                    
                                 </tr>
                             @endforeach
                         </tbody>
