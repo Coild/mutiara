@@ -47,7 +47,7 @@ Route::delete('/product/{id}', [ProductController::class, 'destroy'])->name('pro
 Route::get('/product/print/barcode', [ProductController::class, 'print_all_barcode'])->name('print_all.barcode');
 Route::get('/product/print_barcode/{id}', [ProductController::class, 'print_barcode'])->name('print.barcode');
 Route::get('/product/sertificate/{id}', [ProductController::class, 'print_sertificate'])->name('user.print.sertificate');
-Route::post('/product/upload-content', [ProductController::class, 'uploadContent'])->name('import.product');
+Route::post('/product/upload-content', [ProductController::class, 'import'])->name('import.product');
 
 Route::post('/order', [OrderController::class, 'store'])->name('order.store');
 Route::post('/order/agregat', [OrderController::class, 'agregat'])->name('order.agregat');
