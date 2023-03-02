@@ -170,16 +170,16 @@ $_scripts = array(
         $(document).ready(function() {
 
             $('.tampil-bayar').text('Kembali: Rp. ' + "0");
-            $('.tampil-terbilang').text("Nol");
+            $('.tampil-terbilang').text("Nol Asu");
         });
 
-        function tampilProduk() {
-            $('#modal-produk').modal('show');
-        }
+        // function tampilProduk() {
+        //     $('#modal-produk').modal('show');
+        // }
 
-        function hideProduk() {
-            $('#modal-produk').modal('hide');
-        }
+        // function hideProduk() {
+        //     $('#modal-produk').modal('hide');
+        // }
     </script>
 
 </body>

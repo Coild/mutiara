@@ -22,6 +22,10 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+Route::get('/coba', function () {
+    return view('dummy');
+});
+
 Route::post('/produk', [Cproduk::class, 'store'])->name('produk.post');
 Route::post('/produkedit', [Cproduk::class, 'update'])->name('produk.edit');
 Route::get('/produkhapus', [Cproduk::class, 'destroy'])->name('produk.hapus');
