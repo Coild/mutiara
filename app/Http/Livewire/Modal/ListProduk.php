@@ -12,7 +12,7 @@ class ListProduk extends Component
     // public $data;
     public $count;
     public $cart;
-    
+
     protected $listeners = ['resetCount' => 'add'];
 
     public function increment()
@@ -23,19 +23,21 @@ class ListProduk extends Component
 
     public function add()
     {
-        $this->count ;
+        $this->count;
     }
 
 
     public function addproduct($product)
     {
         $isi = Product::find($product)->get();
-        // dd();
-        
+        // dd(100);
+        $data = Session::get('data') ?? [];
 
-        array_push($this->cart, $product);
-        Session::put('data', $this->cart);
 
+        array_push($data, $isi);
+
+        Session::put('data', $data);
+        // dd($this->cart);
         // $this->data = $data;
     }
 

@@ -54,6 +54,11 @@ class OrderController extends Controller
         $total = 0;
         foreach ($request->order as $r) {
             // return $r['product_id'];
+            
+            $product = Product::where('id','=',$r['product_id'])->first();
+            // return $product;
+            if($r['discount'] != 0){
+            // if(0 != 0){
 
             $product = Product::where('id', '=', $r['product_id'])->first();
             // return $product;

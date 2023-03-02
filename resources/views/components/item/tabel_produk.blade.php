@@ -7,18 +7,7 @@
                 <h4 class="modal-title">Pilih Produk</h4>
             </div>
             <div class="modal-body">
-                <table class="table table-striped table-bordered table-produk">
-                    <thead>
-                        <th width="5%">No</th>
-                        <th>Kode</th>
-                        <th>Nama</th>
-                        <th>Harga Beli</th>
-                        <th><i class="fa fa-cog"></i></th>
-                    </thead>
-                    <tbody>
-                       
-                    </tbody>
-                </table>
+                @livewire('modal.list-produk')
             </div>
         </div>
     </div>
