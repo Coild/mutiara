@@ -73,7 +73,7 @@ class OrderController extends Controller
             $pdf->Cell(20, 5, 'No. Nota', 0, 0, 'L');
             $pdf->Cell(20, 5, ': ' . str_pad($order->id, 4, "0", STR_PAD_LEFT), 0, 0, 'L');
             $pdf->Ln(5);
-            $pdf->Cell(20, 5, 'Seller', 0, 0, 'L');
+            $pdf->Cell(20, 5, 'Buyer', 0, 0, 'L');
             $pdf->Cell(20, 5, ': ' . $order->name, 0, 0, 'L');
             $pdf->Cell(110, 5, '', 0, 0, 'L');
             $pdf->Cell(20, 5, 'Date ', 0, 0, 'L');
