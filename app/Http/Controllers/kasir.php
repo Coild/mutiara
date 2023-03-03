@@ -84,13 +84,17 @@ class kasir extends Controller
                 $product->order_id = $data->id;
                 $product->update();
             } else {
+                $product = Product::where('id', '=', $r['product_id'])->first();
                 $total += $product->price_sell;
+                $product->status = 1;
+                $product->order_id = $data->id;
+                $product->update();
             }
             // dd($total);
 
+            $data->total = $total;
+            $data->kembalian = $req['uang'] - $total;
         }
-        $data->total = $total;
-        $data->kembalian = $req['uang'] - $total;
         $data->update();
 
         Session::forget('data');
@@ -110,10 +114,11 @@ class kasir extends Controller
         return view('kasir.jual', compact('data'));
     }
 
-    public function detil_transaksi()
+    public function detil_transaksi(Request $req)
     {
         $data = Order::join('product', 'product.order_id', '=', 'order.id')
-            ->get();
+        ->where('product.order_id','=',$req['id'])
+        ->get();
         return view('kasir.detil_transaksi', compact('data'));
     }
 }
