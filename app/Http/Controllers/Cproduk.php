@@ -76,10 +76,12 @@ class Cproduk extends Controller
         //     $dataproduk[] = $produk;
         // }
 
+        $data = Product::all();
+
         // $no  = 1;
         // $pdf = PDF::loadView('produk.barcode', compact('dataproduk', 'no'));
         // $pdf->setPaper('a4', 'potrait');
         // return $pdf->stream('produk.pdf');
-        return view('kasir.barcode');
+        return view('kasir.barcode', compact('data'));
     }
 }

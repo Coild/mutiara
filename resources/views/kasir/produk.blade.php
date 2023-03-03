@@ -6,8 +6,10 @@
     <div class="card">
         <div class="card-header">
             <h2 class="card-title">List Produk</h2>
+            <button class="btn btn-primary float-right mr-3" onclick="window.location.href='{{route('print_all.barcode')}}'">Cetak Barcode</button>
             <button class="btn btn-primary float-right mr-3" data-toggle="modal" data-target="#tambah">Tambah</button>
             <button class="btn btn-primary float-right mr-3" data-toggle="modal" data-target="#upload">Upload</button>
+            
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -432,6 +434,7 @@
     </div>
 
     <script>
+        
         function lempar(data) {
             console.log(data['id']);  
             document.getElementById("xid").value = data['id'];
