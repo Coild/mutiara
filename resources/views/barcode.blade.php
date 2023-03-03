@@ -28,7 +28,7 @@
                 <td class="text-left">
                     <small style="font-size: 12px">
 
-                        {{ '349259628246' }}
+                        {{ $item->barcode }}
                     </small>
                 </td>
             </tr>

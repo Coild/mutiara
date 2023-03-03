@@ -56,11 +56,13 @@ class kasir extends Controller
         $data->save();
 
         $total = 0;
+        // dd($barang);
         foreach ($barang as $r) {
             // return $r['product_id'];
 
             $product = Product::where('id', '=', $r['product_id'])->first();
             // return $product;
+            // dd($r['discount']);
             if ($r['discount'] != 0) {
                 // if(0 != 0){
 
@@ -81,7 +83,10 @@ class kasir extends Controller
                 $product->status = 1;
                 $product->order_id = $data->id;
                 $product->update();
+            } else {
+                $total += $product->price_sell;
             }
+            // dd($total);
             $data->total = $total;
             $data->kembalian = $req['uang'] - $total;
             $data->update();
