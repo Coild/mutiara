@@ -80,12 +80,14 @@
                                                 <td>{{ $product['type'] }}</td>
                                                 <td>{{ $product['metal'] }}</td>
                                                 <td>{{ $product['carat'] }}</td>
-                                                <td>{{ $product['weight'].' gram' }} </td>
+                                                <td>{{ $product['weight'] . ' gram' }} </td>
                                                 <td>{{ $product['grade'] }}</td>
                                                 <td>{{ $product['price_sell'] }}</td>
                                                 <td><input type="text" name="diskon{{ $loop->index + 1 }}"></td>
-                                                <td><button class="btn btn-danger" wire:click="addproduct({{ $key }})"
-                                                    onclick="console.log('click')"><i class="fas fa-trash"></i></button></td>
+                                                <td><button class="btn btn-danger"
+                                                        wire:click="addproduct({{ $key }})"
+                                                        onclick="console.log('click')"><i
+                                                            class="fas fa-trash"></i></button></td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -113,15 +115,14 @@
                                 <div class="form-group row">
                                     <label for="diterima" class="col-lg-2 control-label">Diterima</label>
                                     <div class="col-lg-8">
-                                        <input type="number" id="diterima" class="form-control" name="diterima"
-                                            value="{{ $penjualan->diterima ?? 0 }}">
+                                        <input type="number" wire:model="bayar" id="diterima" class="form-control" name="diterima">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="kembali" class="col-lg-2 control-label">Kembali</label>
                                     <div class="col-lg-8">
                                         <input type="text" id="kembali" name="kembali" class="form-control"
-                                            value="0" readonly>
+                                            value="{{$kembali}}" readonly>
                                     </div>
                                 </div>
 

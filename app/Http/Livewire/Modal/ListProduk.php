@@ -15,6 +15,8 @@ class ListProduk extends Component
     public $cart;
     public $id_produk;
     public $total;
+    public $kembali;
+    public $bayar;
     // public $id_produk;
 
     protected $listeners = [
@@ -42,6 +44,10 @@ class ListProduk extends Component
             } else {
                 $this->id_produk;
             }
+        }
+
+        if ($propertyName === 'bayar') {
+            $this->kembali = intval($this->bayar) - intval($this->total);
         }
     }
 
@@ -89,6 +95,8 @@ class ListProduk extends Component
     public function mount()
     {
         $this->count = 0;
+        $this->kembali = 0;
+        $this->bayar = 0;
         $this->total = Session::get('total')??0;
 
         $this->cart = [];
