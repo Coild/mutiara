@@ -8,6 +8,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
+use function PHPUnit\Framework\isNull;
+
 class kasir extends Controller
 {
     public function produk()
@@ -90,9 +92,15 @@ class kasir extends Controller
         return redirect(route('jual'));
     }
 
-    public function riwayat()
+    public function riwayat(Request $req)
     {
-        $data = Order::all();
+        if(isset($req['filter'])) {
+            // dd($req);
+            $data = Order::whereBetween('date', [$req['start_date'], $req['end_date']])
+            ->get();
+        } else {
+            $data = Order::all();
+        }
         return view('kasir.jual',compact('data'));
     }
 

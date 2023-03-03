@@ -5,13 +5,15 @@
         <div class="row">
             <div class="col-md-7"></div>
             <div class="col-md-5">
-                <form action="{{'#'}}">
+                <form action="{{route('riwayat.filter')}}" method="post">
                     <div class="row">
+                        @csrf
+                        <input type="hidden" name="filter" value="1">
                         <div class="col-md-5">
-                            <input type="date" name="start_date" class="form-control" value="{{'12-12-2022'}}" />
+                            <input type="date" name="start_date" class="form-control" value="{{date('Y-m-d')}}" required/>
                         </div>
                         <div class="col-md-5">
-                            <input type="date" name="end_date" class="form-control" value="{{'12-12-2021'}}" />
+                            <input type="date" name="end_date" class="form-control" value="{{date('Y-m-d')}}" required/>
                         </div>
                         <div class="col-md-2">
                             <button class="btn btn-outline-primary" type="submit">Submit</button>
@@ -34,8 +36,14 @@
                 </tr>
             </thead>
             <tbody>
+                @php
+                    $total=0;
+                @endphp
                 @foreach ($data as $item)
                 <tr>
+                    @php
+                        $total+=$item['total'];
+                    @endphp
                     <td>{{$loop->index+1}}</td>
                     <td>{{$item['name']}}</td>
                     <td>{{ 'Rp' }} {{$item['total']}}</td>
@@ -54,8 +62,8 @@
                 <tr>
                     <th></th>
                     <th></th>
-                    <th>{{ '$' }} {{ '100000' }}</th>
-                    <th>{{ '$' }} {{ '120000' }}</th>
+                    <th>{{ 'Rp' }} {{ $total }}</th>
+                    <th></th>
                     <th></th>
                     <th></th>
                     <th></th>

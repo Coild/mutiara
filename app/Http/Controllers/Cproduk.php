@@ -73,7 +73,7 @@ class Cproduk extends Controller
         $dataproduk = array();
         // foreach ($request->id_produk as $id) {
         //     $produk = Produk::find($id);
-        //     $dataproduk[] = $produk;
+        //     $dataproduk[] = $produk; 
         // }
 
         $data = Product::all();
