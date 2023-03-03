@@ -276,7 +276,8 @@ class ProductController extends Controller
     {
         $file = $request->file('uploaded_file');
         Excel::import(new ProductImport, $file->store('files'));
-        return redirect('/')->with('success', 'All good!');
+        return redirect(route('produk'));
+        // return redirect('/')->with('success', 'All good!');
     }
 
     public function uploadContent(Request $request)
@@ -298,7 +299,7 @@ class ProductController extends Controller
             $filepath = $location . "/" . $filename;
 
             // $file->move($location, $filename);
-            move_uploaded_file($_FILES['uploaded_file']['tmp_name'], $filepath.'.'.$extension);
+            move_uploaded_file($_FILES['uploaded_file']['tmp_name'], $filepath . '.' . $extension);
 
             // Reading file
             $file = fopen($filepath, "r");

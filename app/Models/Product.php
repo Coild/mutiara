@@ -23,5 +23,9 @@ class Product extends Model
         'size',
         'price',
         'price_sell',
+        'price_discount',
+        'barcode',
+        'discount',
+        'status',
     ];
 }
