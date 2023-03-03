@@ -87,10 +87,11 @@ class kasir extends Controller
                 $total += $product->price_sell;
             }
             // dd($total);
-            $data->total = $total;
-            $data->kembalian = $req['uang'] - $total;
-            $data->update();
+
         }
+        $data->total = $total;
+        $data->kembalian = $req['uang'] - $total;
+        $data->update();
 
         Session::forget('data');
         Session::forget('total');
@@ -99,20 +100,20 @@ class kasir extends Controller
 
     public function riwayat(Request $req)
     {
-        if(isset($req['filter'])) {
+        if (isset($req['filter'])) {
             // dd($req);
             $data = Order::whereBetween('date', [$req['start_date'], $req['end_date']])
-            ->get();
+                ->get();
         } else {
             $data = Order::all();
         }
-        return view('kasir.jual',compact('data'));
+        return view('kasir.jual', compact('data'));
     }
 
     public function detil_transaksi()
     {
-        $data = Order::join('product','product.order_id','=', 'order.id')
-        ->get();
-        return view('kasir.detil_transaksi',compact('data'));
+        $data = Order::join('product', 'product.order_id', '=', 'order.id')
+            ->get();
+        return view('kasir.detil_transaksi', compact('data'));
     }
 }
