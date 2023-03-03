@@ -52,7 +52,7 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <input type="text" wire:model="id_produk" id="myInput">
+            <input type="text" wire:model="id_produk" id="myInput" class="form-control p-2">
             <form action="{{ route('beli') }}" class="form-penjualan" method="post">
                 <div class="box">
                     <div class="box-body">
@@ -63,6 +63,10 @@
                                         <th width="5%">No</th>
                                         <th>Kode</th>
                                         <th>Nama</th>
+                                        <th>Metal</th>
+                                        <th>Carat</th>
+                                        <th>Weight</th>
+                                        <th>Grade</th>
                                         <th>Harga</th>
                                         <th>Diskon</th>
                                         <th>Aksi</th>
@@ -72,9 +76,13 @@
                                         @foreach ($cek as $key => $product)
                                             <tr>
                                                 <td>{{ $loop->index + 1 }}</td>
+                                                <td>{{ $product['barcode'] }}</td>
                                                 <td>{{ $product['type'] }}</td>
-                                                <td>{{ '100' }}</td>
-                                                <td>{{ '100' }}</td>
+                                                <td>{{ $product['metal'] }}</td>
+                                                <td>{{ $product['carat'] }}</td>
+                                                <td>{{ $product['weight'].' gram' }} </td>
+                                                <td>{{ $product['grade'] }}</td>
+                                                <td>{{ $product['price_sell'] }}</td>
                                                 <td><input type="text" name="diskon{{ $loop->index + 1 }}"></td>
                                                 <td><button class="btn btn-danger" wire:click="addproduct({{ $key }})"
                                                     onclick="console.log('click')"><i class="fas fa-trash"></i></button></td>
