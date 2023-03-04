@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\authController;
 use App\Http\Controllers\Cproduk;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\kasir;
@@ -21,6 +22,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
+
+Route::get('/login', [authController::class, 'index'])->name('get.login');
+Route::post('/login', [authController::class, 'login'])->name('post.login');
 
 Route::get('/coba', function () {
     return view('dummy');
