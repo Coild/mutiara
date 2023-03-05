@@ -62,7 +62,7 @@
                   <a href="#" class="nav-link" onclick="document.getElementById('logout-form').submit()">
                       <i class="nav-icon fas fa-sign-out-alt"></i>
                       <p>Logout</p>
-                      <form action="{{'#'}}" method="POST" id="logout-form">
+                      <form action="{{route('logout')}}" method="get" id="logout-form">
                           @csrf
                       </form>
                   </a>

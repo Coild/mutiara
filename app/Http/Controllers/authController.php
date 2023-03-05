@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Auth;
 
 class authController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         return view('auth.login');
     }
 
@@ -18,15 +19,21 @@ class authController extends Controller
             'nama'     => $request->input('nama'),
             'password'  => $request->input('password'),
         ];
-// dd($data);
+        // dd($data);
         Auth::attempt($data);
         if (Auth::attempt($data)) { // true sekalian session field di users nanti bisa dipanggil via Auth
             // echo "Login Success";
-            return redirect('dashboard');
+            return redirect(route('home'));
         } else { // false
 
             //Login Fail
             return redirect('/login')->with('message', 'Username atau password salah');
         }
-    }}
+    }
 
+    public function logout()
+    {
+        Auth::logout(); // menghapus session yang aktif
+        return redirect('login');
+    }
+}

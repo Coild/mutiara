@@ -21,7 +21,7 @@
             </tr>
             <tr>
                 <td class="text-left">
-                    {!! '<img src="data:image/png;base64,' . DNS1D::getBarcodePNG($item->barcode, 'C128', 2, 22) . '" alt="barcode"   />' !!}
+                    {!! '<img src="data:image/png;base64,' . DNS1D::getBarcodePNG($item->barcode, 'C128', 1, 11) . '" alt="barcode"   />' !!}
                 </td>
             </tr>
             <tr>
