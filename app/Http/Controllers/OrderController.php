@@ -7,6 +7,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Codedge\Fpdf\Fpdf\Fpdf;
+use DateTime;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -149,8 +150,7 @@ class OrderController extends Controller
             ], 501);
         }
 
-        $order = Order::with(['product'])->get();
-        return $order->product;
+        // return $order->product;
         // $pro = [];
         // foreach($order as $or){
         //     array_push($pro, $product->name);
@@ -158,49 +158,40 @@ class OrderController extends Controller
         // return $pro;
 
         $start = $request->start;
-        $end = $request->end;
+        $end = new DateTime($request->end);
+        $end = $end->modify('+1 day');
+        $end = $end->format('Y-m-d');
 
-        $pdf = new Fpdf('P', 'mm', 'A4');
+        $data = Order::whereBetween('date', [$start, $end]);
+        $order = $data->get();
+        // return $start;
+        if (count($order) == 0) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Order Not found',
+                'data' => null
+            ], 404);
+        }
 
-        $pdf->SetFont('Arial', 'B', 15);
-        $pdf->AddPage();
+        // return $order[0]->product[0]->price;
 
-        // $pdf->Image("images/abitour.jpeg",0,0,205,297);
-        // $pdf->SetMargins(20, 10, 0);
-        $pdf->Ln(6);
+        $total = 0;
+        $modal = 0;
+        foreach ($order as $or) {
+            $total += $or->total;
+            foreach ($or->product as $product) {
+                $modal += $product->price;
+            }
+        }
 
-        $pdf->SetFont('Arial', 'B', 16);
-        $pdf->Image("storage/img/logo_mutiara.png", 12, 8, 34, 22.455);
-        // $pdf->Cell(40,5,'',1, 0,'C');
-        // $pdf->Cell(145,5,'LAPORAN KEUANGAN',1, 0,'L');
-
-        $pdf->Ln(15);
-        $pdf->Cell(190, 5, '------------------------------------------------------------------------------------------------------', 0, 1, 'C');
-        $pdf->Ln(5);
-        $pdf->Cell(190, 5, 'LAPORAN KEUANGAN', 0, 1, 'C');
-        $pdf->Ln(5);
-        $pdf->SetFont('Arial', 'B', 10);
-        $pdf->Cell(10, 6, 'No', 1, 0, 'C');
-        $pdf->Cell(25, 6, 'Tanggal', 1, 0, 'C');
-        $pdf->Cell(50, 6, 'Pembeli', 1, 0, 'C');
-        $pdf->Cell(55, 6, 'Produk', 1, 0, 'C');
-        $pdf->Cell(50, 6, 'Jumlah', 1, 1, 'C');
-
-        $pdf->SetFont('Arial', '', 10);
-        $pdf->Cell(10, 6, 'No', 1, 0, 'C');
-        $pdf->Cell(25, 6, $order[0]->date, 1, 0, 'C');
-        $pdf->Cell(50, 6, $order[0]->name, 1, 0, 'C');
-
-
-
-        $pdf->Cell(55, 6, 'Produk', 1, 0, 'C');
-        $pdf->Cell(50, 6, 'Jumlah', 1, 0, 'C');
-
-
-
-        $pdf->Output();
-
-        exit;
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Data Found',
+            'total' => $total,
+            'modal' => $modal,
+            'untung' => $total - $modal,
+            'order' => $order
+        ], 200);
     }
     public function store(Request $request)
     {
