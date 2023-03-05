@@ -10,7 +10,7 @@ use Peroduk;
 
 class ListProduk extends Component
 {
-    // public $data;
+    public $val;
     public $count;
     public $cart;
     public $id_produk;
@@ -33,13 +33,13 @@ class ListProduk extends Component
             if ($count != 0) {
                 $isi = Product::where('barcode', $this->id_produk)->first();
                 // dd($isi);
-                $data = Session::get('data') ?? [];
-                array_push($data, $isi);
+                // $data = $this->val ?? [];
+                array_push( $this->val, $isi);
 
                 $this->total+= $isi['price_sell'];
 
                 Session::put('total',$this->total);
-                Session::put('data', $data);
+                Session::put('data',  $this->val);
                 $this->id_produk = '';
             } else {
                 $this->id_produk;
@@ -77,19 +77,25 @@ class ListProduk extends Component
 
     public function addproduct($key)
     {
-        // $isi = Product::find($product)->get();
-        // dd(100);
-        $data = Session::get('data') ?? [];
-        $total = Session::get('total') ?? 0;
-        $total -= $data[$key]['price_sell'];
-        unset($data[$key]);
+        
+        $this->total -= $this->val[$key]['price_discount'];
+        unset($this->val[$key]);
 
         // array_push($data, $isi);
 
-        Session::put('data', $data);
-        Session::put('total', $total);
-        // dd($this->cart);
-        // $this->data = $data;
+        Session::put('data', $this->val);
+        Session::put('total', $this->total);
+    }
+
+    public function get_diskon() {
+        $this->total =0;
+        foreach($this->val as $key => $item) {
+            $this->val[$key]['price_discount'] = intval($this->val[$key]['price_sell'] - (($this->val[$key]['discount']/100)*$this->val[$key]['price_sell']));
+            $this->total+= $this->val[$key]['price_discount'];
+        }
+        Session::put('data', $this->val);
+        // dd($this->val);
+        $this->render();
     }
 
     public function mount()
@@ -98,17 +104,17 @@ class ListProduk extends Component
         $this->kembali = 0;
         $this->bayar = 0;
         $this->total = Session::get('total')??0;
+        $this->val = Session::get('data') ?? [];
 
-        $this->cart = [];
         // $this->content = $post->content;
     }
 
     public function render()
     {
-        $data = Product::all();
+        $data = $this->val;
         // Session::flush();
-        $cek = Session::get('data') ?? [];
+        // $kan
         // dd($cek);
-        return view('livewire.modal.list-produk', compact('data', 'cek'));
+        return view('livewire.modal.list-produk', compact('data'));
     }
 }

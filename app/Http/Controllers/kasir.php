@@ -30,14 +30,12 @@ class kasir extends Controller
     {
         // dd(Session::get('data'));
         $barang = [];
-        $i = 1;
 
-        foreach (Session::get('data') as $item) {
+        foreach (Session::get('data') as  $key => $item) {
             array_push($barang, [
                 'product_id' => $item['id'],
-                'discount' =>  $req['diskon' . $i] ?? 0,
+                'discount' =>  $req['diskon' . $key] ?? 0,
             ]);
-            $i = $i + 1;
         }
 
         $beli = [

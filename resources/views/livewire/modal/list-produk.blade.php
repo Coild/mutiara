@@ -73,7 +73,7 @@
                                         {{-- <th width="15%"><i class="fa fa-cog"></i></th> --}}
                                     </thead>
                                     <tbody>
-                                        @foreach ($cek as $key => $product)
+                                        @foreach ($data as $key => $product)
                                             <tr>
                                                 <td>{{ $loop->index + 1 }}</td>
                                                 <td>{{ $product['barcode'] }}</td>
@@ -82,9 +82,9 @@
                                                 <td>{{ $product['carat'] }}</td>
                                                 <td>{{ $product['weight'] . ' gram' }} </td>
                                                 <td>{{ $product['grade'] }}</td>
-                                                <td>{{ $product['price_sell'] }}</td>
-                                                <td><input type="text" name="diskon{{ $loop->index + 1 }}"></td>
-                                                <td><button class="btn btn-danger"
+                                                <td>{{ $product['price_discount'] }}</td>
+                                                <td><input type="text" name="diskon{{ $key }}" wire:model="val.{{ $key }}.{{ 'discount' }}" value="val.{{ $key }}.{{ 'discount' }}"></td>
+                                                <td><button type="button" class="btn btn-danger"
                                                         wire:click="addproduct({{ $key }})"
                                                         onclick="console.log('click')"><i
                                                             class="fas fa-trash"></i></button></td>
@@ -115,14 +115,15 @@
                                 <div class="form-group row">
                                     <label for="diterima" class="col-lg-2 control-label">Diterima</label>
                                     <div class="col-lg-8">
-                                        <input type="number" wire:model="bayar" id="diterima" class="form-control" name="diterima">
+                                        <input type="number" wire:model="bayar" id="diterima" class="form-control"
+                                            name="diterima">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="kembali" class="col-lg-2 control-label">Kembali</label>
                                     <div class="col-lg-8">
                                         <input type="text" id="kembali" name="kembali" class="form-control"
-                                            value="{{$kembali}}" readonly>
+                                            value="{{ $kembali }}" readonly>
                                     </div>
                                 </div>
 
@@ -132,8 +133,11 @@
 
                     <div class="box-footer">
                         <button type="submit"
-                            class="btn btn-primary btn-sm btn-flat pull-right btn-simpan ml-5 mb-3"><i
+                            class="btn btn-primary btn-sm btn-flat pull-right btn-simpan ml-3 mb-3"><i
                                 class="fa fa-floppy-o"></i> Simpan Transaksi</button>
+                                
+                        <button type="button" class="btn btn-success btn-sm btn-flat pull-right btn-simpan ml-2  mb-3" wire:click="get_diskon"
+                            onclick="console.log('click')">Hitung diskon</button>
                     </div>
 
                 </div>
