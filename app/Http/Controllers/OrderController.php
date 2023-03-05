@@ -54,83 +54,87 @@ class OrderController extends Controller
         }
 
 
-        $pdf = new FPDF('L', 'mm', array(215, 138));
+        $pdf = new FPDF('L', 'mm', array(200, 110));
 
         for ($i = 0; $i < sizeof($order->product); $i++) {
 
             $pdf->SetFont('Arial', 'b', 12);
             $pdf->AddPage();
-            $pdf->Image("storage/img/nota.jpg", 0, 0, 215, 138);
-            $pdf->Cell(0, 5, 'Nota Pembelian', 0, 0, 'C');
-            $pdf->Ln(5);
-            $pdf->Cell(0, 5, 'LOMBOK MUTIARA', 0, 0, 'C');
-            $pdf->Ln(5);
-            $pdf->Cell(0, 5, '---------------------------------------------------------', 0, 0, 'C');
-            $pdf->Ln(5);
+            $pdf->Image("storage/img/nota2.jpg", 0, 0, 200, 110);
             $pdf->SetFont('Arial', '', 10);
-            $pdf->Cell(20, 5, 'Kasir', 0, 0, 'L');
-            $pdf->Cell(20, 5, ': Fulan', 0, 0, 'L');
-            $pdf->Cell(110, 5, '', 0, 0, 'L');
-            $pdf->Cell(20, 5, 'No. Nota', 0, 0, 'L');
-            $pdf->Cell(20, 5, ': ' . str_pad($order->id, 4, "0", STR_PAD_LEFT), 0, 0, 'L');
+            $pdf->Cell(120, 5, '', 0, 0, 'L');
+            $pdf->Cell(20, 5, 'Date', 0, 0, 'L');
+            $pdf->Cell(40, 5, ': ' . $order->date, 0, 1, 'L');
+            $pdf->Cell(120, 5, '', 0, 0, 'L');
+            $pdf->Cell(20, 5, 'Name', 0, 0, 'L');
+            $pdf->Cell(40, 5, ': ' . $order->name, 0, 1, 'L');
+            $pdf->Cell(120, 5, '', 0, 0, 'L');
+            $pdf->Cell(20, 5, 'Phone', 0, 0, 'L');
+            $pdf->Cell(40, 5, ': ' . '085xxxxxxxxx', 0, 1, 'L');
+            $pdf->Cell(120, 5, '', 0, 0, 'L');
+            $pdf->Cell(20, 5, 'Bill No', 0, 0, 'L');
+            $pdf->Cell(40, 5, ': ' . str_pad($order->id, 4, "0", STR_PAD_LEFT), 0, 1, 'L');
+            $pdf->Cell(120, 5, '', 0, 0, 'L');
+            $pdf->Cell(20, 5, 'Payment', 0, 0, 'L');
+            $pdf->Cell(40, 5, ': ' . 'Transfer', 0, 1, 'L');
             $pdf->Ln(5);
-            $pdf->Cell(20, 5, 'Buyer', 0, 0, 'L');
-            $pdf->Cell(20, 5, ': ' . $order->name, 0, 0, 'L');
-            $pdf->Cell(110, 5, '', 0, 0, 'L');
-            $pdf->Cell(20, 5, 'Date ', 0, 0, 'L');
-            $pdf->Cell(20, 5, ': ' . $order->date, 0, 0, 'L');
-            $pdf->Ln(8);
-            $pdf->Cell(10, 5, 'No', 0, 0, 'L');
-            $pdf->Cell(10, 5, 'Qty', 0, 0, 'L');
-            $pdf->Cell(20, 5, 'Product', 0, 0, 'L');
-            $pdf->Cell(100, 5, 'Description', 0, 0, 'L');
-            $pdf->Cell(15, 5, 'Price', 0, 0, 'L');
-            $pdf->Cell(15, 5, 'Disc', 0, 0, 'L');
-            $pdf->Cell(25, 5, 'Total', 0, 1, 'L');
-
-            $pdf->Cell(0, 2, '----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        ', 0, 1, 'L');
-
-            $pdf->Cell(10, 5, '1', 0, 0, 'L');
-            $pdf->Cell(10, 5, '1', 0, 0, 'L');
-            $pdf->Cell(20, 5, $order->product[$i]->type, 0, 0, 'L');
+            $pdf->Cell(20, 5, 'CODE', 0, 0, 'L');
+            $pdf->Cell(10, 5, 'QTY', 0, 0, 'L');
+            $pdf->Cell(90, 5, 'DESCRIPTION', 0, 0, 'L');
+            $pdf->Cell(25, 5, 'UNIT PRICE', 0, 0, 'L');
+            $pdf->Cell(10, 5, 'DISC', 0, 0, 'L');
+            $pdf->Cell(25, 5, 'AMOUNT', 0, 1, 'L');
             $pdf->Cell(
-                100,
+                200,
+                1,
+                '---------------------------------------------------' .
+                    '------------------------------------------------' .
+                    '-------------------------------------------------',
+                0,
+                1,
+                'L'
+            );
+
+
+            $pdf->Cell(20, 5, $order->product[$i]->barcode, 0, 0, 'L');
+            $pdf->Cell(10, 5, '1', 0, 0, 'L');
+            $pdf->Cell(
+                90,
+                5,
+                $order->product[$i]->type . ", " .
+                    $order->product[$i]->metal . ", " .
+                    $order->product[$i]->carat . " crt, " .
+                    $order->product[$i]->weight . " gr, " .
+                    $order->product[$i]->pearls . ", " .
+                    $order->product[$i]->color . ", ",
+                0,
+                0,
+                'L'
+            );
+            $pdf->Cell(25, 5, $order->product[$i]->price_sell, 0, 0, 'L');
+            $pdf->Cell(10, 5, $order->product[$i]->discount . ' %', 0, 0, 'L');
+            $pdf->Cell(25, 5, $order->product[$i]->price_discount, 0, 1, 'L');
+            $pdf->Cell(20, 5, '', 0, 0, 'L');
+            $pdf->Cell(10, 5, '', 0, 0, 'L');
+            $pdf->Cell(
+                90,
                 5,
                 $order->product[$i]->shape . ", " .
-                    $order->product[$i]->pearls . ", " .
-                    $order->product[$i]->color . ", " .
-                    $order->product[$i]->size . " mm, ",
+                    $order->product[$i]->grade . ", " .
+                    $order->product[$i]->size . " mm",
                 0,
                 0,
                 'L'
             );
-            $pdf->Cell(15, 5, $order->product[$i]->price_sell, 0, 0, 'L');
-            $pdf->Cell(15, 5, $order->product[$i]->discount . ' %', 0, 0, 'L');
-            $pdf->Cell(25, 5, $order->product[$i]->price_discount, 0, 1, 'L');
+            $pdf->Cell(25, 5, '', 0, 0, 'L');
             $pdf->Cell(10, 5, '', 0, 0, 'L');
-            $pdf->Cell(10, 5, '', 0, 0, 'L');
-            $pdf->Cell(20, 5, '', 0, 0, 'L');
-            $pdf->Cell(
-                100,
-                5,
-                "Grade " . $order->product[$i]->grade . ", " .
-                    $order->product[$i]->weight . " gr, " .
-                    $order->product[$i]->carat . " carat, ",
-                0,
-                0,
-                'L'
-            );
-            $pdf->Cell(15, 5, '', 0, 0, 'L');
-            $pdf->Cell(15, 5, '', 0, 0, 'L');
             $pdf->Cell(25, 5, '', 0, 1, 'L');
-
-            $pdf->Ln(5);
-            $pdf->Cell(0, 5, 'Diterima Oleh', 0, 0, 'L');
-            $pdf->Ln(25);
-            $pdf->Cell(0, 5, '-----------------------------------', 0, 1, 'L');
-            $pdf->Cell(0, 5, $order->name, 0, 0, 'L');
-            $pdf->Ln(5);
+            $pdf->ln(10);
+            $pdf->Cell(20, 5, '', 0, 0, 'L');
+            $pdf->Cell(10, 5, '', 0, 0, 'L');
+            $pdf->Cell(90, 5, '', 0, 0, 'L');
+            $pdf->Cell(35, 5, 'TOTAL :', 0, 0, 'R');
+            $pdf->Cell(25, 5, $order->product[$i]->price_discount, 0, 1, 'L');
         }
         $pdf->Output();
         exit;

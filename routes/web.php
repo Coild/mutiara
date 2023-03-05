@@ -63,6 +63,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('/order', [OrderController::class, 'store'])->name('order.store');
     // Route::post('/order/agregat', [OrderController::class, 'agregat'])->name('order.agregat');
-    Route::get('/order/invoice/{id}', [OrderController::class, 'print_invoice'])->name('order.print_invoice');
+    // Route::get('/order/invoice/{id}', [OrderController::class, 'print_invoice'])->name('order.print_invoice');
 });
+Route::get('/order/invoice/{id}', [OrderController::class, 'print_invoice'])->name('order.print_invoice');
 Route::post('/order/agregat', [OrderController::class, 'agregat'])->name('order.agregat');
