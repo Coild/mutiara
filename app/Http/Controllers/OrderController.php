@@ -43,6 +43,7 @@ class OrderController extends Controller
 
     public function print_invoice($id)
     {
+        // return "tes";
         $order = Order::with(['product'])->where('id', '=', $id)->first();
         // return sizeof($order->product);
         if (!$order) {
@@ -55,6 +56,7 @@ class OrderController extends Controller
 
 
         $pdf = new FPDF('L', 'mm', array(200, 110));
+        $date = new Carbon();
 
         for ($i = 0; $i < sizeof($order->product); $i++) {
 
@@ -64,19 +66,19 @@ class OrderController extends Controller
             $pdf->SetFont('Arial', '', 10);
             $pdf->Cell(120, 5, '', 0, 0, 'L');
             $pdf->Cell(20, 5, 'Date', 0, 0, 'L');
-            $pdf->Cell(40, 5, ': ' . $order->date, 0, 1, 'L');
+            $pdf->Cell(40, 5, ': ' . date_format(date_create($order->date), "d M Y"), 0, 1, 'L');
             $pdf->Cell(120, 5, '', 0, 0, 'L');
             $pdf->Cell(20, 5, 'Name', 0, 0, 'L');
             $pdf->Cell(40, 5, ': ' . $order->name, 0, 1, 'L');
             $pdf->Cell(120, 5, '', 0, 0, 'L');
             $pdf->Cell(20, 5, 'Phone', 0, 0, 'L');
-            $pdf->Cell(40, 5, ': ' . '085xxxxxxxxx', 0, 1, 'L');
+            $pdf->Cell(40, 5, ': ' . $order->phone, 0, 1, 'L');
             $pdf->Cell(120, 5, '', 0, 0, 'L');
             $pdf->Cell(20, 5, 'Bill No', 0, 0, 'L');
             $pdf->Cell(40, 5, ': ' . str_pad($order->id, 4, "0", STR_PAD_LEFT), 0, 1, 'L');
             $pdf->Cell(120, 5, '', 0, 0, 'L');
             $pdf->Cell(20, 5, 'Payment', 0, 0, 'L');
-            $pdf->Cell(40, 5, ': ' . 'Transfer', 0, 1, 'L');
+            $pdf->Cell(40, 5, ': ' . $order->payment, 0, 1, 'L');
             $pdf->Ln(5);
             $pdf->Cell(20, 5, 'CODE', 0, 0, 'L');
             $pdf->Cell(10, 5, 'QTY', 0, 0, 'L');
@@ -111,9 +113,9 @@ class OrderController extends Controller
                 0,
                 'L'
             );
-            $pdf->Cell(25, 5, $order->product[$i]->price_sell, 0, 0, 'L');
+            $pdf->Cell(25, 5, number_format($order->product[$i]->price_sell, 0, ',', '.'), 0, 0, 'L');
             $pdf->Cell(10, 5, $order->product[$i]->discount . ' %', 0, 0, 'L');
-            $pdf->Cell(25, 5, $order->product[$i]->price_discount, 0, 1, 'L');
+            $pdf->Cell(25, 5, number_format($order->product[$i]->price_discount, 0, ',', '.'), 0, 1, 'L');
             $pdf->Cell(20, 5, '', 0, 0, 'L');
             $pdf->Cell(10, 5, '', 0, 0, 'L');
             $pdf->Cell(
@@ -134,7 +136,7 @@ class OrderController extends Controller
             $pdf->Cell(10, 5, '', 0, 0, 'L');
             $pdf->Cell(90, 5, '', 0, 0, 'L');
             $pdf->Cell(35, 5, 'TOTAL :', 0, 0, 'R');
-            $pdf->Cell(25, 5, $order->product[$i]->price_discount, 0, 1, 'L');
+            $pdf->Cell(25, 5, 'Rp. ' . number_format($order->product[$i]->price_discount, 0, ',', '.'), 0, 1, 'L');
         }
         $pdf->Output();
         exit;
