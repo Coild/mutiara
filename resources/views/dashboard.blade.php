@@ -4,17 +4,16 @@
         <div class="row">
             <div class="col-lg-3 col-6">
                 <!-- small box -->
-                <div class="small-box bg-info">
+                <div class="small-box bg-success">
                     <div class="inner">
                         {{-- <h3>{{ nama }}</h3> --}}
                         <h3> 50 </h3>
-                        <p>Orders Count</p>
+                        <p>Pemasukan Qris</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-bag"></i>
                     </div>
-                    <a href="{{ '#' }}" class="small-box-footer">More info <i
-                            class="fas fa-arrow-circle-right"></i></a>
+                    
                 </div>
             </div>
             <!-- ./col -->
@@ -24,43 +23,42 @@
                     <div class="inner">
                         {{-- <h3>{{config('settings.currency_symbol')}}}</h3> --}}
                         <h3> 50 </h3>
-                        <p>Income</p>
+                        <p>Pemasukan Cash</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-stats-bars"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    
                 </div>
             </div>
             <!-- ./col -->
             <div class="col-lg-3 col-6">
                 <!-- small box -->
-                <div class="small-box bg-danger">
+                <div class="small-box bg-success">
                     <div class="inner">
                         {{-- <h3>{{config('settings.currency_symbol')}} {{number_format(476, 2)}}</h3> --}}
                         <h3> 50 </h3>
-                        <p>Income Today</p>
+                        <p>Barang Terjual</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-pie-graph"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    
                 </div>
             </div>
             <!-- ./col -->
             <div class="col-lg-3 col-6">
                 <!-- small box -->
-                <div class="small-box bg-warning">
+                <div class="small-box bg-success">
                     <div class="inner">
                         <h3>{{ 5 }}</h3>
 
-                        <p>Customers Count</p>
+                        <p>Jumlah Pelanggan</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-person-add"></i>
                     </div>
-                    <a href="{{ '#' }}" class="small-box-footer">More info <i
-                            class="fas fa-arrow-circle-right"></i></a>
+                    
                 </div>
             </div>
 
@@ -71,16 +69,7 @@
                 <!-- BAR CHART -->
                 <div class="card card-success">
                     <div class="card-header">
-                        <h3 class="card-title">Bar Chart</h3>
-
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
+                        <h3 class="card-title">Grafik Penjualan</h3>
                     </div>
                     <div class="card-body">
                         <div class="chart">
@@ -92,6 +81,91 @@
                 </div>
                 <!-- /.card -->
             </div>
+            <div class="col-md-6">
+              <!-- BAR CHART -->
+              <div class="card card-success">
+                  <div class="card-header">
+                      <h3 class="card-title">Penjualan</h3>
+                  </div>
+                  <div class="card-body">
+                    <form action="{{route('riwayat.filter')}}" method="post">
+                      <div class="row">
+                          @csrf
+                          <input type="hidden" name="filter" value="1">
+                          <div class="col-md-5">
+                              <input type="date" name="start_date" class="form-control" value="{{date('Y-m-d')}}" required/>
+                          </div>
+                          <div class="col-md-5">
+                              <input type="date" name="end_date" class="form-control" value="{{date('Y-m-d')}}" required/>
+                          </div>
+                          <div class="col-md-2">
+                              <button class="btn btn-outline-primary" type="submit">Submit</button>
+                          </div>
+                      </div>
+                  </form>
+                      <table class="table mt-3">
+                        <thead>
+                          <td class="col-md-4">
+                            
+                          </td>
+                          <td>
+                            Cash
+                          </td>
+                          <td>
+                            Qris
+                          </td>
+                          <td>
+                            Total
+                          </td>
+                        </thead>
+                        <tr>
+                          <td class="col-md-4">
+                            Filter
+                          </td>
+                          <td>
+                            {{ number_format(20000, 0, '.', '.') }}
+                          </td>
+                          <td>
+                            {{ number_format(30000, 0, '.', '.') }}
+                          </td>
+                          <td>
+                            {{ number_format(50000, 0, '.', '.') }}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="col-md-4">
+                            7 Hari Terakhir
+                          </td>
+                          <td>
+                            {{ number_format(20000, 0, '.', '.') }}
+                          </td>
+                          <td>
+                            {{ number_format(30000, 0, '.', '.') }}
+                          </td>
+                          <td>
+                            {{ number_format(50000, 0, '.', '.') }}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="col-md-4">
+                            Bulan ini
+                          </td>
+                          <td>
+                            {{ number_format(20000, 0, '.', '.') }}
+                          </td>
+                          <td>
+                            {{ number_format(30000, 0, '.', '.') }}
+                          </td>
+                          <td>
+                            {{ number_format(50000, 0, '.', '.') }}
+                          </td>
+                        </tr>
+                      </table>
+                  </div>
+                  <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+          </div>
         </div>
     </div>
 
@@ -113,7 +187,7 @@
                 var areaChartData = {
                     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                     datasets: [{
-                            label: 'Digital Goods',
+                            label: 'Cash',
                             backgroundColor: 'rgba(60,141,188,0.9)',
                             borderColor: 'rgba(60,141,188,0.8)',
                             pointRadius: false,
@@ -124,7 +198,7 @@
                             data: [28, 48, 40, 19, 86, 27, 90]
                         },
                         {
-                            label: 'Electronics',
+                            label: 'Qris',
                             backgroundColor: 'rgba(210, 214, 222, 1)',
                             borderColor: 'rgba(210, 214, 222, 1)',
                             pointRadius: false,

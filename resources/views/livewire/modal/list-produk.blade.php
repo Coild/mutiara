@@ -1,55 +1,4 @@
 <div class="card">
-    {{-- <div class="card-body">
-        <table id="example1" class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>Size</th>
-                    <th>Karat</th>
-                    <th>Weight</th>
-                    <th>Grade</th>
-                    <th>Price</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($data as $product)
-                    <tr>
-                        <td>{{ $loop->index + 1 }}</td>
-                        <td>{{ $product->name }}</td>
-                        <td>{{ $product->type }}</td>
-                        <td>{{ $product->size }}</td>
-                        <td>{{ $count }}</td>
-                        <td>{{ $count . ' gr' }}</td>
-                        <td>{{ $product->grade }}</td>
-                        <td>{{ 'Rp.' . $product->price }}</td>
-
-                        <td>
-
-                            <button class="btn btn-success" wire:click="addproduct({{ $product['id'] }})"
-                                onclick="console.log('click')"><i class="fas fa-plus"></i></button>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>Size</th>
-                    <th>Karat</th>
-                    <th>Weight</th>
-                    <th>Grade</th>
-                    <th>Price</th>
-                    <th>Actions</th>
-                </tr>
-            </tfoot>
-        </table>
-    </div> --}}
-
     <div class="row">
         <div class="col-lg-12">
             <input type="text" wire:model="id_produk" id="myInput" class="form-control p-2">
@@ -83,7 +32,9 @@
                                                 <td>{{ $product['weight'] . ' gram' }} </td>
                                                 <td>{{ $product['grade'] }}</td>
                                                 <td>{{ $product['price_discount'] }}</td>
-                                                <td><input type="text" name="diskon{{ $key }}" wire:model="val.{{ $key }}.{{ 'discount' }}" value="val.{{ $key }}.{{ 'discount' }}"></td>
+                                                <td><input type="text" name="diskon{{ $key }}"
+                                                        wire:model="val.{{ $key }}.{{ 'discount' }}"
+                                                        value="val.{{ $key }}.{{ 'discount' }}"></td>
                                                 <td><button type="button" class="btn btn-danger"
                                                         wire:click="addproduct({{ $key }})"
                                                         onclick="console.log('click')"><i
@@ -135,9 +86,9 @@
                         <button type="submit"
                             class="btn btn-primary btn-sm btn-flat pull-right btn-simpan ml-3 mb-3"><i
                                 class="fa fa-floppy-o"></i> Simpan Transaksi</button>
-                                
-                        <button type="button" class="btn btn-success btn-sm btn-flat pull-right btn-simpan ml-2  mb-3" wire:click="get_diskon"
-                            onclick="console.log('click')">Hitung diskon</button>
+
+                        <button type="button" class="btn btn-success btn-sm btn-flat pull-right btn-simpan ml-2  mb-3"
+                            wire:click="get_diskon" onclick="console.log('click')">Hitung diskon</button>
                     </div>
 
                 </div>
