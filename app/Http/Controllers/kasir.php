@@ -44,11 +44,16 @@ class kasir extends Controller
             'order' => $barang
         ];
 
+
+        // return $barang;
+
         $today = Carbon::now()->format('Y-m-d');
         $data = new Order();
 
 
         $data->name = $req['nama'];
+        $data->phone = "085777111222";
+        $data->payment = "Cash";
         $data->uang = $req['diterima'];
         $data->date = $today;
         $data->save();
@@ -58,41 +63,32 @@ class kasir extends Controller
         foreach ($barang as $r) {
             // return $r['product_id'];
 
-            $product = Product::where('id', '=', $r['product_id'])->first();
+            // $product = Product::where('id', '=', $r['product_id'])->first();
             // return $product;
             // dd($r['discount']);
+            // if ($r['discount'] != 0) {
+            // if(0 != 0){
+
+            $product = Product::where('id', '=', $r['product_id'])->first();
+            // return $product;
             if ($r['discount'] != 0) {
                 // if(0 != 0){
 
-                $product = Product::where('id', '=', $r['product_id'])->first();
-                // return $product;
-                if ($r['discount'] != 0) {
-                    // if(0 != 0){
-
-                    $discount = ($r['discount'] / 100) * $product->price_sell;
-                    $price_sell = $product->price_sell - $discount;
-                    $product->price_discount = $price_sell;
-                    $product->discount = $r['discount'];
-                    $total += $price_sell;
-                } else {
-                    $total += $product->price_sell;
-                }
-                // return $product->price;
-                $product->status = 1;
-                $product->order_id = $data->id;
-                $product->update();
+                $discount = ($r['discount'] / 100) * $product->price_sell;
+                $price_sell = $product->price_sell - $discount;
+                $product->price_discount = $price_sell;
+                $product->discount = $r['discount'];
+                $total += $price_sell;
             } else {
-                $product = Product::where('id', '=', $r['product_id'])->first();
                 $total += $product->price_sell;
-                $product->status = 1;
-                $product->order_id = $data->id;
-                $product->update();
             }
-            // dd($total);
-
-            $data->total = $total;
-            $data->kembalian = $req['uang'] - $total;
+            // return $product->price;
+            $product->status = 1;
+            $product->order_id = $data->id;
+            $product->update();
         }
+        $data->total = $total;
+        $data->kembalian = $data->uang - $total;
         $data->update();
 
         Session::forget('data');
@@ -115,8 +111,8 @@ class kasir extends Controller
     public function detil_transaksi(Request $req)
     {
         $data = Order::join('product', 'product.order_id', '=', 'order.id')
-        ->where('product.order_id','=',$req['id'])
-        ->get();
+            ->where('product.order_id', '=', $req['id'])
+            ->get();
         return view('kasir.detil_transaksi', compact('data'));
     }
 }

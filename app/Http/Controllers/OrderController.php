@@ -199,11 +199,13 @@ class OrderController extends Controller
     }
     public function store(Request $request)
     {
-        // return $request->order;
+        // return $request;
         $today = Carbon::now()->format('Y-m-d');
         $data = new Order();
 
         $data->name = $request->name;
+        $data->phone = $request->phone;
+        $data->payment = $request->payment;
         $data->uang = $request->uang;
         $data->date = $today;
         $data->save();
@@ -212,39 +214,39 @@ class OrderController extends Controller
         foreach ($request->order as $r) {
             // return $r['product_id'];
 
+            // $product = Product::where('id', '=', $r['product_id'])->first();
+            // return $product;
+            // if ($r['discount'] != 0) {
+            // if(0 != 0){
+
             $product = Product::where('id', '=', $r['product_id'])->first();
             // return $product;
             if ($r['discount'] != 0) {
                 // if(0 != 0){
 
-                $product = Product::where('id', '=', $r['product_id'])->first();
-                // return $product;
-                if ($r['discount'] != 0) {
-                    // if(0 != 0){
-
-                    $discount = ($r['discount'] / 100) * $product->price_sell;
-                    $price_sell = $product->price_sell - $discount;
-                    $product->price_discount = $price_sell;
-                    $product->discount = $r['discount'];
-                    $total += $price_sell;
-                } else {
-                    $total += $product->price_sell;
-                }
-                // return $product->price;
-                $product->status = 1;
-                $product->order_id = $data->id;
-                $product->update();
+                $discount = ($r['discount'] / 100) * $product->price_sell;
+                $price_sell = $product->price_sell - $discount;
+                $product->price_discount = $price_sell;
+                $product->discount = $r['discount'];
+                $total += $price_sell;
+            } else {
+                $total += $product->price_sell;
             }
-            // return $total;
-            $data->total = $total;
-            $data->kembalian = $request->uang - $total;
-            $data->update();
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Order Created',
-                'data' => $data
-            ], 201);
+            // return $product->price;
+            $product->status = 1;
+            $product->order_id = $data->id;
+            $product->update();
         }
+        // return $total;
+        $data->total = $total;
+        $data->kembalian = $request->uang - $total;
+        $data->update();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Order Created',
+            'data' => $data
+        ], 201);
+        // }
     }
 
 

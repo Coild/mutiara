@@ -61,9 +61,9 @@ Route::group(['middleware' => 'auth'], function () {
     // Route::get('/product/sertificate/{id}', [ProductController::class, 'print_sertificate'])->name('user.print.sertificate');
     Route::post('/product/upload-content', [ProductController::class, 'import'])->name('import.product');
 
-    Route::post('/order', [OrderController::class, 'store'])->name('order.store');
     // Route::post('/order/agregat', [OrderController::class, 'agregat'])->name('order.agregat');
     // Route::get('/order/invoice/{id}', [OrderController::class, 'print_invoice'])->name('order.print_invoice');
 });
+Route::post('/order', [OrderController::class, 'store'])->name('order.store');
 Route::get('/order/invoice/{id}', [OrderController::class, 'print_invoice'])->name('order.print_invoice');
 Route::post('/order/agregat', [OrderController::class, 'agregat'])->name('order.agregat');

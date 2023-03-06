@@ -11,6 +11,10 @@ class Order extends Model
 
     protected $table = 'order';
     protected $with = 'product';
+
+    protected $fillable = [
+        'name', 'phone', 'payment', 'date', 'total', 'uang', 'kembalian'
+    ];
     public function product()
     {
         return $this->hasMany(Product::class);
