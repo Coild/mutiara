@@ -53,7 +53,9 @@ class kasir extends Controller
 
         $data->name = $req['nama'];
         $data->phone = "085777111222";
+        $data->address = "Mataram";
         $data->payment = "Cash";
+        $data->bill_code = $this->rand_bill();
         $data->uang = $req['diterima'];
         $data->date = $today;
         $data->save();
@@ -61,19 +63,10 @@ class kasir extends Controller
         $total = 0;
         // dd($barang);
         foreach ($barang as $r) {
-            // return $r['product_id'];
-
-            // $product = Product::where('id', '=', $r['product_id'])->first();
-            // return $product;
-            // dd($r['discount']);
-            // if ($r['discount'] != 0) {
-            // if(0 != 0){
 
             $product = Product::where('id', '=', $r['product_id'])->first();
             // return $product;
             if ($r['discount'] != 0) {
-                // if(0 != 0){
-
                 $discount = ($r['discount'] / 100) * $product->price_sell;
                 $price_sell = $product->price_sell - $discount;
                 $product->price_discount = $price_sell;
@@ -114,5 +107,15 @@ class kasir extends Controller
             ->where('product.order_id', '=', $req['id'])
             ->get();
         return view('kasir.detil_transaksi', compact('data'));
+    }
+
+    function rand_bill()
+    {
+        $stringSpace = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $stringLength = strlen($stringSpace);
+        $string = str_repeat($stringSpace, ceil(4 / $stringLength));
+        $shuffledString = str_shuffle($string);
+        $randomString = substr($shuffledString, 1, 4);
+        return $randomString;
     }
 }

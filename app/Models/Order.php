@@ -13,7 +13,7 @@ class Order extends Model
     protected $with = 'product';
 
     protected $fillable = [
-        'name', 'phone', 'payment', 'date', 'total', 'uang', 'kembalian'
+        'name', 'phone', 'address', 'payment', 'bill_code', 'date', 'total', 'uang', 'kembalian'
     ];
     public function product()
     {

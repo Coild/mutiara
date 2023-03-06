@@ -74,8 +74,11 @@ class OrderController extends Controller
             $pdf->Cell(20, 5, 'Phone', 0, 0, 'L');
             $pdf->Cell(40, 5, ': ' . $order->phone, 0, 1, 'L');
             $pdf->Cell(120, 5, '', 0, 0, 'L');
+            $pdf->Cell(20, 5, 'Address', 0, 0, 'L');
+            $pdf->Cell(40, 5, ': ' . $order->address, 0, 1, 'L');
+            $pdf->Cell(120, 5, '', 0, 0, 'L');
             $pdf->Cell(20, 5, 'Bill No', 0, 0, 'L');
-            $pdf->Cell(40, 5, ': ' . str_pad($order->id, 4, "0", STR_PAD_LEFT), 0, 1, 'L');
+            $pdf->Cell(40, 5, ': ' . $order->bill_code, 0, 1, 'L');
             $pdf->Cell(120, 5, '', 0, 0, 'L');
             $pdf->Cell(20, 5, 'Payment', 0, 0, 'L');
             $pdf->Cell(40, 5, ': ' . $order->payment, 0, 1, 'L');
