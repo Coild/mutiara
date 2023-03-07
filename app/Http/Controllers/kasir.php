@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\Product;
 use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-
-use function PHPUnit\Framework\isNull;
+use Illuminate\Support\Facades\Validator;
 
 class kasir extends Controller
 {
@@ -29,7 +29,7 @@ class kasir extends Controller
             ->whereDate('updated_at', '=', $today)
             ->count();
 
-    // dd($barang);
+        // dd($barang);
 
         $todaycash = order::where('payment', 'Cash')
             ->whereDate('date', '=', $today)
@@ -69,17 +69,17 @@ class kasir extends Controller
             ->sum("total");
 
         $grafiks = order::selectRaw('MONTH(date) as month, SUM(total) as total')
-        ->whereYear('created_at', $currentYear)
-        ->groupBy('month')
-        ->get();
-        $bulan= [];
-        $jumlah=[];
+            ->whereYear('created_at', $currentYear)
+            ->groupBy('month')
+            ->get();
+        $bulan = [];
+        $jumlah = [];
         foreach ($grafiks as $grafik) {
             $monthNumber = $grafik->month;
             $monthName = Carbon::createFromDate(null, $monthNumber, null)->format('F');
             $grafik->month = $monthName;
-            array_push($bulan,$monthName);
-            array_push($jumlah,$grafik->total);
+            array_push($bulan, $monthName);
+            array_push($jumlah, $grafik->total);
         }
 
         // dd($bulan);
@@ -87,7 +87,61 @@ class kasir extends Controller
 
         // dd($barang);
 
-        return view('dashboard', compact('pelanggan','barang', 'todaycash','todayqris','lastcash','lastqris','monthqris','monthcash','filtercash','filterqris','bulan','jumlah','fs','fe'));
+        return view('dashboard', compact('pelanggan', 'barang', 'todaycash', 'todayqris', 'lastcash', 'lastqris', 'monthqris', 'monthcash', 'filtercash', 'filterqris', 'bulan', 'jumlah', 'fs', 'fe'));
+    }
+
+    public function agregat(Request $request)
+    {
+
+        // dd($request);
+        // $validator = Validator::make($request->all(), [
+        //     "start_date" => "required",
+        //     "end_date" => "required",
+        // ]);
+
+        // if ($validator->fails()) {
+        //     return response()->json([
+        //         'status' => 'Error',
+        //         'message' => $validator->messages()->all()
+        //     ], 501);
+        // }
+
+        // return $order->product;
+        // $pro = [];
+        // foreach($order as $or){
+        //     array_push($pro, $product->name);
+        // }
+        // return $pro;
+
+        $start = $request->start_date;
+        $end = new DateTime($request->end_date);
+        $end = $end->modify('+1 day');
+        $end = $end->format('Y-m-d');
+
+        $data = Order::whereBetween('date', [$start, $end]);
+        $order = $data->get();
+        // return $start;
+        // if (count($order) == 0) {
+        //     return response()->json([
+        //         'status' => 'error',
+        //         'message' => 'Order Not found',
+        //         'data' => null
+        //     ], 404);
+        // }
+
+        // return $order[0]->product[0]->price;
+
+        $total = 0;
+        $modal = 0;
+        foreach ($order as $or) {
+            $total += $or->total;
+            foreach ($or->product as $product) {
+                $modal += $product->price;
+            }
+        }
+
+        return view('kasir.agregat', compact('total','modal','order'));
+
     }
 
     public function produk()
