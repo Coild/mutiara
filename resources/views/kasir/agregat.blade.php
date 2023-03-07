@@ -1,6 +1,6 @@
 <x-layout>
     <x-item.pageheader>
-        <x-slot name="name"> Agregat </x-slot>    
+        <x-slot name="name"> Laporan Keuangan </x-slot>    
     </x-item.pageheader>
 <div class="card">
     <div class="card-body">
