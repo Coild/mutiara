@@ -24,10 +24,10 @@
                 </form>
             </div>
         </div>
-        <div class="row mt-2">
+        <div class="row mt-4">
             <div class="col-md-4">
                 <div class="form-group row">
-                    <label for="totalrp" class="col-lg-2 control-label">Pendapatan</label>
+                    <label for="totalrp" class="col-lg-4 control-label text-center pt-2">Pendapatan</label>
                     <div class="col-lg-8">
                         <input type="text" value="{{$total}}" class="form-control" readonly>
                     </div>
@@ -35,7 +35,7 @@
             </div>
             <div class="col-md-4">
                 <div class="form-group row">
-                    <label for="totalrp" class="col-lg-2 control-label">Modal</label>
+                    <label for="totalrp" class="col-lg-4 control-label text-center pt-2">Modal</label>
                     <div class="col-lg-8">
                         <input type="text" value="{{$modal}}" class="form-control" readonly>
                     </div>
@@ -43,7 +43,7 @@
             </div>
             <div class="col-md-4">
                 <div class="form-group row">
-                    <label for="totalrp" class="col-lg-2 control-label">Untung</label>
+                    <label for="totalrp" class="col-lg-4 control-label text-center pt-2">Untung</label>
                     <div class="col-lg-8">
                         <input type="text" value="{{$total-$modal}}" class="form-control" readonly>
                     </div>
