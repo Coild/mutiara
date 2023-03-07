@@ -24,7 +24,6 @@
                         <th>Shape</th>
                         <th>Grade</th>
                         <th>Size</th>
-                        <th>Price</th>
                         <th>Price Sell</th>
                         <th>Actions</th>
                     </tr>
@@ -42,7 +41,6 @@
                             <td>{{ $product->shape }}</td>
                             <td>{{ $product->grade }}</td>
                             <td>{{ $product->size }}</td>
-                            <td>{{ 'Rp.' . $product->price }}</td>
                             <td>{{ 'Rp.' . $product->price_sell }}</td>
 
                             <td>
@@ -67,7 +65,6 @@
                         <th>Shape</th>
                         <th>Grade</th>
                         <th>Size</th>
-                        <th>Price</th>
                         <th>Price Sell</th>
                         <th>Actions</th>
                     </tr>

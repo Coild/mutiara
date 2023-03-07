@@ -52,9 +52,9 @@ class kasir extends Controller
 
 
         $data->name = $req['nama'];
-        $data->phone = "085777111222";
-        $data->address = "Mataram";
-        $data->payment = "Cash";
+        $data->phone = $req['nohp'];
+        $data->address = $req['alamat'];
+        $data->payment = $req['metode'];
         $data->bill_code = $this->rand_bill();
         $data->uang = $req['diterima'];
         $data->date = $today;
