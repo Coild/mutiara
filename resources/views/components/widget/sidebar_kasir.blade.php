@@ -35,7 +35,7 @@
                     </a>
                 </li>
                 <li class="nav-item has-treeview">
-                    <a href="{{ 'setting' }}" class="nav-link ">
+                    <a href="{{ route('ganti') }}" class="nav-link ">
                         <i class="nav-icon fas fa-cogs"></i>
                         <p>Ganti Password</p>
                     </a>

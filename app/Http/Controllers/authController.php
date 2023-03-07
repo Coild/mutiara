@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class authController extends Controller
 {
@@ -41,5 +43,27 @@ class authController extends Controller
     {
         Auth::logout(); // menghapus session yang aktif
         return redirect('login');
+    }
+
+    public function tampil_ganti_password()
+    {
+        return view('kasir.ganti');
+    }
+
+    public function ganti_password(Request $req)
+    {
+
+        if (Hash::check($req['lama'], Auth::user()->password)) {
+            $id = Auth::user()->id;
+            $data = [
+                'nama' => $req['nama'] ?? Auth::user()->nama,
+                'password' => Hash::make($req['baru']),
+            ];
+            // dd($data);
+            $user = User::all()->where("id", $id)->first()->update($data);
+        } else {
+            return redirect(route('ganti'))->with('status', 'Kata sandi lama anda salah!');
+        }
+        return redirect(route('home'))->with('success', 'Password berhasil diganti!');
     }
 }

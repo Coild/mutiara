@@ -40,6 +40,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [kasir::class, 'dashboard'])->name('home');
     Route::post('/', [kasir::class, 'dashboard'])->name('post.home');
 
+    Route::get('/ganti_password', [authController::class, 'tampil_ganti_password'])->name('ganti');
+    Route::post('/ganti_password', [authController::class, 'ganti_password'])->name('post.ganti');
+
     Route::post('/produk', [Cproduk::class, 'store'])->name('produk.post');
     Route::post('/produkedit', [Cproduk::class, 'update'])->name('produk.edit');
     Route::get('/produkhapus', [Cproduk::class, 'destroy'])->name('produk.hapus');

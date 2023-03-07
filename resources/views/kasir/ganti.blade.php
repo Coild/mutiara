@@ -25,14 +25,14 @@
                 <a href="#" class="h1"><b>Store</b>MUTIARA</a>
             </div>
             <div class="card-body">
-                <p class="login-box-msg">Selamat datang</p>
-                @if (Session::has('message'))
-                    <p class="alert alert-danger">{{ Session::get('message') }}</p>
+                <p class="login-box-msg">Ganti Password</p>
+                @if (Session::has('status'))
+                    <p class="alert alert-danger">{{ Session::get('status') }}</p>
                 @endif
-                <form action="{{route('post.login')}}" method="post">
+                <form action="{{route('post.ganti')}}" method="post">
                     @csrf
                     <div class="input-group mb-3">
-                        <input name="nama" type="text" class="form-control" placeholder="Username">
+                        <input name="lama" type="text" class="form-control" placeholder="Password Lama" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -40,7 +40,15 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input name="password" type="password" class="form-control" placeholder="Password">
+                        <input name="nama" type="text" class="form-control" placeholder="Username Baru">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input name="baru" type="text" class="form-control" placeholder="Password Baru" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
