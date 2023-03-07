@@ -21,10 +21,10 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/login', [authController::class, 'index'])->name('login');
+Route::get('/', [authController::class, 'index'])->name('login');
 Route::get('/logout', [authController::class, 'logout'])->name('logout');
 
-Route::post('/login', [authController::class, 'login'])->name('post.login');
+Route::post('/', [authController::class, 'login'])->name('post.login');
 
 Route::get('/coba', function () {
     return view('dummy');
@@ -33,12 +33,12 @@ Route::get('/coba', function () {
 
 Route::group(['middleware' => 'auth'], function () {
 
-    Route::group(['middleware' => 'auth'], function () {
-       
+    Route::group(['middleware' => 'admin'], function () {
+        Route::get('/dashboard', [kasir::class, 'dashboard'])->name('home');
+        Route::post('/dashboard', [kasir::class, 'dashboard'])->name('post.home');
     });
 
-    Route::get('/', [kasir::class, 'dashboard'])->name('home');
-    Route::post('/', [kasir::class, 'dashboard'])->name('post.home');
+    
 
     Route::get('/ganti_password', [authController::class, 'tampil_ganti_password'])->name('ganti');
     Route::post('/ganti_password', [authController::class, 'ganti_password'])->name('post.ganti');

@@ -20,7 +20,7 @@ class admin
         if(Auth::user()->level =='admin') {
             return $next($request);
         }else {
-            abort('403','anda tidak memilik akses');
+            return abort('403','anda tidak memiliki akses');
         }
     }
 }

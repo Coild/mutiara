@@ -35,7 +35,7 @@ class authController extends Controller
         } else { // false
 
             //Login Fail
-            return redirect('/login')->with('message', 'Username atau password salah');
+            return redirect(route('login'))->with('message', 'Username atau password salah');
         }
     }
 
