@@ -33,8 +33,12 @@ Route::get('/coba', function () {
 
 Route::group(['middleware' => 'auth'], function () {
 
-    Route::get('/', [kasir::class,'dashboard'])->name('home');
-    Route::post('/', [kasir::class,'dashboard'])->name('post.home');
+    Route::group(['middleware' => 'auth'], function () {
+       
+    });
+
+    Route::get('/', [kasir::class, 'dashboard'])->name('home');
+    Route::post('/', [kasir::class, 'dashboard'])->name('post.home');
 
     Route::post('/produk', [Cproduk::class, 'store'])->name('produk.post');
     Route::post('/produkedit', [Cproduk::class, 'update'])->name('produk.edit');

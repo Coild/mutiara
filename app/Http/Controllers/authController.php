@@ -21,9 +21,15 @@ class authController extends Controller
         ];
         // dd($data);
         Auth::attempt($data);
+        // dd(Auth::attempt($data));
         if (Auth::attempt($data)) { // true sekalian session field di users nanti bisa dipanggil via Auth
             // echo "Login Success";
-            return redirect(route('home'));
+            if(Auth::user()->level=='admin'){
+                return redirect(route('home'));
+            }else {
+                return redirect(route('jual'));
+            }
+            
         } else { // false
 
             //Login Fail

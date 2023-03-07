@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 use function PHPUnit\Framework\isNull;
@@ -15,6 +16,7 @@ class kasir extends Controller
 
     public function dashboard(Request $req)
     {
+        // dd(Auth::user());
         $startDate = date('Y-m-d', strtotime('-7 days'));
         $currentMonth = now()->month;
         $currentYear = date('Y');

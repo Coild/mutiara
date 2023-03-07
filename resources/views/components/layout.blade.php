@@ -81,7 +81,11 @@ $_scripts = array(
         sidebar-mini layout-fixed">
 
     <x-widget.header> </x-widget.header>
-    <x-widget.sidebar> </x-widget.sidebar>
+    @if (Auth::user()->level=='admin')
+    <x-widget.sidebar> </x-widget.sidebar>        
+    @else
+    <x-widget.sidebar_kasir> </x-widget.sidebar_kasir>   
+    @endif
     <div class="content-wrapper">
 
 
