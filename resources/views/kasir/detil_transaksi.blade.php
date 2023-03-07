@@ -1,6 +1,6 @@
 <x-layout>
     <x-item.pageheader>
-        <x-slot name="name"> Produk </x-slot>
+        <x-slot name="name"> Detil Transaksi </x-slot>
        
     </x-item.pageheader>
     <div class="card">

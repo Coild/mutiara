@@ -1,5 +1,7 @@
 <x-layout>
-    <x-item.pageheader> </x-item.pageheader>
+    <x-item.pageheader>
+        <x-slot name="name"> Agregat </x-slot>    
+    </x-item.pageheader>
 <div class="card">
     <div class="card-body">
         <div class="row">
