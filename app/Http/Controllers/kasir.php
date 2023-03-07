@@ -13,18 +13,21 @@ use function PHPUnit\Framework\isNull;
 class kasir extends Controller
 {
 
-    public function dashboard()
+    public function dashboard(Request $req)
     {
         $startDate = date('Y-m-d', strtotime('-7 days'));
         $currentMonth = now()->month;
         $currentYear = date('Y');
         $today = date("Y-m-d"); // Get today's date in YYYY-MM-DD format
-
+        $fs = $today;
+        $fe = $today;
         $pelanggan = Order::whereDate('date', '=', $today)
             ->count();
         $barang = Product::where('status', 1)
-            ->whereDate('created_at', '=', $today)
+            ->whereDate('updated_at', '=', $today)
             ->count();
+
+    // dd($barang);
 
         $todaycash = order::where('payment', 'Cash')
             ->whereDate('date', '=', $today)
@@ -36,12 +39,15 @@ class kasir extends Controller
         $filtercash = $todaycash;
         $filterqris = $todayqris;
 
-        if (isset($req['start_date'])) {
+        if (isset($req['filter'])) {
+            // dd($req);
+            $fs = $req['start_date'];
+            $fe = $req['end_date'];
             $filtercash =  order::where('payment', 'Cash')
-                ->whereBetween('date', [$startDate, $today])
+                ->whereBetween('date', [$req['start_date'], $req['end_date']])
                 ->sum("total");
             $filterqris =  order::where('payment', 'Qris')
-                ->whereBetween('date', [$startDate, $today])
+                ->whereBetween('date', [$req['start_date'], $req['end_date']])
                 ->sum("total");
         }
 
@@ -79,7 +85,7 @@ class kasir extends Controller
 
         // dd($barang);
 
-        return view('dashboard', compact('pelanggan','barang', 'todaycash','todayqris','lastcash','lastqris','monthqris','monthcash','filtercash','filterqris','bulan','jumlah'));
+        return view('dashboard', compact('pelanggan','barang', 'todaycash','todayqris','lastcash','lastqris','monthqris','monthcash','filtercash','filterqris','bulan','jumlah','fs','fe'));
     }
 
     public function produk()

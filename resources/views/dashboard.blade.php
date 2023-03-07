@@ -85,7 +85,7 @@
               <!-- BAR CHART -->
               <div class="card card-success">
                   <div class="card-header">
-                      <h3 class="card-title">Penjualan</h3>
+                      <h3 class="card-title">Penjualan </h3>
                   </div>
                   <div class="card-body">
                     <form action="{{route('home')}}" method="post">
@@ -93,10 +93,10 @@
                           @csrf
                           <input type="hidden" name="filter" value="1">
                           <div class="col-md-5">
-                              <input type="date" name="start_date" class="form-control" value="{{date('Y-m-d')}}" required/>
+                              <input type="date" name="start_date" class="form-control" value="{{$fs}}" required/>
                           </div>
                           <div class="col-md-5">
-                              <input type="date" name="end_date" class="form-control" value="{{date('Y-m-d')}}" required/>
+                              <input type="date" name="end_date" class="form-control" value="{{$fe}}" required/>
                           </div>
                           <div class="col-md-2">
                               <button class="btn btn-outline-primary" type="submit">Submit</button>
