@@ -7,7 +7,7 @@
                 <div class="small-box bg-success">
                     <div class="inner">
                         {{-- <h3>{{ nama }}</h3> --}}
-                        <h3> 50 </h3>
+                        <h3> {{$todayqris}} </h3>
                         <p>Pemasukan Qris</p>
                     </div>
                     <div class="icon">
@@ -22,7 +22,7 @@
                 <div class="small-box bg-success">
                     <div class="inner">
                         {{-- <h3>{{config('settings.currency_symbol')}}}</h3> --}}
-                        <h3> 50 </h3>
+                        <h3> {{$todaycash}} </h3>
                         <p>Pemasukan Cash</p>
                     </div>
                     <div class="icon">
@@ -37,7 +37,7 @@
                 <div class="small-box bg-success">
                     <div class="inner">
                         {{-- <h3>{{config('settings.currency_symbol')}} {{number_format(476, 2)}}</h3> --}}
-                        <h3> 50 </h3>
+                        <h3> {{$barang}} </h3>
                         <p>Barang Terjual</p>
                     </div>
                     <div class="icon">
@@ -51,7 +51,7 @@
                 <!-- small box -->
                 <div class="small-box bg-success">
                     <div class="inner">
-                        <h3>{{ 5 }}</h3>
+                        <h3>{{$pelanggan}}</h3>
 
                         <p>Jumlah Pelanggan</p>
                     </div>
@@ -88,7 +88,7 @@
                       <h3 class="card-title">Penjualan</h3>
                   </div>
                   <div class="card-body">
-                    <form action="{{route('riwayat.filter')}}" method="post">
+                    <form action="{{route('home')}}" method="post">
                       <div class="row">
                           @csrf
                           <input type="hidden" name="filter" value="1">
@@ -120,16 +120,16 @@
                         </thead>
                         <tr>
                           <td class="col-md-4">
-                            Filter
+                            Filter 
                           </td>
                           <td>
-                            {{ number_format(20000, 0, '.', '.') }}
+                            {{ number_format($filtercash, 0, '.', '.') }}
                           </td>
                           <td>
-                            {{ number_format(30000, 0, '.', '.') }}
+                            {{ number_format($filterqris, 0, '.', '.') }}
                           </td>
                           <td>
-                            {{ number_format(50000, 0, '.', '.') }}
+                            {{ number_format($filtercash+$filterqris, 0, '.', '.') }}
                           </td>
                         </tr>
                         <tr>
@@ -137,13 +137,13 @@
                             7 Hari Terakhir
                           </td>
                           <td>
-                            {{ number_format(20000, 0, '.', '.') }}
+                            {{ number_format($lastcash, 0, '.', '.') }}
                           </td>
                           <td>
-                            {{ number_format(30000, 0, '.', '.') }}
+                            {{ number_format($lastqris, 0, '.', '.') }}
                           </td>
                           <td>
-                            {{ number_format(50000, 0, '.', '.') }}
+                            {{ number_format($lastcash+$lastqris, 0, '.', '.') }}
                           </td>
                         </tr>
                         <tr>
@@ -151,13 +151,13 @@
                             Bulan ini
                           </td>
                           <td>
-                            {{ number_format(20000, 0, '.', '.') }}
+                            {{ number_format($monthcash, 0, '.', '.') }}
                           </td>
                           <td>
-                            {{ number_format(30000, 0, '.', '.') }}
+                            {{ number_format($monthqris, 0, '.', '.') }}
                           </td>
                           <td>
-                            {{ number_format(50000, 0, '.', '.') }}
+                            {{ number_format($monthcash+$monthqris, 0, '.', '.') }}
                           </td>
                         </tr>
                       </table>
@@ -185,9 +185,9 @@
                 // Get context with jQuery - using jQuery's .get() method.
 
                 var areaChartData = {
-                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                    labels: @JSON($bulan),
                     datasets: [{
-                            label: 'Cash',
+                            label: 'Pendapatan',
                             backgroundColor: 'rgba(60,141,188,0.9)',
                             borderColor: 'rgba(60,141,188,0.8)',
                             pointRadius: false,
@@ -195,19 +195,19 @@
                             pointStrokeColor: 'rgba(60,141,188,1)',
                             pointHighlightFill: '#fff',
                             pointHighlightStroke: 'rgba(60,141,188,1)',
-                            data: [28, 48, 40, 19, 86, 27, 90]
+                            data: @JSON($jumlah)
                         },
-                        {
-                            label: 'Qris',
-                            backgroundColor: 'rgba(210, 214, 222, 1)',
-                            borderColor: 'rgba(210, 214, 222, 1)',
-                            pointRadius: false,
-                            pointColor: 'rgba(210, 214, 222, 1)',
-                            pointStrokeColor: '#c1c7d1',
-                            pointHighlightFill: '#fff',
-                            pointHighlightStroke: 'rgba(220,220,220,1)',
-                            data: [65, 59, 80, 81, 56, 55, 40]
-                        },
+                        // {
+                        //     label: 'Qris',
+                        //     backgroundColor: 'rgba(210, 214, 222, 1)',
+                        //     borderColor: 'rgba(210, 214, 222, 1)',
+                        //     pointRadius: false,
+                        //     pointColor: 'rgba(210, 214, 222, 1)',
+                        //     pointStrokeColor: '#c1c7d1',
+                        //     pointHighlightFill: '#fff',
+                        //     pointHighlightStroke: 'rgba(220,220,220,1)',
+                        //     data: [65, 59, 80, 81, 56, 55, 40]
+                        // },
                     ]
                 }
 
@@ -217,9 +217,9 @@
                 var barChartCanvas = $('#barChart').get(0).getContext('2d')
                 var barChartData = $.extend(true, {}, areaChartData)
                 var temp0 = areaChartData.datasets[0]
-                var temp1 = areaChartData.datasets[1]
-                barChartData.datasets[0] = temp1
-                barChartData.datasets[1] = temp0
+                // var temp1 = areaChartData.datasets[1]
+                barChartData.datasets[0] = temp0
+                // barChartData.datasets[1] = temp0
 
                 var barChartOptions = {
                     responsive: true,

@@ -30,12 +30,11 @@ Route::get('/coba', function () {
     return view('dummy');
 });
 
-Route::get('/product/sertificate/{id}', [ProductController::class, 'print_sertificate'])->name('user.print.sertificate');
+
 Route::group(['middleware' => 'auth'], function () {
 
-    Route::get('/', function () {
-        return view('dashboard');
-    })->name('home');
+    Route::get('/', [kasir::class,'dashboard'])->name('home');
+    Route::post('/', [kasir::class,'dashboard'])->name('post.home');
 
     Route::post('/produk', [Cproduk::class, 'store'])->name('produk.post');
     Route::post('/produkedit', [Cproduk::class, 'update'])->name('produk.edit');
@@ -63,7 +62,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Route::post('/order/agregat', [OrderController::class, 'agregat'])->name('order.agregat');
     // Route::get('/order/invoice/{id}', [OrderController::class, 'print_invoice'])->name('order.print_invoice');
+
+    Route::post('/order', [OrderController::class, 'store'])->name('order.store');
+    Route::get('/order/invoice/{id}', [OrderController::class, 'print_invoice'])->name('order.print_invoice');
+    Route::post('/order/agregat', [OrderController::class, 'agregat'])->name('order.agregat');
+
+    Route::get('/product/sertificate/{id}', [ProductController::class, 'print_sertificate'])->name('user.print.sertificate');
 });
-Route::post('/order', [OrderController::class, 'store'])->name('order.store');
-Route::get('/order/invoice/{id}', [OrderController::class, 'print_invoice'])->name('order.print_invoice');
-Route::post('/order/agregat', [OrderController::class, 'agregat'])->name('order.agregat');
