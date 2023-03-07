@@ -53,6 +53,12 @@
                   </a>
               </li> --}}
               <li class="nav-item has-treeview">
+                <a href="{{ route('agregat') }}" class="nav-link ">
+                    <i class="nav-icon fas fa-money"></i>
+                    <p>Agregat</p>
+                </a>
+            </li>
+              <li class="nav-item has-treeview">
                   <a href="{{ route('ganti') }}" class="nav-link ">
                       <i class="nav-icon fas fa-cogs"></i>
                       <p>Ganti Password</p>

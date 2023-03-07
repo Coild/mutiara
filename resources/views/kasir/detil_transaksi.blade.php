@@ -24,6 +24,9 @@
                         <th>Shape</th>
                         <th>Grade</th>
                         <th>Size</th>
+                        @if (Auth::user()->level == 'admin')
+                            <th>Price</th>
+                        @endif
                         <th>Price Sell</th>
                         <th>Actions</th>
                     </tr>
@@ -31,7 +34,7 @@
                 <tbody>
                     @foreach ($data as $product)
                         <tr>
-                            <td>{{ $loop->index+1}}</td>
+                            <td>{{ $loop->index + 1 }}</td>
                             <td>{{ $product->type }}</td>
                             <td>{{ $product->metal }}</td>
                             <td>{{ $product->carat }}</td>
@@ -41,13 +44,19 @@
                             <td>{{ $product->shape }}</td>
                             <td>{{ $product->grade }}</td>
                             <td>{{ $product->size }}</td>
+                            @if (Auth::user()->level == 'admin')
+                                <td>{{ 'Rp.' . $product->price }}</td>
+                            @endif
                             <td>{{ 'Rp.' . $product->price_sell }}</td>
 
                             <td>
-                                <a data-toggle="modal" data-target="#edit" class="btn btn-primary" onclick='lempar(@json($product))'><i class="fas fa-edit"></i></a>
-                                <button class="btn btn-success" onclick="window.location.href='/product/sertificate/{{$product->id}}'"><i
-                                    class="fas fa-print"></i></button>
-                                <button class="btn btn-danger btn-delete" onclick="window.location.href='produkhapus?id={{$product->id}}'"><i
+                                <a data-toggle="modal" data-target="#edit" class="btn btn-primary"
+                                    onclick='lempar(@json($product))'><i class="fas fa-edit"></i></a>
+                                <button class="btn btn-success"
+                                    onclick="window.location.href='/product/sertificate/{{ $product->id }}'"><i
+                                        class="fas fa-print"></i></button>
+                                <button class="btn btn-danger btn-delete"
+                                    onclick="window.location.href='produkhapus?id={{ $product->id }}'"><i
                                         class="fas fa-trash"></i></button>
                             </td>
                         </tr>
@@ -65,6 +74,7 @@
                         <th>Shape</th>
                         <th>Grade</th>
                         <th>Size</th>
+                        <th>Price</th>
                         <th>Price Sell</th>
                         <th>Actions</th>
                     </tr>
