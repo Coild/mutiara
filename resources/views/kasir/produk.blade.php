@@ -77,7 +77,9 @@
                         <th>Shape</th>
                         <th>Grade</th>
                         <th>Size</th>
-                        <th>Price</th>
+                        @if (Auth::user()->level == 'admin')
+                            <th>Price</th>
+                        @endif
                         <th>Price Sell</th>
                         <th>Actions</th>
                     </tr>

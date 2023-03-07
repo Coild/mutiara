@@ -9,8 +9,8 @@
             <button class="btn btn-primary float-right mr-3" data-toggle="modal" data-target="#tambah">Tambah</button>
             <button class="btn btn-primary float-right mr-3" data-toggle="modal" data-target="#upload">Upload</button>
         </div>
-        <!-- /.card-header -->
-        <div class="card-body">
+         <!-- /.card-header -->
+         <div class="card-body">
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
                     <tr>
@@ -74,7 +74,9 @@
                         <th>Shape</th>
                         <th>Grade</th>
                         <th>Size</th>
-                        <th>Price</th>
+                        @if (Auth::user()->level == 'admin')
+                            <th>Price</th>
+                        @endif
                         <th>Price Sell</th>
                         <th>Actions</th>
                     </tr>

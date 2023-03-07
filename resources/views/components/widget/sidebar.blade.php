@@ -54,7 +54,7 @@
               </li> --}}
               <li class="nav-item has-treeview">
                 <a href="{{ route('agregat') }}" class="nav-link ">
-                    <i class="nav-icon fas fa-money"></i>
+                    <i class="nav-icon fas fa-book"></i>
                     <p>Agregat</p>
                 </a>
             </li>
