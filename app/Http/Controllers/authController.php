@@ -42,7 +42,7 @@ class authController extends Controller
     public function logout()
     {
         Auth::logout(); // menghapus session yang aktif
-        return redirect(redirect('login'));
+        return redirect(route('login'));
     }
 
     public function tampil_ganti_password()

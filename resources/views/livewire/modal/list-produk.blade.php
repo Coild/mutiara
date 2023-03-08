@@ -64,6 +64,8 @@
                                     <select name="metode" id="metode" class="form-control">
                                         <option value="Cash">Cash</option>
                                         <option value="Qris">Qris</option>
+                                        <option value="Transfer">Transfer</option>
+                                        <option value="Card">Card</option>
                                     </select>
                                 </div>
                             </div>
