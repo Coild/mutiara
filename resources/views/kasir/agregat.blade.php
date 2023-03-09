@@ -1,6 +1,6 @@
 <x-layout>
     <x-item.pageheader>
-        <x-slot name="name"> Riwayat </x-slot>    
+        <x-slot name="name"> Laporan Keuangan </x-slot>    
     </x-item.pageheader>
 <div class="card">
     <div class="card-body">
@@ -24,6 +24,32 @@
                 </form>
             </div>
         </div>
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="form-group row">
+                    <label for="totalrp" class="col-lg-4 control-label text-center text-nowrap pt-2">Pendapatan</label>
+                    <div class="col-lg-8">
+                        <input type="text" value="{{$total}}" class="form-control" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group row">
+                    <label for="totalrp" class="col-lg-4 control-label text-center text-nowrap pt-2">Modal</label>
+                    <div class="col-lg-8">
+                        <input type="text" value="{{$modal}}" class="form-control" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group row">
+                    <label for="totalrp" class="col-lg-4 control-label text-center text-nowrap pt-2">Untung</label>
+                    <div class="col-lg-8">
+                        <input type="text" value="{{$total-$modal}}" class="form-control" readonly>
+                    </div>
+                </div>
+            </div>
+        </div>
         <table class="table">
             <thead>
                 <tr>
@@ -41,7 +67,7 @@
                 @php
                     $total=0;
                 @endphp
-                @foreach ($data as $item)
+                @foreach ($order as $item)
                 <tr>
                     @php
                         $total+=$item['total'];

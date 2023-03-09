@@ -21,21 +21,29 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/login', [authController::class, 'index'])->name('login');
+Route::get('/', [authController::class, 'index'])->name('login');
 Route::get('/logout', [authController::class, 'logout'])->name('logout');
 
-Route::post('/login', [authController::class, 'login'])->name('post.login');
+Route::post('/', [authController::class, 'login'])->name('post.login');
 
 Route::get('/coba', function () {
     return view('dummy');
 });
 
-Route::get('/product/sertificate/{id}', [ProductController::class, 'print_sertificate'])->name('user.print.sertificate');
+
 Route::group(['middleware' => 'auth'], function () {
 
-    Route::get('/', function () {
-        return view('dashboard');
-    })->name('home');
+    Route::group(['middleware' => 'admin'], function () {
+        Route::get('/dashboard', [kasir::class, 'dashboard'])->name('home');
+        Route::post('/dashboard', [kasir::class, 'dashboard'])->name('post.home');
+        Route::get('/order/agregat', [kasir::class, 'agregat'])->name('agregat');
+        Route::post('/order/agregat', [kasir::class, 'agregat'])->name('order.agregat');
+    });
+
+
+
+    Route::get('/ganti_password', [authController::class, 'tampil_ganti_password'])->name('ganti');
+    Route::post('/ganti_password', [authController::class, 'ganti_password'])->name('post.ganti');
 
     Route::post('/produk', [Cproduk::class, 'store'])->name('produk.post');
     Route::post('/produkedit', [Cproduk::class, 'update'])->name('produk.edit');
@@ -63,7 +71,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Route::post('/order/agregat', [OrderController::class, 'agregat'])->name('order.agregat');
     // Route::get('/order/invoice/{id}', [OrderController::class, 'print_invoice'])->name('order.print_invoice');
+
+    Route::post('/order', [OrderController::class, 'store'])->name('order.store');
+    Route::get('/order/invoice/{id}', [OrderController::class, 'print_invoice'])->name('order.print_invoice');
+
+    Route::get('/product/sertificate/{id}', [ProductController::class, 'print_sertificate'])->name('user.print.sertificate');
 });
-Route::post('/order', [OrderController::class, 'store'])->name('order.store');
-Route::get('/order/invoice/{id}', [OrderController::class, 'print_invoice'])->name('order.print_invoice');
-Route::post('/order/agregat', [OrderController::class, 'agregat'])->name('order.agregat');

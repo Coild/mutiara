@@ -4,7 +4,7 @@
   <a href="{{'#'}}" class="brand-link">
       <img src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">{{ config('app.name') }}</span>
+      <span class="brand-text font-weight-light">{{ 'Mutiara Store' }}</span>
   </a>
 
   <!-- Sidebar -->
@@ -15,7 +15,7 @@
               <img src="{{ asset('dist/img/avatar.png') }}" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-              <a href="#" class="d-block">{{ 'Hy' }}</a>
+              <a href="#" class="d-block">{{ Auth::user()->level }}</a>
           </div>
       </div>
 
@@ -53,9 +53,15 @@
                   </a>
               </li> --}}
               <li class="nav-item has-treeview">
-                  <a href="{{ 'setting' }}" class="nav-link ">
+                <a href="{{ route('agregat') }}" class="nav-link ">
+                    <i class="nav-icon fas fa-book"></i>
+                    <p>Laporan Keuangan</p>
+                </a>
+            </li>
+              <li class="nav-item has-treeview">
+                  <a href="{{ route('ganti') }}" class="nav-link ">
                       <i class="nav-icon fas fa-cogs"></i>
-                      <p>Settings</p>
+                      <p>Ganti Password</p>
                   </a>
               </li>
               <li class="nav-item">

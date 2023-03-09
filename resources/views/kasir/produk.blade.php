@@ -1,15 +1,16 @@
 <x-layout>
     <x-item.pageheader>
         <x-slot name="name"> Produk </x-slot>
-       
+
     </x-item.pageheader>
     <div class="card">
         <div class="card-header">
             <h2 class="card-title">List Produk</h2>
-            <button class="btn btn-primary float-right mr-3" onclick="window.location.href='{{route('print_all.barcode')}}'">Cetak Barcode</button>
+            <button class="btn btn-primary float-right mr-3"
+                onclick="window.location.href='{{ route('print_all.barcode') }}'">Cetak Barcode</button>
             <button class="btn btn-primary float-right mr-3" data-toggle="modal" data-target="#tambah">Tambah</button>
             <button class="btn btn-primary float-right mr-3" data-toggle="modal" data-target="#upload">Upload</button>
-            
+
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -26,7 +27,9 @@
                         <th>Shape</th>
                         <th>Grade</th>
                         <th>Size</th>
-                        <th>Price</th>
+                        @if (Auth::user()->level == 'admin')
+                            <th>Price</th>
+                        @endif
                         <th>Price Sell</th>
                         <th>Actions</th>
                     </tr>
@@ -34,7 +37,7 @@
                 <tbody>
                     @foreach ($data as $product)
                         <tr>
-                            <td>{{ $loop->index+1}}</td>
+                            <td>{{ $loop->index + 1 }}</td>
                             <td>{{ $product->type }}</td>
                             <td>{{ $product->metal }}</td>
                             <td>{{ $product->carat }}</td>
@@ -44,14 +47,19 @@
                             <td>{{ $product->shape }}</td>
                             <td>{{ $product->grade }}</td>
                             <td>{{ $product->size }}</td>
-                            <td>{{ 'Rp.' . $product->price }}</td>
+                            @if (Auth::user()->level == 'admin')
+                                <td>{{ 'Rp.' . $product->price }}</td>
+                            @endif
                             <td>{{ 'Rp.' . $product->price_sell }}</td>
 
                             <td>
-                                <a data-toggle="modal" data-target="#edit" class="btn btn-primary" onclick='lempar(@json($product))'><i class="fas fa-edit"></i></a>
-                                <button class="btn btn-success" onclick="window.location.href='/product/sertificate/{{$product->id}}'"><i
-                                    class="fas fa-print"></i></button>
-                                <button class="btn btn-danger btn-delete" onclick="window.location.href='produkhapus?id={{$product->id}}'"><i
+                                <a data-toggle="modal" data-target="#edit" class="btn btn-primary"
+                                    onclick='lempar(@json($product))'><i class="fas fa-edit"></i></a>
+                                <button class="btn btn-success"
+                                    onclick="window.location.href='/product/sertificate/{{ $product->id }}'"><i
+                                        class="fas fa-print"></i></button>
+                                <button class="btn btn-danger btn-delete"
+                                    onclick="window.location.href='produkhapus?id={{ $product->id }}'"><i
                                         class="fas fa-trash"></i></button>
                             </td>
                         </tr>
@@ -69,7 +77,9 @@
                         <th>Shape</th>
                         <th>Grade</th>
                         <th>Size</th>
-                        <th>Price</th>
+                        @if (Auth::user()->level == 'admin')
+                            <th>Price</th>
+                        @endif
                         <th>Price Sell</th>
                         <th>Actions</th>
                     </tr>
@@ -434,9 +444,8 @@
     </div>
 
     <script>
-        
         function lempar(data) {
-            console.log(data['id']);  
+            console.log(data['id']);
             document.getElementById("xid").value = data['id'];
             document.getElementById("xtype").value = data['type'];
             document.getElementById("xmetal").value = data['metal'];

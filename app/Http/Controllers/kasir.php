@@ -5,13 +5,145 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\Product;
 use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-
-use function PHPUnit\Framework\isNull;
+use Illuminate\Support\Facades\Validator;
 
 class kasir extends Controller
 {
+
+    public function dashboard(Request $req)
+    {
+        // dd(Auth::user());
+        $startDate = date('Y-m-d', strtotime('-7 days'));
+        $currentMonth = now()->month;
+        $currentYear = date('Y');
+        $today = date("Y-m-d"); // Get today's date in YYYY-MM-DD format
+        $fs = $today;
+        $fe = $today;
+        $pelanggan = Order::whereDate('date', '=', $today)
+            ->count();
+        $barang = Product::where('status', 1)
+            ->whereDate('updated_at', '=', $today)
+            ->count();
+
+        // dd($barang);
+
+        $todaycash = order::where('payment', 'Cash')
+            ->whereDate('date', '=', $today)
+            ->sum("total");
+        $todayqris = order::where('payment', 'Qris')
+            ->whereDate('date', '=', $today)
+            ->sum("total");
+
+        $filtercash = $todaycash;
+        $filterqris = $todayqris;
+
+        if (isset($req['filter'])) {
+            // dd($req);
+            $fs = $req['start_date'];
+            $fe = $req['end_date'];
+            $filtercash =  order::where('payment', 'Cash')
+                ->whereBetween('date', [$req['start_date'], $req['end_date']])
+                ->sum("total");
+            $filterqris =  order::where('payment', 'Qris')
+                ->whereBetween('date', [$req['start_date'], $req['end_date']])
+                ->sum("total");
+        }
+
+        $lastcash = order::where('payment', 'Cash')
+            ->whereBetween('date', [$startDate, $today])
+            ->sum("total");
+        $lastqris = order::where('payment', 'Qris')
+            ->whereBetween('date', [$startDate, $today])
+            ->sum("total");
+
+
+        $monthcash = order::where('payment', 'Cash')
+            ->whereMonth('date', '=', $currentMonth)
+            ->sum("total");
+        $monthqris = order::where('payment', 'Qris')
+            ->whereMonth('date', '=', $currentMonth)
+            ->sum("total");
+
+        $grafiks = order::selectRaw('MONTH(date) as month, SUM(total) as total')
+            ->whereYear('created_at', $currentYear)
+            ->groupBy('month')
+            ->get();
+        $bulan = [];
+        $jumlah = [];
+        foreach ($grafiks as $grafik) {
+            $monthNumber = $grafik->month;
+            $monthName = Carbon::createFromDate(null, $monthNumber, null)->format('F');
+            $grafik->month = $monthName;
+            array_push($bulan, $monthName);
+            array_push($jumlah, $grafik->total);
+        }
+
+        // dd($bulan);
+
+
+        // dd($barang);
+
+        return view('dashboard', compact('pelanggan', 'barang', 'todaycash', 'todayqris', 'lastcash', 'lastqris', 'monthqris', 'monthcash', 'filtercash', 'filterqris', 'bulan', 'jumlah', 'fs', 'fe'));
+    }
+
+    public function agregat(Request $request)
+    {
+
+        // dd($request);
+        // $validator = Validator::make($request->all(), [
+        //     "start_date" => "required",
+        //     "end_date" => "required",
+        // ]);
+
+        // if ($validator->fails()) {
+        //     return response()->json([
+        //         'status' => 'Error',
+        //         'message' => $validator->messages()->all()
+        //     ], 501);
+        // }
+
+        // return $order->product;
+        // $pro = [];
+        // foreach($order as $or){
+        //     array_push($pro, $product->name);
+        // }
+        // return $pro;
+
+        $start = $request->start_date;
+        $end = new DateTime($request->end_date);
+        $end = $end->modify('+1 day');
+        $end = $end->format('Y-m-d');
+
+        $data = Order::whereBetween('date', [$start, $end]);
+        $order = $data->get();
+        // return $start;
+        // if (count($order) == 0) {
+        //     return response()->json([
+        //         'status' => 'error',
+        //         'message' => 'Order Not found',
+        //         'data' => null
+        //     ], 404);
+        // }
+
+        // return $order[0]->product[0]->price;
+
+        $total = 0;
+        $modal = 0;
+        foreach ($order as $or) {
+            $total += $or->total;
+            foreach ($or->product as $product) {
+                $modal += $product->price;
+            }
+        }
+
+        return view('kasir.agregat', compact('total','modal','order'));
+
+    }
+
     public function produk()
     {
         return view('kasir.produk');
@@ -52,9 +184,9 @@ class kasir extends Controller
 
 
         $data->name = $req['nama'];
-        $data->phone = "085777111222";
-        $data->address = "Mataram";
-        $data->payment = "Cash";
+        $data->phone = $req['nohp'];
+        $data->address = $req['alamat'];
+        $data->payment = $req['metode'];
         $data->bill_code = $this->rand_bill();
         $data->uang = $req['diterima'];
         $data->date = $today;

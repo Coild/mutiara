@@ -24,7 +24,9 @@
             }
         }
     </style>
-    <x-item.pageheader> </x-item.pageheader>
+    <x-item.pageheader>
+        <x-slot name="name"> Penjualan </x-slot>    
+    </x-item.pageheader>
     @livewire('modal.list-produk')
 
     @section('js')
