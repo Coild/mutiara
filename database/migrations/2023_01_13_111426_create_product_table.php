@@ -24,6 +24,7 @@ class CreateProductTable extends Migration
             $table->string('color');
             $table->string('shape');
             $table->string('grade');
+            $table->float('weight_pearl');
             $table->integer('size');
             $table->bigInteger('price');
             $table->bigInteger('price_sell');
