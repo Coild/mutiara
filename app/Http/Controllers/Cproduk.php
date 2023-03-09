@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\produk;
 use Illuminate\Http\Request;
+
 class Cproduk extends Controller
 {
     //
@@ -25,11 +26,12 @@ class Cproduk extends Controller
         $data->type = $request->type;
         $data->metal = $request->metal;
         $data->carat = $request->carat;
-        $data->weight = $request->weight;
+        $data->weight1 = $request->weight1;
         $data->pearls = $request->pearls;
         $data->color = $request->color;
         $data->shape = $request->shape;
         $data->grade = $request->grade;
+        $data->weight2 = $request->weight2;
         $data->size = $request->size;
         $data->price = $request->price;
         $data->price_sell = $request->price_sell;

@@ -65,11 +65,12 @@ class ProductController extends Controller
             "type" => "required",
             "metal" => "required",
             "carat" => "required",
-            "weight" => "required",
+            "weight1" => "required",
             "pearls" => "required",
             "color" => "required",
             "shape" => "required",
             "grade" => "required",
+            "weight2" => "required",
             "size" => "required",
             "price" => "required",
             "price_sell" => "required",
@@ -89,11 +90,12 @@ class ProductController extends Controller
         $data->type = $request->type;
         $data->metal = $request->metal;
         $data->carat = $request->carat;
-        $data->weight = $request->weight;
+        $data->weight1 = $request->weight1;
         $data->pearls = $request->pearls;
         $data->color = $request->color;
         $data->shape = $request->shape;
         $data->grade = $request->grade;
+        $data->weight2 = $request->weight2;
         $data->size = $request->size;
         $data->price = $request->price;
         $data->price_sell = $request->price_sell;
@@ -116,11 +118,12 @@ class ProductController extends Controller
             "type" => "required",
             "metal" => "required",
             "carat" => "required",
-            "weight" => "required",
+            "weight1" => "required",
             "pearls" => "required",
             "color" => "required",
             "shape" => "required",
             "grade" => "required",
+            "weight2" => "required",
             "size" => "required",
             "price" => "required",
             "price_sell" => "required",
@@ -138,11 +141,12 @@ class ProductController extends Controller
             $data->type = $request->type;
             $data->metal = $request->metal;
             $data->carat = $request->carat;
-            $data->weight = $request->weight;
+            $data->weight1 = $request->weight1;
             $data->pearls = $request->pearls;
             $data->color = $request->color;
             $data->shape = $request->shape;
             $data->grade = $request->grade;
+            $data->weight2 = $request->weight2;
             $data->size = $request->size;
             $data->price = $request->price;
             $data->price_sell = $request->price_sell;
@@ -227,10 +231,10 @@ class ProductController extends Controller
         $pdf->Cell(44, 5, ': ' . $data->metal, 0, 1, 'L');
         $pdf->Cell(76, 5, '', 0, 0, 'L');
         $pdf->Cell(20, 5, 'Carat', 0, 0, 'L');
-        $pdf->Cell(44, 5, ': ' . $data->carat, 0, 1, 'L');
+        $pdf->Cell(44, 5, ': ' . $data->carat . ' crt', 0, 1, 'L');
         $pdf->Cell(76, 5, '', 0, 0, 'L');
         $pdf->Cell(20, 5, 'Weight', 0, 0, 'L');
-        $pdf->Cell(44, 5, ': ' . $data->weight, 0, 1, 'L');
+        $pdf->Cell(44, 5, ': ' . $data->weight1 . ' gr', 0, 1, 'L');
         $pdf->Cell(76, 5, '', 0, 0, 'L');
         $pdf->Cell(20, 5, 'Pearls', 0, 0, 'L');
         $pdf->Cell(44, 5, ': ' . $data->pearls, 0, 1, 'L');
@@ -245,37 +249,10 @@ class ProductController extends Controller
         $pdf->Cell(44, 5, ': ' . $data->grade, 0, 1, 'L');
         $pdf->Cell(76, 5, '', 0, 0, 'L');
         $pdf->Cell(20, 5, 'Weight', 0, 0, 'L');
-        $pdf->Cell(44, 5, ': ' . $data->weight, 0, 1, 'L');
+        $pdf->Cell(44, 5, ': ' . $data->weight2 . ' gr', 0, 1, 'L');
         $pdf->Cell(76, 5, '', 0, 0, 'L');
         $pdf->Cell(20, 5, 'Size', 0, 0, 'L');
-        $pdf->Cell(44, 5, ': ' . $data->size, 0, 1, 'L');
-        // $pdf->SetXY(118, 61.5);
-        // $pdf->Cell(30, 5, '', 0, 0, 'L');
-        // $pdf->Cell(65, 5, '' . $data->metal, 0, 1, 'L');
-        // $pdf->SetXY(118, 69.5);
-        // $pdf->Cell(30, 5, '', 0, 0, 'L');
-        // $pdf->Cell(65, 5, '' . $data->carat, 0, 1, 'L');
-        // $pdf->SetXY(118, 77.5);
-        // $pdf->Cell(30, 5, '', 0, 0, 'L');
-        // $pdf->Cell(65, 5, '' . $data->weight, 0, 1, 'L');
-        // $pdf->SetXY(118, 85.5);
-        // $pdf->Cell(30, 5, '', 0, 0, 'L');
-        // $pdf->Cell(65, 5, '' . $data->pearls, 0, 1, 'L');
-        // $pdf->SetXY(118, 93.5);
-        // $pdf->Cell(30, 5, '', 0, 0, 'L');
-        // $pdf->Cell(65, 5, '' . $data->color, 0, 1, 'L');
-        // $pdf->SetXY(118, 101.5);
-        // $pdf->Cell(30, 5, '', 0, 0, 'L');
-        // $pdf->Cell(65, 5, '' . $data->shape, 0, 1, 'L');
-        // $pdf->SetXY(118, 109.5);
-        // $pdf->Cell(30, 5, '', 0, 0, 'L');
-        // $pdf->Cell(65, 5, '' . $data->grade, 0, 1, 'L');
-        // $pdf->SetXY(118, 117.5);
-        // $pdf->Cell(30, 5, '', 0, 0, 'L');
-        // $pdf->Cell(65, 5, '' . $data->weight, 0, 1, 'L');
-        // $pdf->SetXY(118, 125.5);
-        // $pdf->Cell(30, 5, '', 0, 0, 'L');
-        // $pdf->Cell(65, 5, '' . $data->size, 0, 1, 'L');
+        $pdf->Cell(44, 5, ': ' . $data->size . ' mm', 0, 1, 'L');
         $pdf->Output();
         exit;
     }
@@ -338,15 +315,16 @@ class ProductController extends Controller
                     $data->type = $importData[1];
                     $data->metal = $importData[2];
                     $data->carat = $importData[3];
-                    $data->weight = $importData[4];
+                    $data->weight1 = $importData[4];
                     $data->pearls = $importData[5];
                     $data->color = $importData[6];
                     $data->shape = $importData[7];
                     $data->grade = $importData[8];
-                    $data->size = $importData[9];
-                    $data->price = $importData[10];
-                    $data->price_sell = $importData[11];
-                    $data->price_discount = $importData[11];
+                    $data->weight2 = $importData[9];
+                    $data->size = $importData[10];
+                    $data->price = $importData[11];
+                    $data->price_sell = $importData[12];
+                    $data->price_discount = $importData[12];
                     $data->barcode = $randomString;
                     $data->discount = 0;
                     $data->status = 0;

@@ -19,12 +19,12 @@ class CreateProductTable extends Migration
             $table->string('type');
             $table->string('metal');
             $table->integer('carat');
-            $table->float('weight');
+            $table->float('weight1');
             $table->string('pearls');
             $table->string('color');
             $table->string('shape');
             $table->string('grade');
-            $table->float('weight_pearl');
+            $table->float('weight2');
             $table->integer('size');
             $table->bigInteger('price');
             $table->bigInteger('price_sell');

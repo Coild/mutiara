@@ -59,7 +59,6 @@ class OrderController extends Controller
         $date = new Carbon();
 
         for ($i = 0; $i < sizeof($order->product); $i++) {
-
             $pdf->SetFont('Arial', 'b', 12);
             $pdf->AddPage();
             $pdf->Image("storage/img/nota2.jpg", 0, 0, 200, 110);
@@ -109,7 +108,7 @@ class OrderController extends Controller
                 $order->product[$i]->type . ", " .
                     $order->product[$i]->metal . ", " .
                     $order->product[$i]->carat . " crt, " .
-                    $order->product[$i]->weight . " gr, " .
+                    $order->product[$i]->weight1 . " gr, " .
                     $order->product[$i]->pearls . ", " .
                     $order->product[$i]->color . ", ",
                 0,
@@ -126,6 +125,7 @@ class OrderController extends Controller
                 5,
                 $order->product[$i]->shape . ", " .
                     $order->product[$i]->grade . ", " .
+                    $order->product[$i]->weight2 . " gr, " .
                     $order->product[$i]->size . " mm",
                 0,
                 0,

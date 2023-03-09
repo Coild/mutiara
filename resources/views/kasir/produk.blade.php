@@ -17,15 +17,16 @@
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>No</th>
                         <th>Type</th>
                         <th>Metal</th>
                         <th>Carat</th>
-                        <th>Weight</th>
+                        <th>Weight1</th>
                         <th>Pearls</th>
                         <th>Color</th>
                         <th>Shape</th>
                         <th>Grade</th>
+                        <th>Weight2</th>
                         <th>Size</th>
                         @if (Auth::user()->level == 'admin')
                             <th>Price</th>
@@ -41,11 +42,12 @@
                             <td>{{ $product->type }}</td>
                             <td>{{ $product->metal }}</td>
                             <td>{{ $product->carat }}</td>
-                            <td>{{ $product->weight . ' gr' }}</td>
+                            <td>{{ $product->weight1 . ' gr' }}</td>
                             <td>{{ $product->pearls }}</td>
                             <td>{{ $product->color }}</td>
                             <td>{{ $product->shape }}</td>
                             <td>{{ $product->grade }}</td>
+                            <td>{{ $product->weight2 . ' gr' }}</td>
                             <td>{{ $product->size }}</td>
                             @if (Auth::user()->level == 'admin')
                                 <td>{{ 'Rp.' . $product->price }}</td>
@@ -67,15 +69,16 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th>ID</th>
+                        <th>No</th>
                         <th>Type</th>
                         <th>Metal</th>
                         <th>Carat</th>
-                        <th>Weight</th>
+                        <th>Weight1</th>
                         <th>Pearls</th>
                         <th>Color</th>
                         <th>Shape</th>
                         <th>Grade</th>
+                        <th>Weight2</th>
                         <th>Size</th>
                         @if (Auth::user()->level == 'admin')
                             <th>Price</th>
@@ -138,8 +141,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="name">Weight</label>
-                            <input type="text" name="weight"
+                            <label for="name">Weight1</label>
+                            <input type="text" name="weight1"
                                 class="form-control @error('name') is-invalid @enderror" id="name"
                                 placeholder="Name" value="{{ old('name') }}">
                             @error('name')
@@ -188,6 +191,18 @@
                         <div class="form-group">
                             <label for="name">Grade</label>
                             <input type="text" name="grade"
+                                class="form-control @error('name') is-invalid @enderror" id="name"
+                                placeholder="Name" value="{{ old('name') }}">
+                            @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">Weight2</label>
+                            <input type="text" name="weight2"
                                 class="form-control @error('name') is-invalid @enderror" id="name"
                                 placeholder="Name" value="{{ old('name') }}">
                             @error('name')
@@ -334,9 +349,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="name">Weight</label>
-                            <input type="text" name="weight"
-                                class="form-control @error('name') is-invalid @enderror" id="xweight"
+                            <label for="name">Weight1</label>
+                            <input type="text" name="weight1"
+                                class="form-control @error('name') is-invalid @enderror" id="xweight1"
                                 placeholder="Name" value="{{ old('name') }}">
                             @error('name')
                                 <span class="invalid-feedback" role="alert">
@@ -385,6 +400,18 @@
                             <label for="name">Grade</label>
                             <input type="text" name="grade"
                                 class="form-control @error('name') is-invalid @enderror" id="xgrade"
+                                placeholder="Name" value="{{ old('name') }}">
+                            @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">Weight2</label>
+                            <input type="text" name="weight2"
+                                class="form-control @error('name') is-invalid @enderror" id="xweight2"
                                 placeholder="Name" value="{{ old('name') }}">
                             @error('name')
                                 <span class="invalid-feedback" role="alert">
@@ -450,11 +477,12 @@
             document.getElementById("xtype").value = data['type'];
             document.getElementById("xmetal").value = data['metal'];
             document.getElementById("xcarat").value = data['carat'];
-            document.getElementById("xweight").value = data['weight'];
+            document.getElementById("xweight1").value = data['weight1'];
             document.getElementById("xpearls").value = data['pearls'];
             document.getElementById("xcolor").value = data['color'];
             document.getElementById("xshape").value = data['shape'];
             document.getElementById("xgrade").value = data['grade'];
+            document.getElementById("xweight2").value = data['weight2'];
             document.getElementById("xsize").value = data['size'];
             document.getElementById("xprice").value = data['price'];
             document.getElementById("xprice_sell").value = data['price_sell'];
