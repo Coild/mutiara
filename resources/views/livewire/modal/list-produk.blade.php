@@ -10,7 +10,7 @@
                             <div class="form-group row">
                                 <label for="search" class="col-lg-1 control-label">Search</label>
                                 <div class="col-lg-11">
-                                    <input type="text" wire:model="id_produk" id="kosong" class="form-control">
+                                    <input type="text" wire:model="id_produk" id="myInput" class="form-control">
                                 </div>
                             </div>
                             <table class="table table-stiped table-bordered table-penjualan">
