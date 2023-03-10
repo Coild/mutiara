@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-md-7"></div>
             <div class="col-md-5">
-                <form action="{{route('riwayat.filter')}}" method="post">
+                <form action="{{route('order.agregat')}}" method="post">
                     <div class="row">
                         @csrf
                         <input type="hidden" name="filter" value="1">
