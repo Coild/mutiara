@@ -22,6 +22,7 @@
                                     <th>Carat</th>
                                     <th>Weight</th>
                                     <th>Grade</th>
+                                    <th>Weight</th>
                                     <th>Harga</th>
                                     <th>Diskon</th>
                                     <th>Aksi</th>
@@ -35,8 +36,9 @@
                                             <td>{{ $product['type'] }}</td>
                                             <td>{{ $product['metal'] }}</td>
                                             <td>{{ $product['carat'] }}</td>
-                                            <td>{{ $product['weight'] . ' gram' }} </td>
+                                            <td>{{ $product['weight1'] . ' gram' }} </td>
                                             <td>{{ $product['grade'] }}</td>
+                                            <td>{{ $product['weight2'] . ' gram' }} </td>
                                             <td>{{ $product['price_discount'] }}</td>
                                             <td><input type="text" name="diskon{{ $key }}"
                                                     wire:model="val.{{ $key }}.{{ 'discount' }}"
