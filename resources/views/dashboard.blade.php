@@ -227,10 +227,13 @@
                     scales: {
                         yAxes: [{
                             ticks: {
+                                callback: function(value, index, values) {
+                                    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                                },
                                 beginAtZero: true,
-                                stepSize: 10000
+                                // stepSize: 10000,
                             }
-                        }]
+                        }],
                     },
                     responsive: true,
                     maintainAspectRatio: false,
