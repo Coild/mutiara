@@ -94,7 +94,7 @@
                                 <div class="col-lg-8">
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="kode_member" name="nama"
-                                            value="{{ '-' }}">
+                                            value="{{ '-' }}" required>
 
                                     </div>
                                 </div>
@@ -102,13 +102,13 @@
                             <div class="form-group row">
                                 <label for="diterima" class="col-lg-2 control-label">Phone</label>
                                 <div class="col-lg-8">
-                                    <input type="text" id="nohp" class="form-control" name="nohp">
+                                    <input type="text" id="nohp" class="form-control" name="nohp" required>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="kembali" class="col-lg-2 control-label">Address</label>
                                 <div class="col-lg-8">
-                                    <input type="text" id="alamat" name="alamat" class="form-control">
+                                    <input type="text" id="alamat" name="alamat" class="form-control" required>
                                 </div>
                             </div>
 
