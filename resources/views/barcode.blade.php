@@ -57,7 +57,7 @@
                         <td style="width: 100px;">
                             <div style="width: 80px">
                                 <small style="float:left">Rp</small>
-                                <small style="float:right">{{$item->price_sell}}</small>
+                                <small style="float:right">{{number_format($item->price_sell, 0, ',', '.')}}</small>
                             </div>
 
                         </td>
