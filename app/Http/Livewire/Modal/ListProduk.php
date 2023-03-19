@@ -17,6 +17,8 @@ class ListProduk extends Component
     public $total;
     public $kembali;
     public $bayar;
+
+
     // public $id_produk;
 
     protected $listeners = [
@@ -34,13 +36,32 @@ class ListProduk extends Component
                 $isi = Product::where('barcode', $this->id_produk)->first();
                 // dd($isi);
                 // $data = $this->val ?? [];
-                array_push( $this->val, $isi);
+                $key_to_check = 2;
 
-                $this->total+= $isi['price_sell'];
+                $key_exists = false;
+                foreach ($this->val as $item) {
+                    // dd($item);
+                    if ($item['barcode'] == $this->id_produk) {
+                        $key_exists = true;
+                        break;
+                    }
+                }
+                if (!$key_exists) {
+                    array_push($this->val, $isi);
 
-                Session::put('total',$this->total);
-                Session::put('data',  $this->val);
-                $this->id_produk = '';
+                    $this->total += $isi['price_sell'];
+
+                    Session::put('total', $this->total);
+                    Session::put('data',  $this->val);
+                    $this->id_produk = '';
+                } else {
+                    // session()->flash('message', 'Data saved successfully.');
+
+                    $this->dispatchBrowserEvent('swal:success', [
+                        'title' => 'Warning!',
+                        'text' => 'Item Telah Di Scan.',
+                    ]);
+                }
             } else {
                 $this->id_produk;
             }
@@ -77,7 +98,7 @@ class ListProduk extends Component
 
     public function addproduct($key)
     {
-        
+
         $this->total -= $this->val[$key]['price_discount'];
         unset($this->val[$key]);
 
@@ -87,11 +108,12 @@ class ListProduk extends Component
         Session::put('total', $this->total);
     }
 
-    public function get_diskon() {
-        $this->total =0;
-        foreach($this->val as $key => $item) {
-            $this->val[$key]['price_discount'] = intval($this->val[$key]['price_sell'] - (($this->val[$key]['discount']/100)*$this->val[$key]['price_sell']));
-            $this->total+= $this->val[$key]['price_discount'];
+    public function get_diskon()
+    {
+        $this->total = 0;
+        foreach ($this->val as $key => $item) {
+            $this->val[$key]['price_discount'] = intval($this->val[$key]['price_sell'] - (($this->val[$key]['discount'] / 100) * $this->val[$key]['price_sell']));
+            $this->total += $this->val[$key]['price_discount'];
         }
         Session::put('data', $this->val);
         // dd($this->val);
@@ -103,7 +125,7 @@ class ListProduk extends Component
         $this->count = 0;
         $this->kembali = 0;
         $this->bayar = 0;
-        $this->total = Session::get('total')??0;
+        $this->total = Session::get('total') ?? 0;
         $this->val = Session::get('data') ?? [];
 
         // $this->content = $post->content;

@@ -4,7 +4,7 @@
             <div class="box">
                 <div class="box-body">
 
- 
+
                     <div class="row ml-3">
                         <div class="col-lg-12">
                             <div class="form-group row">
@@ -12,6 +12,13 @@
                                 <div class="col-lg-11">
                                     <input type="text" wire:model="id_produk" id="myInput" class="form-control">
                                 </div>
+                            </div>
+                            <div class="form-group row">
+                                {{-- @if (session()->has('message'))
+                                    <div class="alert alert-success">
+                                        {{ session('message') }}
+                                    </div>
+                                @endif --}}
                             </div>
                             <table class="table table-stiped table-bordered table-penjualan">
                                 <thead>
@@ -111,6 +118,12 @@
                                     <input type="text" id="alamat" name="alamat" class="form-control" required>
                                 </div>
                             </div>
+                            <div class="form-group row">
+                                <label for="kembali" class="col-lg-2 control-label">Code</label>
+                                <div class="col-lg-8">
+                                    <input type="text" id="code" name="code" class="form-control" required>
+                                </div>
+                            </div>
 
                         </div>
 
@@ -130,3 +143,15 @@
     </div>
 </div>
 </div>
+@section('js')
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        window.addEventListener('swal:success', event => {
+            swal({
+                title: event.detail.title,
+                text: event.detail.text,
+                icon: 'warning',
+            });
+        });
+    </script>
+@endsection
