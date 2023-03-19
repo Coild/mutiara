@@ -211,18 +211,18 @@ class ProductController extends Controller
         // return $id;
         $data = Product::where('id', $id)->first();
         // return $data;
-        $pdf = new Fpdf('L', 'mm', array(100, 140));
+        $pdf = new Fpdf('L', 'mm', array(102, 140));
 
         $pdf->SetFont('Arial', 'B', 15);
         $pdf->AddPage();
 
-        $pdf->Image("storage/img/sertif.jpg", 0, 0, 140, 100);
+        $pdf->Image("storage/img/sertif2.jpg", 0, 0, 140, 102);
         $pdf->SetMargins(0, 0, 0);
 
 
         $pdf->SetFont('Times', '', 9);
         // $pdf->SetXY(96, 34);
-        $pdf->Ln(17);
+        $pdf->Ln(18);
         $pdf->Cell(76, 5, '', 0, 0, 'L');
         $pdf->Cell(20, 5, 'Product Type', 0, 0, 'L');
         $pdf->Cell(44, 5, ': ' . $data->type, 0, 1, 'L');
