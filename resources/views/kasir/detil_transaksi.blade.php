@@ -1,7 +1,7 @@
 <x-layout>
     <x-item.pageheader>
         <x-slot name="name"> Detil Transaksi </x-slot>
-       
+
     </x-item.pageheader>
     <div class="card">
         <div class="card-header">
@@ -9,8 +9,8 @@
             <button class="btn btn-primary float-right mr-3" data-toggle="modal" data-target="#tambah">Tambah</button>
             <button class="btn btn-primary float-right mr-3" data-toggle="modal" data-target="#upload">Upload</button>
         </div>
-         <!-- /.card-header -->
-         <div class="card-body">
+        <!-- /.card-header -->
+        <div class="card-body">
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
                     <tr>
@@ -325,9 +325,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="name">Weight</label>
-                            <input type="text" name="weight"
-                                class="form-control @error('name') is-invalid @enderror" id="xweight"
+                            <label for="name">Weight1</label>
+                            <input type="text" name="weight1"
+                                class="form-control @error('name') is-invalid @enderror" id="xweight1"
                                 placeholder="Name" value="{{ old('name') }}">
                             @error('name')
                                 <span class="invalid-feedback" role="alert">
@@ -376,6 +376,18 @@
                             <label for="name">Grade</label>
                             <input type="text" name="grade"
                                 class="form-control @error('name') is-invalid @enderror" id="xgrade"
+                                placeholder="Name" value="{{ old('name') }}">
+                            @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">Weight2</label>
+                            <input type="text" name="weight2"
+                                class="form-control @error('name') is-invalid @enderror" id="xweight2"
                                 placeholder="Name" value="{{ old('name') }}">
                             @error('name')
                                 <span class="invalid-feedback" role="alert">
@@ -436,16 +448,17 @@
 
     <script>
         function lempar(data) {
-            console.log(data['id']);  
+            console.log(data['id']);
             document.getElementById("xid").value = data['id'];
             document.getElementById("xtype").value = data['type'];
             document.getElementById("xmetal").value = data['metal'];
             document.getElementById("xcarat").value = data['carat'];
-            document.getElementById("xweight").value = data['weight'];
+            document.getElementById("xweight1").value = data['weight1'];
             document.getElementById("xpearls").value = data['pearls'];
             document.getElementById("xcolor").value = data['color'];
             document.getElementById("xshape").value = data['shape'];
             document.getElementById("xgrade").value = data['grade'];
+            document.getElementById("xweight2").value = data['weight2'];
             document.getElementById("xsize").value = data['size'];
             document.getElementById("xprice").value = data['price'];
             document.getElementById("xprice_sell").value = data['price_sell'];
