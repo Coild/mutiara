@@ -19,7 +19,7 @@
                             {{$item->barcode}}
                         </th>
                     </thead style="width: 150px">
-                    <tr class="balik" style="width: 150px">
+                    <tr class="balik" style="width: 150pxl height: 17px;">
                         <td>
                             {!! '<img src="data:image/png;base64,' .
                                 DNS1D::getBarcodePNG($item->barcode, 'C128', 1, 11) .
