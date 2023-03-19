@@ -17,6 +17,7 @@ class ListProduk extends Component
     public $total;
     public $kembali;
     public $bayar;
+    public $pesan;
 
 
     // public $id_produk;
@@ -55,8 +56,6 @@ class ListProduk extends Component
                     Session::put('data',  $this->val);
                     $this->id_produk = '';
                 } else {
-                    // session()->flash('message', 'Data saved successfully.');
-
                     $this->dispatchBrowserEvent('swal:success', [
                         'title' => 'Warning!',
                         'text' => 'Item Telah Di Scan.',

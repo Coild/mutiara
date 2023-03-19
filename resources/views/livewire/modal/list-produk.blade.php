@@ -3,8 +3,6 @@
         <form action="{{ route('beli') }}" class="form-penjualan" method="post">
             <div class="box">
                 <div class="box-body">
-
-
                     <div class="row ml-3">
                         <div class="col-lg-12">
                             <div class="form-group row">
@@ -135,7 +133,7 @@
                             class="fa fa-floppy-o"></i> Simpan Transaksi</button>
 
                     <button type="button" class="btn btn-success btn-sm btn-flat pull-right btn-simpan ml-2  mb-3"
-                        wire:click="get_diskon" onclick="console.log('click')">Hitung diskon</button>
+                        wire:click="get_diskon">Hitung diskon</button>
                 </div>
 
             </div>
@@ -154,4 +152,15 @@
             });
         });
     </script>
+   @if (session()->has('message'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                swal({
+                    title: 'Message',
+                    text: "{{ session('message') }}",
+                    icon: 'info'
+                });
+            });
+        </script>
+    @endif
 @endsection

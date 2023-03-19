@@ -151,6 +151,7 @@ class kasir extends Controller
     public function jual()
     {
 
+        // dd($message);
         $data = Product::all();
         // dd(Session::all());
         $cek = Session::get('data') ?? [];
@@ -218,7 +219,7 @@ class kasir extends Controller
 
         Session::forget('data');
         Session::forget('total');
-        return redirect(route('jual'));
+        return redirect(route('jual'))->with('message', 'Berhasil disimpan');;
     }
 
     public function riwayat(Request $req)
