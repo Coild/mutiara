@@ -140,8 +140,7 @@ class kasir extends Controller
             }
         }
 
-        return view('kasir.agregat', compact('total','modal','order'));
-
+        return view('kasir.agregat', compact('total', 'modal', 'order'));
     }
 
     public function produk()
@@ -188,6 +187,7 @@ class kasir extends Controller
         $data->address = $req['alamat'];
         $data->payment = $req['metode'];
         $data->bill_code = $this->rand_bill();
+        $data->code = $req['code'];
         $data->uang = $req['diterima'];
         $data->date = $today;
         $data->save();

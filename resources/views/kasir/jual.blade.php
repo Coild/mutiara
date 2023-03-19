@@ -29,6 +29,7 @@
                 <tr>
                     <th>No</th>
                     <th>Nama Pembeli</th>
+                    <th>Code</th>
                     <th>Total</th>
                     {{-- <th>Received Amount</th> --}}
                     {{-- <th>Status</th> --}}
@@ -48,7 +49,8 @@
                     @endphp
                     <td>{{$loop->index+1}}</td>
                     <td>{{$item['name']}}</td>
-                    <td>{{ 'Rp' }} {{$item['total']}}</td>
+                    <td>{{$item['code']}} - {{$item['bill_code']}}</td>
+                    <td>{{ 'Rp' }} {{number_format($item['total'], 0, ',', '.')}}</td>
                     <td>{{$item['date']}}</td>
                     <td>
                         {{-- /order/invoice/{id_order} --}}
@@ -64,7 +66,8 @@
                 <tr>
                     <th></th>
                     <th></th>
-                    <th>{{ 'Rp' }} {{ $total }}</th>
+                    <th></th>
+                    <th>{{ 'Rp' }} {{ number_format($total, 0, ',', '.') }}</th>
                     <th></th>
                     <th></th>
                     <th></th>

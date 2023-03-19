@@ -14,11 +14,11 @@
     @foreach ($data as $item)
     <div class="column">
         <table class="col-md-3">
-            <tr>
+            {{-- <tr>
                 <td class="text-left">
                     <h6>{{$item['type'].' '.$item['metal'].$item['carat'].' Carat'}}</h6>
                 </td>
-            </tr>
+            </tr> --}}
             <tr>
                 <td class="text-left">
                     {!! '<img src="data:image/png;base64,' . DNS1D::getBarcodePNG($item->barcode, 'C128', 1, 11) . '" alt="barcode"   />' !!}
@@ -27,7 +27,6 @@
             <tr>
                 <td class="text-left">
                     <small style="font-size: 12px">
-
                         {{ $item->barcode }}
                     </small>
                 </td>

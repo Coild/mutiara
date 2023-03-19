@@ -81,8 +81,11 @@ class OrderController extends Controller
             $pdf->Cell(120, 5, '', 0, 0, 'L');
             $pdf->Cell(20, 5, 'Payment', 0, 0, 'L');
             $pdf->Cell(40, 5, ': ' . $order->payment, 0, 1, 'L');
+            $pdf->Cell(120, 5, '', 0, 0, 'L');
+            $pdf->Cell(20, 5, 'Code', 0, 0, 'L');
+            $pdf->Cell(40, 5, ': ' . $order->code, 0, 1, 'L');
             $pdf->Ln(5);
-            $pdf->Cell(20, 5, 'CODE', 0, 0, 'L');
+            $pdf->Cell(20, 5, 'PRODUCT', 0, 0, 'L');
             $pdf->Cell(10, 5, 'QTY', 0, 0, 'L');
             $pdf->Cell(90, 5, 'DESCRIPTION', 0, 0, 'L');
             $pdf->Cell(25, 5, 'UNIT PRICE', 0, 0, 'L');
@@ -116,7 +119,7 @@ class OrderController extends Controller
                 'L'
             );
             $pdf->Cell(25, 5, number_format($order->product[$i]->price_sell, 0, ',', '.'), 0, 0, 'L');
-            $pdf->Cell(10, 5, $order->product[$i]->discount . ' %', 0, 0, 'L');
+            $pdf->Cell(10, 5, $order->product[$i]->discount . '%', 0, 0, 'L');
             $pdf->Cell(25, 5, number_format($order->product[$i]->price_discount, 0, ',', '.'), 0, 1, 'L');
             $pdf->Cell(20, 5, '', 0, 0, 'L');
             $pdf->Cell(10, 5, '', 0, 0, 'L');

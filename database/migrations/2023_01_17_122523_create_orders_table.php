@@ -21,6 +21,7 @@ class CreateOrdersTable extends Migration
             $table->string('phone');
             $table->string('payment');
             $table->string('bill_code');
+            $table->string('code');
             $table->date('date');
             $table->integer('total')->nullable();
             $table->integer('uang')->nullable();

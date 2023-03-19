@@ -50,9 +50,9 @@
                             <td>{{ $product->weight2 . ' gr' }}</td>
                             <td>{{ $product->size }}</td>
                             @if (Auth::user()->level == 'admin')
-                                <td>{{ 'Rp.' . $product->price }}</td>
+                                <td>{{ 'Rp ' . $product->price }}</td>
                             @endif
-                            <td>{{ 'Rp.' . $product->price_sell }}</td>
+                            <td>{{ 'Rp ' . number_format($product->price_sell, 0, ',', '.') }}</td>
 
                             <td>
                                 <a data-toggle="modal" data-target="#edit" class="btn btn-primary"
