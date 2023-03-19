@@ -26,7 +26,7 @@
                                 '" alt="barcode"   />' !!}
                         </td>
                     </tr>
-                    <tr style="height: 15px; font-size: 10px">
+                    <tr style="height: 15px; font-size: 10px; border-bottom: 1px solid black;">
                         <td style="width: 100px;">
                             <div style="width: 80px">
                                 <small style="float:left">{{$item->carat}}</small>
@@ -35,7 +35,7 @@
 
                         </td>
                     </tr>
-                    <tr style="height: 15px; font-size: 10px">
+                    <tr style="height: 15px; font-size: 10px; border-bottom: 1px solid black;">
                         <td style="width: 100px;">
                             <div style="width: 80px">
                                 <small style="float:left">{{$item->weight1}}</small>
@@ -44,7 +44,7 @@
 
                         </td>
                     </tr>
-                    <tr style="height: 15px; font-size: 10px">
+                    <tr style="height: 15px; font-size: 10px; border-bottom: 1px solid black;">
                         <td style="width: 100px;">
                             <div style="width: 80px">
                                 <small style="float:left">{{$item->weight2}}</small>
@@ -53,7 +53,7 @@
 
                         </td>
                     </tr>
-                    <tr style="height: 15px; font-size: 10px">
+                    <tr style="height: 15px; font-size: 10px;">
                         <td style="width: 100px;">
                             <div style="width: 80px">
                                 <small style="float:left">Rp</small>
