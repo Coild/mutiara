@@ -60,6 +60,7 @@ class ListProduk extends Component
                         'title' => 'Warning!',
                         'text' => 'Item Telah Di Scan.',
                     ]);
+                    $this->id_produk = '';
                 }
             } else {
                 $this->id_produk;
