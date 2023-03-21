@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout title="Dashboard">
     <x-item.pageheader> </x-item.pageheader>
     <div class="container-fluid">
         <div class="row">

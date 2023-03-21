@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout title="Detil Transakasi">
     <x-item.pageheader>
         <x-slot name="name"> Detil Transaksi </x-slot>
 

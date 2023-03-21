@@ -1,5 +1,4 @@
-<x-layout>
-
+<x-layout title="POS">
     <style>
         .tampil-bayar {
             font-size: 5em;

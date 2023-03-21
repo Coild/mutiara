@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout title="Product Transakasi">
     <x-item.pageheader>
         <x-slot name="name"> Produk </x-slot>
 
