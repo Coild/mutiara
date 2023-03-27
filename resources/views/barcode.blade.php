@@ -14,16 +14,22 @@
         @foreach ($data as $item)
             <div class="column">
                 <table class="col-md-4">
+
                     <thead class="balik" style="width: 150px; height: 15px; font-size: 10px;">
                         <th style=" float:left">
                             {{$item->barcode}}
                         </th>
                     </thead style="width: 150px">
-                    <tr class="balik" style="width: 150px;  border-top: 1px solid black;">
+                    <tr class="balik" style="width: 150px; height:15px">
                         <td>
                             {!! '<img src="data:image/png;base64,' .
                                 DNS1D::getBarcodePNG($item->barcode, 'C128', 1, 11) .
                                 '" alt="barcode"   />' !!}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border-top: 1px solid black;">
+
                         </td>
                     </tr>
                     <tr style="height: 15px; font-size: 10px; border-bottom: 1px solid black;">
