@@ -19,7 +19,7 @@
                             {{$item->barcode}}
                         </th>
                     </thead style="width: 150px">
-                    <tr class="balik" style="width: 150px">
+                    <tr class="balik" style="width: 150px;  border-top: 1px solid black;">
                         <td>
                             {!! '<img src="data:image/png;base64,' .
                                 DNS1D::getBarcodePNG($item->barcode, 'C128', 1, 11) .
@@ -28,7 +28,7 @@
                     </tr>
                     <tr style="height: 15px; font-size: 10px; border-bottom: 1px solid black;">
                         <td style="width: 100px;">
-                            <div style="width: 80px">
+                            <div style="width: 80px;  margin-top: 2px;">
                                 <small style="float:left">{{$item->carat}}</small>
                                 <small style="float:right">%</small>
                             </div>
