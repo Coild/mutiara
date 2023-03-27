@@ -6,7 +6,7 @@
                     <div class="row ml-3">
                         <div class="col-lg-12">
                             <div class="form-group row">
-                                <label for="search" class="col-lg-1 control-label">Search</label>
+                                <label for="search" class="col-lg-1 control-label">Barcode</label>
                                 <div class="col-lg-11">
                                     <input type="text" wire:model="id_produk" id="myInput" class="form-control">
                                 </div>
