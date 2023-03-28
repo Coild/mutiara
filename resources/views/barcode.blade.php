@@ -28,7 +28,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="border-top: 1px solid black;">
+                        <td style="border-bottom: 1px solid black;">
 
                         </td>
                     </tr>
