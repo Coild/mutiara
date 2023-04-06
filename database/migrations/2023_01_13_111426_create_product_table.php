@@ -25,7 +25,7 @@ class CreateProductTable extends Migration
             $table->string('shape');
             $table->string('grade');
             $table->float('weight2');
-            $table->integer('size');
+            $table->string('size');
             $table->bigInteger('price');
             $table->bigInteger('price_sell');
             $table->bigInteger('price_discount');
