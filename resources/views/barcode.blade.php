@@ -10,70 +10,81 @@
 </head>
 
 <body>
-    <div class="page">
-        @foreach ($data as $item)
-            <div class="column">
-                <table class="col-md-4">
+    @php
+        $i = 0;
+    @endphp
 
-                    <thead class="balik" style="width: 150px; height: 15px; font-size: 10px;">
-                        <th style=" float:left">
-                            {{$item->barcode}}
-                        </th>
-                    </thead style="width: 150px">
-                    <tr class="balik" style="width: 150px; height:15px">
-                        <td>
-                            {!! '<img src="data:image/png;base64,' .
-                                DNS1D::getBarcodePNG($item->barcode, 'C128', 1, 11) .
-                                '" alt="barcode"   />' !!}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="border-bottom: 1px solid black;">
+    @foreach ($data as $item)
+        @php
+            $i++;
+        @endphp
+        @if ($i == 1)
+            <div class="page">
+        @endif
+        <div class="column">
+            <table class="col-md-4">
 
-                        </td>
-                    </tr>
-                    <tr style="height: 15px; font-size: 10px; border-bottom: 1px solid black;">
-                        <td style="width: 100px;">
-                            <div style="width: 80px;  margin-top: 2px;">
-                                <small style="float:left">{{$item->carat}}</small>
-                                <small style="float:right">%</small>
-                            </div>
+                <thead class="balik" style="width: 150px; height: 15px; font-size: 10px;">
+                    <th style=" float:left">
+                        {{ $item->barcode }}
+                    </th>
+                </thead style="width: 150px">
+                <tr class="balik" style="width: 150px; height:15px">
+                    <td>
+                        {!! '<img src="data:image/png;base64,' .
+                            DNS1D::getBarcodePNG($item->barcode, 'C128', 1, 11) .
+                            '" alt="barcode"   />' !!}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="border-bottom: 1px solid black;">
 
-                        </td>
-                    </tr>
-                    <tr style="height: 15px; font-size: 10px; border-bottom: 1px solid black;">
-                        <td style="width: 100px;">
-                            <div style="width: 80px">
-                                <small style="float:left">{{$item->weight1}}</small>
-                                <small style="float:right">.gr</small>
-                            </div>
+                    </td>
+                </tr>
+                <tr style="height: 15px; font-size: 10px; border-bottom: 1px solid black;">
+                    <td style="width: 100px;">
+                        <div style="width: 80px;  margin-top: 2px;">
+                            <small style="float:left">{{ $item->carat }}</small>
+                            <small style="float:right">{{ $i }}%</small>
+                        </div>
 
-                        </td>
-                    </tr>
-                    <tr style="height: 15px; font-size: 10px; border-bottom: 1px solid black;">
-                        <td style="width: 100px;">
-                            <div style="width: 80px">
-                                <small style="float:left">{{$item->weight2}}</small>
-                                <small style="float:right">.gr</small>
-                            </div>
+                    </td>
+                </tr>
+                <tr style="height: 15px; font-size: 10px; border-bottom: 1px solid black;">
+                    <td style="width: 100px;">
+                        <div style="width: 80px">
+                            <small style="float:left">{{ $item->weight1 }}</small>
+                            <small style="float:right">.gr</small>
+                        </div>
 
-                        </td>
-                    </tr>
-                    <tr style="height: 15px; font-size: 10px;">
-                        <td style="width: 100px;">
-                            <div style="width: 80px">
-                                <small style="float:left">Rp</small>
-                                <small style="float:right">{{number_format($item->price_sell, 0, ',', '.')}}</small>
-                            </div>
+                    </td>
+                </tr>
+                <tr style="height: 15px; font-size: 10px; border-bottom: 1px solid black;">
+                    <td style="width: 100px;">
+                        <div style="width: 80px">
+                            <small style="float:left">{{ $item->weight2 }}</small>
+                            <small style="float:right">.gr</small>
+                        </div>
 
-                        </td>
-                    </tr>
-                </table>
+                    </td>
+                </tr>
+                <tr style="height: 15px; font-size: 10px;">
+                    <td style="width: 100px;">
+                        <div style="width: 80px">
+                            <small style="float:left">Rp</small>
+                            <small style="float:right">{{ number_format($item->price_sell, 0, ',', '.') }}</small>
+                        </div>
+
+                    </td>
+                </tr>
+            </table>
+        </div>
+        @if ($i % 48 == 0)
             </div>
-            {{-- {!! '<img src="data:image/png;base64,' .
-            DNS1D::getBarcodePNG($item->barcode, 'C128', 2, 50, [1, 1, 1], true) .
-            '" alt="barcode"   />' !!} --}}
-        @endforeach
+            <div class="page">
+        @endif
+    @endforeach
+
     </div>
 </body>
 
