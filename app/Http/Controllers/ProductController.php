@@ -191,10 +191,15 @@ class ProductController extends Controller
         }
     }
 
-    public function print_all_barcode()
+    public function print_all_barcode(Request $req)
     {
         // return "tes";
-        $data = Product::all();
+        // dd($req['tanggal']);
+        if ($req['tanggal'] == null) {
+            $data = Product::all();
+        } else {
+            $data = Product::all()->where('created_at', $req['tanggal']);
+        }
         if ($data) {
             return view('barcode', compact('data'));
         } else {

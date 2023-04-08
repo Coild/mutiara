@@ -46,7 +46,7 @@ $_scripts = array(
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{$title ?? "asli"}}</title>
+    <title>{{ $title ?? 'asli' }}</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -74,6 +74,8 @@ $_scripts = array(
     <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+    <!-- Include Select2 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 
 </head>
 
@@ -81,10 +83,10 @@ $_scripts = array(
         sidebar-mini layout-fixed">
 
     <x-widget.header> </x-widget.header>
-    @if (Auth::user()->level=='admin')
-    <x-widget.sidebar> </x-widget.sidebar>        
+    @if (Auth::user()->level == 'admin')
+        <x-widget.sidebar> </x-widget.sidebar>
     @else
-    <x-widget.sidebar_kasir> </x-widget.sidebar_kasir>   
+        <x-widget.sidebar_kasir> </x-widget.sidebar_kasir>
     @endif
     <div class="content-wrapper">
 
@@ -149,6 +151,12 @@ $_scripts = array(
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+
+
+
+    <!-- Include Select2 JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
     @livewireScripts
 
     <script>
@@ -169,22 +177,16 @@ $_scripts = array(
                 "responsive": true,
             });
         });
-    </script>
-    <script>
-        $(document).ready(function() {
 
-            $('.tampil-bayar').text('Kembali: Rp. ' + "0");
-            $('.tampil-terbilang').text("Nol Asu");
+        function cetak_barcode() {
 
-        });
-
-        // function tampilProduk() {
-        //     $('#modal-produk').modal('show');
-        // }
-
-        // function hideProduk() {
-        //     $('#modal-produk').modal('hide');
-        // }
+            data = document.getElementById("tanggals").value;
+            document.getElementById("kirim").value = data;
+            console.log(data);
+            const myForm = document.getElementById('cetak');
+            // Submit the form using JavaScript
+            myForm.submit();
+        }
     </script>
     @yield('js')
 

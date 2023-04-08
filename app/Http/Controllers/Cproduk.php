@@ -11,9 +11,11 @@ class Cproduk extends Controller
     //
     public function index(Request $request)
     {
-
         $data = Product::all();
-        return view('kasir.produk', compact('data'));
+        $tanggal = Product::select('created_at')->groupBy('created_at')
+        ->limit(5)->get();
+        // dd($tanggal);
+        return view('kasir.produk', compact('data','tanggal'));
     }
 
     public function store(Request $request)
@@ -77,6 +79,8 @@ class Cproduk extends Controller
         //     $produk = Produk::find($id);
         //     $dataproduk[] = $produk; 
         // }
+
+        dd($request);
 
         $data = Product::all();
 

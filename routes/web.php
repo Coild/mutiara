@@ -64,7 +64,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/product', [ProductController::class, 'store'])->name('product.store');
     Route::put('/product/{id}', [ProductController::class, 'update'])->name('product.update');
     Route::delete('/product/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
-    Route::get('/product/print/barcode', [ProductController::class, 'print_all_barcode'])->name('print_all.barcode');
+    Route::post('/product/print/barcode', [ProductController::class, 'print_all_barcode'])->name('print_all.barcode');
     Route::get('/product/print_barcode/{id}', [ProductController::class, 'print_barcode'])->name('print.barcode');
     // Route::get('/product/sertificate/{id}', [ProductController::class, 'print_sertificate'])->name('user.print.sertificate');
     Route::post('/product/upload-content', [ProductController::class, 'import'])->name('import.product');

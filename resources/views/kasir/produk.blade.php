@@ -6,10 +6,19 @@
     <div class="card">
         <div class="card-header">
             <h2 class="card-title">List Produk</h2>
+
             <button class="btn btn-primary float-right mr-3"
-                onclick="window.location.href='{{ route('print_all.barcode') }}'">Cetak Barcode</button>
+                onclick="cetak_barcode()">Cetak Barcode</button>
+            <select class="form-control float-right mr-3" style="width: 200px; float: right;" id="tanggals">
+                <option value="">Pilih Tanggal</option>
+                @foreach ($tanggal as $item)
+                    <option value="{{ $item['created_at'] }}">{{ $item['created_at'] }}</option>
+                @endforeach
+            </select>
             <button class="btn btn-primary float-right mr-3" data-toggle="modal" data-target="#tambah">Tambah</button>
+
             <button class="btn btn-primary float-right mr-3" data-toggle="modal" data-target="#upload">Upload</button>
+
 
         </div>
         <!-- /.card-header -->
@@ -470,7 +479,13 @@
         <!-- /.modal-dialog -->
     </div>
 
+    <form action="{{route('print_all.barcode')}}" method="post" id='cetak'>
+        <input type="hidden" name="tanggal" id="kirim">
+    </form>
+
     <script>
+       
+
         function lempar(data) {
             console.log(data['id']);
             document.getElementById("xid").value = data['id'];
