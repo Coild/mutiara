@@ -45,7 +45,7 @@
                     <td style="width: 100px;">
                         <div style="width: 80px;  margin-top: 2px;">
                             <small style="float:left">{{ $item->carat }}</small>
-                            <small style="float:right">{{ $i }}%</small>
+                            <small style="float:right">%</small>
                         </div>
 
                     </td>
