@@ -49,7 +49,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/produkedit', [Cproduk::class, 'update'])->name('produk.edit');
     Route::get('/produkhapus', [Cproduk::class, 'destroy'])->name('produk.hapus');
     Route::get('/produk', [Cproduk::class, 'index'])->name('produk');
-    Route::get('/jual', [kasir::class, 'jual'])->name('jual');
+    Route::get('/jual', [kasir::class, 'jual'])->middleware('no-cache')->name('jual');
     Route::get('/riwayat', [kasir::class, 'riwayat'])->name('riwayat');
     Route::post('/riwayat', [kasir::class, 'riwayat'])->name('riwayat.filter');
     Route::get('/detil_transaksi', [kasir::class, 'detil_transaksi'])->name('detil.transaksi');
