@@ -157,8 +157,9 @@ $_scripts = array(
     <!-- Include Select2 JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
+    {{-- @livewireScripts --}}
+    <script src="{{ asset('vendor/livewire/livewire.js') }}"></script>
     @livewireScripts
-
     <script>
         $(function() {
             $("#example1").DataTable({
