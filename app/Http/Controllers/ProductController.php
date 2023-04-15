@@ -216,12 +216,13 @@ class ProductController extends Controller
         // return $id;
         $data = Product::where('id', $id)->first();
         // return $data;
+        // dd(public_path().'/asset/sertif2.jpg');
         $pdf = new Fpdf('L', 'mm', array(102, 140));
 
         $pdf->SetFont('Arial', 'B', 15);
         $pdf->AddPage();
 
-        $pdf->Image("storage/img/sertif2.jpg", 0, 0, 140, 102);
+        $pdf->Image(public_path().'/asset/sertif2.jpg', 0, 0, 140, 102);
         $pdf->SetMargins(0, 0, 0);
 
 
