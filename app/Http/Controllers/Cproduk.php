@@ -12,7 +12,9 @@ class Cproduk extends Controller
     public function index(Request $request)
     {
         $data = Product::all();
-        $tanggal = Product::select('created_at')->groupBy('created_at')
+        $tanggal = Product::select('created_at')
+        ->groupBy('created_at')
+        ->orderBy('created_at')
         ->limit(5)->get();
         // dd($tanggal);
         return view('kasir.produk', compact('data','tanggal'));
