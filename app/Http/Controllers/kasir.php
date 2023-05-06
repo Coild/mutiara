@@ -23,19 +23,19 @@ class kasir extends Controller
         $today = date("Y-m-d"); // Get today's date in YYYY-MM-DD format
         $fs = $today;
         $fe = $today;
-        $pelanggan = Order::whereDate('date', '=', $today)
+        $pelanggan = Order::whereMonth('date', '=', $currentMonth)
             ->count();
         $barang = Product::where('status', 1)
-            ->whereDate('updated_at', '=', $today)
+            ->whereMonth('updated_at', '=', $currentMonth)
             ->count();
 
         // dd($barang);
 
         $todaycash = order::where('payment', 'Cash')
-            ->whereDate('date', '=', $today)
+            ->whereMonth('date', '=', $currentMonth)
             ->sum("total");
         $todayqris = order::where('payment', 'Qris')
-            ->whereDate('date', '=', $today)
+            ->whereMonth('date', '=', $currentMonth)
             ->sum("total");
 
         $filtercash = $todaycash;
@@ -49,6 +49,22 @@ class kasir extends Controller
                 ->whereBetween('date', [$req['start_date'], $req['end_date']])
                 ->sum("total");
             $filterqris =  order::where('payment', 'Qris')
+                ->whereBetween('date', [$req['start_date'], $req['end_date']])
+                ->sum("total");
+
+            //fillter card dashboard
+            $pelanggan = Order::whereBetween('date', [$req['start_date'], $req['end_date']])
+            ->count();
+            $barang = Product::where('status', 1)
+                ->whereBetween('updated_at', [$req['start_date'], $req['end_date']])
+                ->count();
+
+            // dd($barang);
+
+            $todaycash = order::where('payment', 'Cash')
+                ->whereBetween('date', [$req['start_date'], $req['end_date']])
+                ->sum("total");
+            $todayqris = order::where('payment', 'Qris')
                 ->whereBetween('date', [$req['start_date'], $req['end_date']])
                 ->sum("total");
         }
