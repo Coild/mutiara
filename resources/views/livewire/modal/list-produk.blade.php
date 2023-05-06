@@ -44,7 +44,7 @@
                                             <td>{{ $product['weight1'] . ' gram' }} </td>
                                             <td>{{ $product['grade'] }}</td>
                                             <td>{{ $product['weight2'] . ' gram' }} </td>
-                                            <td>{{ $product['price_discount'] }}</td>
+                                            <td>{{ number_format($product['price_discount'], 0, ',', '.') }}</td>
                                             <td><input type="text" name="diskon{{ $key }}"
                                                     wire:model="val.{{ $key }}.{{ 'discount' }}"
                                                     value="val.{{ $key }}.{{ 'discount' }}"></td>
@@ -61,7 +61,7 @@
                             <div class="form-group row">
                                 <label for="totalrp" class="col-lg-2 control-label">Total</label>
                                 <div class="col-lg-8">
-                                    <input type="text" id="totalrp" class="form-control" wire:model="total"
+                                    <input type="text" id="totalrp" class="form-control" wire:model="total_s"
                                         readonly>
                                 </div>
                             </div>
@@ -79,7 +79,7 @@
                             <div class="form-group row">
                                 <label for="diterima" class="col-lg-2 control-label">Diterima</label>
                                 <div class="col-lg-8">
-                                    <input type="number" wire:model="bayar" id="diterima" class="form-control"
+                                    <input type="text" wire:model="bayar" id="diterima" class="form-control"
                                         name="diterima">
                                 </div>
                             </div>
@@ -87,7 +87,7 @@
                                 <label for="kembali" class="col-lg-2 control-label">Kembali</label>
                                 <div class="col-lg-8">
                                     <input type="text" id="kembali" name="kembali" class="form-control"
-                                        value="{{ $kembali }}" readonly>
+                                        wire:model="kembali_s" readonly>
                                 </div>
                             </div>
 

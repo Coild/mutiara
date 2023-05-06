@@ -172,7 +172,7 @@ class kasir extends Controller
 
         $beli = [
             'name' => $req['nama'],
-            'uang' => $req['diterima'],
+            'uang' =>  intval(str_replace('.', '', $req['diterima'])),
             'order' => $barang
         ];
 
@@ -182,14 +182,13 @@ class kasir extends Controller
         $today = Carbon::now()->format('Y-m-d');
         $data = new Order();
 
-
         $data->name = $req['nama'];
         $data->phone = $req['nohp'];
         $data->address = $req['alamat'];
         $data->payment = $req['metode'];
         $data->bill_code = $this->rand_bill();
         $data->code = $req['code'];
-        $data->uang = $req['diterima'];
+        $data->uang =  intval(str_replace('.', '', $req['diterima']));
         $data->date = $today;
         $data->save();
 
