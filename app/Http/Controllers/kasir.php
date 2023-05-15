@@ -37,9 +37,17 @@ class kasir extends Controller
         $todayqris = order::where('payment', 'Qris')
             ->whereMonth('date', '=', $currentMonth)
             ->sum("total");
+        $todaytf = order::where('payment', 'Transfer')
+            ->whereMonth('date', '=', $currentMonth)
+            ->sum("total");
+        $todaycard = order::where('payment', 'Card')
+            ->whereMonth('date', '=', $currentMonth)
+            ->sum("total");
 
         $filtercash = $todaycash;
         $filterqris = $todayqris;
+        $filtertf = $todaytf;
+        $filtercard = $todaycard;
 
         if (isset($req['filter'])) {
             // dd($req);
@@ -56,13 +64,19 @@ class kasir extends Controller
             $filterqris =  order::where('payment', 'Qris')
                 ->whereBetween('date', [$req['start_date'], $req['end_date']])
                 ->sum("total");
+            $filtertf =  order::where('payment', 'Transfer')
+                ->whereBetween('date', [$req['start_date'], $req['end_date']])
+                ->sum("total");
+            $filtercard =  order::where('payment', 'Card')
+                ->whereBetween('date', [$req['start_date'], $req['end_date']])
+                ->sum("total");
 
             //fillter card dashboard
             $pelanggan = Order::whereBetween('date', [$req['start_date'], $req['end_date']])
                 ->count();
             $barang = Product::where('status', 1)
                 ->whereBetween('updated_at', [$sdate, $edate])
-            ->count();
+                ->count();
             // dd($barang->get());
 
             // dd($barang);
@@ -73,6 +87,12 @@ class kasir extends Controller
             $todayqris = order::where('payment', 'Qris')
                 ->whereBetween('date', [$req['start_date'], $req['end_date']])
                 ->sum("total");
+            $todaytf = order::where('payment', 'Transfer')
+                ->whereBetween('date', [$req['start_date'], $req['end_date']])
+                ->sum("total");
+            $todaycard = order::where('payment', 'Card')
+                ->whereBetween('date', [$req['start_date'], $req['end_date']])
+                ->sum("total");
         }
 
         $lastcash = order::where('payment', 'Cash')
@@ -81,12 +101,24 @@ class kasir extends Controller
         $lastqris = order::where('payment', 'Qris')
             ->whereBetween('date', [$startDate, $today])
             ->sum("total");
+        $lasttf = order::where('payment', 'Transfer')
+            ->whereBetween('date', [$startDate, $today])
+            ->sum("total");
+        $lastcard = order::where('payment', 'Card')
+            ->whereBetween('date', [$startDate, $today])
+            ->sum("total");
 
 
         $monthcash = order::where('payment', 'Cash')
             ->whereMonth('date', '=', $currentMonth)
             ->sum("total");
         $monthqris = order::where('payment', 'Qris')
+            ->whereMonth('date', '=', $currentMonth)
+            ->sum("total");
+        $monthtf = order::where('payment', 'Transfer')
+            ->whereMonth('date', '=', $currentMonth)
+            ->sum("total");
+        $monthcard = order::where('payment', 'Card')
             ->whereMonth('date', '=', $currentMonth)
             ->sum("total");
 
@@ -109,7 +141,7 @@ class kasir extends Controller
 
         // dd($barang);
 
-        return view('dashboard', compact('pelanggan', 'barang', 'todaycash', 'todayqris', 'lastcash', 'lastqris', 'monthqris', 'monthcash', 'filtercash', 'filterqris', 'bulan', 'jumlah', 'fs', 'fe'));
+        return view('dashboard', compact('pelanggan', 'barang', 'todaycash', 'todayqris', 'todaytf', 'todaycard', 'lastcash', 'lastqris', 'lasttf', 'lastcard', 'monthqris', 'monthcash', 'monthtf', 'monthcard', 'filtercash', 'filterqris', 'filtertf', 'filtercard', 'bulan', 'jumlah', 'fs', 'fe'));
     }
 
     public function agregat(Request $request)

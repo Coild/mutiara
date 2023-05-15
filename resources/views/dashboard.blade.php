@@ -2,13 +2,13 @@
     <x-item.pageheader> </x-item.pageheader>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-3 col-6">
+            <div class="col-lg-2 col-4">
                 <!-- small box -->
                 <div class="small-box bg-success">
                     <div class="inner">
                         {{-- <h3>{{ nama }}</h3> --}}
-                        <h3> {{ number_format($todayqris, 0, '.', '.') }} </h3>
-                        <p>Pemasukan Qris</p>
+                        <h5> {{ number_format($todaycash, 0, '.', '.') }} </h5>
+                        <p>Pemasukan Cash</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-bag"></i>
@@ -17,13 +17,13 @@
                 </div>
             </div>
             <!-- ./col -->
-            <div class="col-lg-3 col-6">
+            <div class="col-lg-2 col-4">
                 <!-- small box -->
                 <div class="small-box bg-success">
                     <div class="inner">
-                        {{-- <h3>{{config('settings.currency_symbol')}}}</h3> --}}
-                        <h3> {{ number_format($todaycash, 0, '.', '.') }} </h3>
-                        <p>Pemasukan Cash</p>
+                        {{-- <h5>{{config('settings.currency_symbol')}}}</h5> --}}
+                        <h5> {{ number_format($todayqris, 0, '.', '.') }} </h5>
+                        <p>Pemasukan Qris</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-stats-bars"></i>
@@ -32,12 +32,42 @@
                 </div>
             </div>
             <!-- ./col -->
-            <div class="col-lg-3 col-6">
+            <div class="col-lg-2 col-4">
                 <!-- small box -->
                 <div class="small-box bg-success">
                     <div class="inner">
-                        {{-- <h3>{{config('settings.currency_symbol')}} {{number_format(476, 2)}}</h3> --}}
-                        <h3> {{ $barang }} </h3>
+                        {{-- <h5>{{ nama }}</h5> --}}
+                        <h5> {{ number_format($todaycard, 0, '.', '.') }} </h5>
+                        <p>Pemasukan Card</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-bag"></i>
+                    </div>
+
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-2 col-4">
+                <!-- small box -->
+                <div class="small-box bg-success">
+                    <div class="inner">
+                        {{-- <h5>{{config('settings.currency_symbol')}}}</h5> --}}
+                        <h5> {{ number_format($todaytf, 0, '.', '.') }} </h5>
+                        <p>Pemasukan Transfer</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-stats-bars"></i>
+                    </div>
+
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-2 col-4">
+                <!-- small box -->
+                <div class="small-box bg-success">
+                    <div class="inner">
+                        {{-- <h5>{{config('settings.currency_symbol')}} {{number_format(476, 2)}}</h5> --}}
+                        <h5> {{ $barang }} </h5>
                         <p>Barang Terjual</p>
                     </div>
                     <div class="icon">
@@ -47,11 +77,11 @@
                 </div>
             </div>
             <!-- ./col -->
-            <div class="col-lg-3 col-6">
+            <div class="col-lg-2 col-4">
                 <!-- small box -->
                 <div class="small-box bg-success">
                     <div class="inner">
-                        <h3>{{ $pelanggan }}</h3>
+                        <h5>{{ $pelanggan }}</h5>
 
                         <p>Jumlah Pelanggan</p>
                     </div>
@@ -65,7 +95,7 @@
         </div>
         <!-- ./col -->
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <!-- BAR CHART -->
                 <div class="card card-success">
                     <div class="card-header">
@@ -81,13 +111,13 @@
                 </div>
                 <!-- /.card -->
             </div>
-            <div class="col-md-6">
+            <div class="col-md-7">
                 <!-- BAR CHART -->
                 <div class="card card-success">
                     <div class="card-header">
                         <h3 class="card-title">Penjualan </h3>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body table-responsive p-2">
                         <form action="{{ route('home') }}" method="post">
                             <div class="row">
                                 @csrf
@@ -105,7 +135,7 @@
                                 </div>
                             </div>
                         </form>
-                        <table class="table mt-3">
+                        <table class="table table-hover text-nowrap mt-3">
                             <thead>
                                 <td class="col-md-4">
 
@@ -115,6 +145,12 @@
                                 </td>
                                 <td>
                                     Qris
+                                </td>
+                                <td>
+                                    Card
+                                </td>
+                                <td>
+                                    Transfer
                                 </td>
                                 <td>
                                     Total
@@ -131,7 +167,13 @@
                                     {{ number_format($filterqris, 0, '.', '.') }}
                                 </td>
                                 <td>
-                                    {{ number_format($filtercash + $filterqris, 0, '.', '.') }}
+                                    {{ number_format($filtercard, 0, '.', '.') }}
+                                </td>
+                                <td>
+                                    {{ number_format($filtertf, 0, '.', '.') }}
+                                </td>
+                                <td>
+                                    {{ number_format($filtercash + $filterqris+$filtercard+$filtertf, 0, '.', '.') }}
                                 </td>
                             </tr>
                             <tr>
@@ -145,7 +187,13 @@
                                     {{ number_format($lastqris, 0, '.', '.') }}
                                 </td>
                                 <td>
-                                    {{ number_format($lastcash + $lastqris, 0, '.', '.') }}
+                                    {{ number_format($lastcard, 0, '.', '.') }}
+                                </td>
+                                <td>
+                                    {{ number_format($lasttf, 0, '.', '.') }}
+                                </td>
+                                <td>
+                                    {{ number_format($lastcash + $lastqris + $lastcard + $lasttf, 0, '.', '.') }}
                                 </td>
                             </tr>
                             <tr>
@@ -159,7 +207,13 @@
                                     {{ number_format($monthqris, 0, '.', '.') }}
                                 </td>
                                 <td>
-                                    {{ number_format($monthcash + $monthqris, 0, '.', '.') }}
+                                    {{ number_format($monthcard, 0, '.', '.') }}
+                                </td>
+                                <td>
+                                    {{ number_format($monthtf, 0, '.', '.') }}
+                                </td>
+                                <td>
+                                    {{ number_format($monthcash + $monthqris + $monthcard + $monthtf, 0, '.', '.') }}
                                 </td>
                             </tr>
                         </table>
