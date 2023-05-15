@@ -61,9 +61,9 @@ class kasir extends Controller
             $pelanggan = Order::whereBetween('date', [$req['start_date'], $req['end_date']])
                 ->count();
             $barang = Product::where('status', 1)
-                ->whereBetween('updated_at', [$sdate, $edate]);
-            // ->count();
-            dd($barang->get());
+                ->whereBetween('updated_at', [$sdate, $edate])
+            ->count();
+            // dd($barang->get());
 
             // dd($barang);
 
