@@ -6,6 +6,7 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\kasir;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +26,12 @@ Route::get('/', [authController::class, 'index'])->name('login');
 Route::get('/logout', [authController::class, 'logout'])->name('logout');
 
 Route::post('/', [authController::class, 'login'])->name('post.login');
+// Route::get('/storage_link', [StorageLinkController::class, 'index'])->name('storageLink.index');
+
+Route::get('/linkstorage', function () {
+    Artisan::call('storage:link');
+    echo "nice";
+});
 
 Route::get('/coba', function () {
     return view('dummy');

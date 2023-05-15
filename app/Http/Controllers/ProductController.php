@@ -221,7 +221,7 @@ class ProductController extends Controller
         $pdf->SetFont('Arial', 'B', 15);
         $pdf->AddPage();
 
-        $pdf->Image("storage/img/sertif2.jpg", 0, 0, 140, 102);
+        $pdf->Image("storage/img/sertif3.jpg", 0, 0, 140, 102);
         $pdf->SetMargins(0, 0, 0);
 
 

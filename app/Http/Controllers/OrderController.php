@@ -61,7 +61,7 @@ class OrderController extends Controller
         for ($i = 0; $i < sizeof($order->product); $i++) {
             $pdf->SetFont('Arial', 'b', 12);
             $pdf->AddPage();
-            $pdf->Image("storage/img/nota2.jpg", 0, 0, 200, 110);
+            $pdf->Image("storage/img/nota3.jpg", 0, 0, 200, 110);
             $pdf->SetFont('Arial', '', 10);
             $pdf->Cell(120, 5, '', 0, 0, 'L');
             $pdf->Cell(20, 5, 'Date', 0, 0, 'L');
@@ -112,8 +112,7 @@ class OrderController extends Controller
                     $order->product[$i]->metal . ", " .
                     $order->product[$i]->carat . " crt, " .
                     $order->product[$i]->weight1 . " gr, " .
-                    $order->product[$i]->pearls . ", " .
-                    $order->product[$i]->color . ", ",
+                    $order->product[$i]->pearls . ", ",
                 0,
                 0,
                 'L'
@@ -126,7 +125,8 @@ class OrderController extends Controller
             $pdf->Cell(
                 90,
                 5,
-                $order->product[$i]->shape . ", " .
+                $order->product[$i]->color . ", " .
+                    $order->product[$i]->shape . ", " .
                     $order->product[$i]->grade . ", " .
                     $order->product[$i]->weight2 . " gr, " .
                     $order->product[$i]->size . " mm",
