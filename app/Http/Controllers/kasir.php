@@ -45,6 +45,11 @@ class kasir extends Controller
             // dd($req);
             $fs = $req['start_date'];
             $fe = $req['end_date'];
+            $startDate = Carbon::parse($fs)->startOfDay()->timestamp;
+            $sdate = Carbon::createFromTimestamp($startDate);
+            $endDate = Carbon::parse($fe)->endOfDay()->timestamp;
+            $edate = Carbon::createFromTimestamp($endDate);
+            // dd($edate);
             $filtercash =  order::where('payment', 'Cash')
                 ->whereBetween('date', [$req['start_date'], $req['end_date']])
                 ->sum("total");
@@ -54,10 +59,11 @@ class kasir extends Controller
 
             //fillter card dashboard
             $pelanggan = Order::whereBetween('date', [$req['start_date'], $req['end_date']])
-            ->count();
-            $barang = Product::where('status', 1)
-                ->whereBetween('updated_at', [$req['start_date'], $req['end_date']])
                 ->count();
+            $barang = Product::where('status', 1)
+                ->whereBetween('updated_at', [$sdate, $edate])
+            ->count();
+            // dd($barang->get());
 
             // dd($barang);
 
