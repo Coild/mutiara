@@ -216,6 +216,7 @@ class ProductController extends Controller
         // return $id;
         $data = Product::where('id', $id)->first();
         // return $data;
+        // dd(public_path().'/asset/sertif2.jpg');
         $pdf = new Fpdf('L', 'mm', array(102, 140));
 
         $pdf->SetFont('Arial', 'B', 15);

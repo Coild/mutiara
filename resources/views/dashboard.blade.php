@@ -7,7 +7,7 @@
                 <div class="small-box bg-success">
                     <div class="inner">
                         {{-- <h3>{{ nama }}</h3> --}}
-                        <h3> {{ $todayqris }} </h3>
+                        <h3> {{ number_format($todayqris, 0, '.', '.') }} </h3>
                         <p>Pemasukan Qris</p>
                     </div>
                     <div class="icon">
@@ -22,7 +22,7 @@
                 <div class="small-box bg-success">
                     <div class="inner">
                         {{-- <h3>{{config('settings.currency_symbol')}}}</h3> --}}
-                        <h3> {{ $todaycash }} </h3>
+                        <h3> {{ number_format($todaycash, 0, '.', '.') }} </h3>
                         <p>Pemasukan Cash</p>
                     </div>
                     <div class="icon">

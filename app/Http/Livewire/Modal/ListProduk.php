@@ -15,8 +15,11 @@ class ListProduk extends Component
     public $cart;
     public $id_produk;
     public $total;
+    public $total_s;
     public $kembali;
+    public $kembali_s;
     public $bayar;
+    public $bayar_i;
     public $pesan;
 
 
@@ -51,6 +54,7 @@ class ListProduk extends Component
                     array_push($this->val, $isi);
 
                     $this->total += $isi['price_sell'];
+                    $this->total_s = number_format($this->total, 0, ',', '.');
 
                     Session::put('total', $this->total);
                     Session::put('data',  $this->val);
@@ -68,7 +72,14 @@ class ListProduk extends Component
         }
 
         if ($propertyName === 'bayar') {
-            $this->kembali = intval($this->bayar) - intval($this->total);
+            // Convert the formatted number back to an integer
+            $this->bayar_i = intval(str_replace('.', '', $this->bayar));
+            $this->kembali = intval($this->bayar_i) - intval($this->total);
+            // Format the input number with dots every three digits
+            $this->bayar = number_format($this->bayar_i, 0, ',', '.');
+
+            
+            $this->kembali_s = number_format($this->kembali, 0, '.', ',');
         }
     }
 
@@ -100,6 +111,7 @@ class ListProduk extends Component
     {
 
         $this->total -= $this->val[$key]['price_discount'];
+        $this->total_s = number_format($this->total, 0, ',', '.');
         unset($this->val[$key]);
 
         // array_push($data, $isi);
@@ -114,6 +126,7 @@ class ListProduk extends Component
         foreach ($this->val as $key => $item) {
             $this->val[$key]['price_discount'] = intval($this->val[$key]['price_sell'] - (($this->val[$key]['discount'] / 100) * $this->val[$key]['price_sell']));
             $this->total += $this->val[$key]['price_discount'];
+            $this->total_s = number_format($this->total, 0, ',', '.');
         }
         Session::put('data', $this->val);
         // dd($this->val);
@@ -124,8 +137,10 @@ class ListProduk extends Component
     {
         $this->count = 0;
         $this->kembali = 0;
+        $this->kembali_s = number_format($this->kembali, 0, ',', '.');
         $this->bayar = 0;
         $this->total = Session::get('total') ?? 0;
+        $this->total_s = number_format($this->total, 0, ',', '.');
         $this->val = Session::get('data') ?? [];
 
         // $this->content = $post->content;
