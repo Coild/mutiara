@@ -15,7 +15,7 @@
                 <img src="{{ asset('dist/img/avatar.png') }}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">{{ Auth::user()->level }}</a>
+                <a href="#" class="d-block">{{ Auth::user()->nama }} ({{ Auth::user()->level }})</a>
             </div>
         </div>
   
