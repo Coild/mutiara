@@ -287,6 +287,13 @@ class kasir extends Controller
         return view('kasir.jual', compact('data'));
     }
 
+    public function edit_payment(Request $req){
+        // dd($req);
+        $produk = Order::find($req->id);
+        $produk->update(["payment" => $req->metode]);
+        return redirect(route('riwayat'));
+    }
+
     public function detil_transaksi(Request $req)
     {
         $data = Order::join('product', 'product.order_id', '=', 'order.id')

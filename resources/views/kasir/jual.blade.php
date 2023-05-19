@@ -32,11 +32,12 @@
                     <th>Kode</th>
                     <th>Kode Tagihan</th>
                     <th>Total</th>
+                    <th>Pembayaran</th>
                     {{-- <th>Received Amount</th> --}}
                     {{-- <th>Status</th> --}}
                     {{-- <th>To Pay</th> --}}
                     <th>Tanggal Transaksi</th>
-                    <th>Detail</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -53,11 +54,13 @@
                     <td>{{$item['code']}}</td>
                     <td>{{$item['bill_code']}}</td>
                     <td>{{ 'Rp' }} {{number_format($item['total'], 0, ',', '.')}}</td>
+                    <td>{{$item['payment']}}</td>
                     <td>{{$item['date']}}</td>
                     <td>
                         {{-- /order/invoice/{id_order} --}}
                         <button class="btn btn-success" onclick="window.location.href='{{ route('detil.transaksi') }}?id={{$item['id']}}'"><i class="fa fa-eye">Lihat</i></button>
                         <button class="btn btn-primary" onclick="window.location.href='{{ '/order/invoice/'.$item['id']}}'"><i class="fa fa-book">Cetak</i></button>
+                        <button class="btn btn-warning" onclick='isi_id(@json($item))' data-toggle="modal" data-target="#tambah"><i class="fa fa-pen">Edit</i></button>
                     </td>
                 </tr>
                 @endforeach
@@ -78,7 +81,46 @@
                 </tr>
             </tfoot>
         </table>
-        {{-- {{ $orders->render() }} --}}
+        {{-- {{ $orders->render() }} --}} 
     </div>
 </div>    
+
+<div class="modal fade" id="tambah">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Edit metode bayar</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('edit_payment') }}" method="POST" >
+                    @csrf
+                    <input type="hidden" name="id" id="isi_id">
+
+                    <div class="form-group row">
+                        <label for="totalrp" class="col-lg-2 control-label">Payment Method</label>
+                        <div class="col-lg-10">
+                            <select name="metode" id="metode" class="form-control">
+                                <option value="Cash">Cash</option>
+                                <option value="Qris">Qris</option>
+                                <option value="Transfer">Transfer</option>
+                                <option value="Card">Card</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary float-right">Save changes</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
 </x-layout>

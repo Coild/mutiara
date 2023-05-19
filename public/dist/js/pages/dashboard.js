@@ -112,3 +112,8 @@ $(function () {
   })
 
   })
+
+function isi_id(data) {
+  // console.log(data['id']);
+  document.getElementById("isi_id").value = data['id'];
+}
