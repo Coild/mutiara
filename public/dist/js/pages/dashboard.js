@@ -114,6 +114,9 @@ $(function () {
   })
 
 function isi_id(data) {
-  // console.log(data['id']);
+  console.log(data['payment']);
   document.getElementById("isi_id").value = data['id'];
+  document.getElementById("isi_bayar").value = data['payment'];
+  document.getElementById("isi_nama").value = data['name'];
+  document.getElementById("isi_kode").value = data['bill_code'];
 }
