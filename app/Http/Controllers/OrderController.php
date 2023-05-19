@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Codedge\Fpdf\Fpdf\Fpdf;
 use DateTime;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -44,6 +45,8 @@ class OrderController extends Controller
     public function print_invoice($id)
     {
         // return "tes";
+        $user = Auth::user()->nama;
+        // return $user;
         $order = Order::with(['product'])->where('id', '=', $id)->first();
         // return sizeof($order->product);
         if (!$order) {
@@ -61,6 +64,10 @@ class OrderController extends Controller
         for ($i = 0; $i < sizeof($order->product); $i++) {
             $pdf->SetFont('Arial', 'b', 12);
             $pdf->AddPage();
+
+            $pdf->SetMargins(10, 10, 0);
+            $pdf->SetAutoPageBreak(false, 0);
+
             $pdf->Image("storage/img/nota2.jpg", 0, 0, 200, 110);
             $pdf->SetFont('Arial', '', 10);
             $pdf->Cell(120, 5, '', 0, 0, 'L');
@@ -112,8 +119,7 @@ class OrderController extends Controller
                     $order->product[$i]->metal . ", " .
                     $order->product[$i]->carat . " crt, " .
                     $order->product[$i]->weight1 . " gr, " .
-                    $order->product[$i]->pearls . ", " .
-                    $order->product[$i]->color . ", ",
+                    $order->product[$i]->pearls . ", ",
                 0,
                 0,
                 'L'
@@ -126,7 +132,8 @@ class OrderController extends Controller
             $pdf->Cell(
                 90,
                 5,
-                $order->product[$i]->shape . ", " .
+                $order->product[$i]->color . ", " .
+                    $order->product[$i]->shape . ", " .
                     $order->product[$i]->grade . ", " .
                     $order->product[$i]->weight2 . " gr, " .
                     $order->product[$i]->size . " mm",
@@ -143,6 +150,12 @@ class OrderController extends Controller
             $pdf->Cell(90, 5, '', 0, 0, 'L');
             $pdf->Cell(35, 5, 'TOTAL :', 0, 0, 'R');
             $pdf->Cell(25, 5, 'Rp. ' . number_format($order->product[$i]->price_discount, 0, ',', '.'), 0, 1, 'L');
+            $pdf->ln();
+            // $pdf->SetAutoPageBreak(false);
+            $pdf->SetFont('Arial', '', 8);
+            $pdf->Cell(93, 40, '', 0, 0, 'R');
+            $pdf->Cell(21, 39, $user, 0, 1, 'C');
+            // $pdf->Cell(35, 5, $user, 1, 0, 'R');
         }
         $pdf->Output();
         exit;
