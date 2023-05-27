@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\authController;
 use App\Http\Controllers\Cproduk;
+use App\Http\Controllers\grosir;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\kasir;
 use App\Http\Controllers\OrderController;
@@ -64,6 +65,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/setting', [kasir::class, 'setting'])->name('setting');
     Route::post('/buy', [kasir::class, 'beli'])->name('beli');
     Route::get('/dummy', [Cproduk::class, 'cetakBarcode'])->name('cetak');
+
+    //grosir
+    Route::get('/grosir', [grosir::class, 'grosir'])->name('grosir');
+    Route::post('/grosir', [grosir::class, 'tambah_grosir'])->name('grosir.post');
+    Route::get('/grosir_edit', [grosir::class, 'edit_grosir'])->name('grosir.edit');
+    Route::get('/grosir_import', [grosir::class, 'import_grosir'])->name('grosir.import');
+    Route::get('/pos_grosir', [grosir::class, 'pos_grosir'])->name('grosir.pos');
 
 
     Route::get('/product', [ProductController::class, 'index'])->name('product.index');
