@@ -29,6 +29,12 @@
                   </a>
               </li>
               <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <p>Dashboard Grosir</p>
+                </a>
+            </li>
+              <li class="nav-item has-treeview">
                   <a href="{{ route('produk') }}" class="nav-link ">
                       <i class="nav-icon fas fa-th-large"></i>
                       <p>Products</p>
@@ -40,6 +46,18 @@
                       <p>Open POS</p>
                   </a>
               </li>
+              <li class="nav-item has-treeview">
+                <a href="{{ route('grosir') }}" class="nav-link ">
+                    <i class="nav-icon fas fa-th-large"></i>
+                    <p>Grosir</p>
+                </a>
+            </li>
+            <li class="nav-item has-treeview">
+                <a href="{{ route('pos_grosir') }}" class="nav-link ">
+                    <i class="nav-icon fas fa-cart-plus"></i>
+                    <p>POS Grosir</p>
+                </a>
+            </li>
               <li class="nav-item has-treeview">
                   <a href="{{ route('riwayat') }}" class="nav-link ">
                       <i class="nav-icon fas fa-cart-plus"></i>

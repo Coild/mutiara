@@ -35,6 +35,18 @@
                     </a>
                 </li>
                 <li class="nav-item has-treeview">
+                    <a href="{{ route('grosir') }}" class="nav-link ">
+                        <i class="nav-icon fas fa-th-large"></i>
+                        <p>Grosir</p>
+                    </a>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="{{ route('pos_grosir') }}" class="nav-link ">
+                        <i class="nav-icon fas fa-cart-plus"></i>
+                        <p>POS Grosir</p>
+                    </a>
+                </li>
+                <li class="nav-item has-treeview">
                     <a href="{{ route('riwayat') }}" class="nav-link ">
                         <i class="nav-icon fas fa-cart-plus"></i>
                         <p>Riwayat</p>
