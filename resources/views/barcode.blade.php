@@ -44,7 +44,7 @@
                 <tr style="height: 15px; font-size: 10px; border-bottom: 1px solid black;">
                     <td style="width: 100px;">
                         <div style="width: 80px;  margin-top: 2px;">
-                            <small style="float:left">{{ rtrim($item->carat, '0')  }}</small>
+                            <small style="float:left">{{ rtrim(number_format($item->carat, 2), '0')  }}</small>
                             <small style="float:right">%</small>
                         </div>
 
