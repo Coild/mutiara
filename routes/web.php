@@ -84,6 +84,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/product/print_barcode/{id}', [ProductController::class, 'print_barcode'])->name('print.barcode');
     // Route::get('/product/sertificate/{id}', [ProductController::class, 'print_sertificate'])->name('user.print.sertificate');
     Route::post('/product/upload-content', [ProductController::class, 'import'])->name('import.product');
+    Route::get('/export/xls', [ProductController::class, 'exportProduct'])->name('export.product');
 
     // Route::post('/order/agregat', [OrderController::class, 'agregat'])->name('order.agregat');
     // Route::get('/order/invoice/{id}', [OrderController::class, 'print_invoice'])->name('order.print_invoice');

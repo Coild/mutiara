@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\product as ExportsProduct;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Codedge\Fpdf\Fpdf\Fpdf;
 use Illuminate\Http\Response;
 use App\Imports\ProductImport;
+use Maatwebsite\Excel\Excel as ExcelExcel;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
@@ -363,5 +365,11 @@ class ProductController extends Controller
         } else {
             throw new \Exception('Invalid file extension', Response::HTTP_UNSUPPORTED_MEDIA_TYPE); //415 error
         }
+    }
+
+    public function exportProduct()
+    {
+
+        return Excel::download(new ExportsProduct, 'product.xlsx');
     }
 }
