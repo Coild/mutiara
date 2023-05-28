@@ -9,8 +9,16 @@ use Illuminate\Support\Facades\Validator;
 use Codedge\Fpdf\Fpdf\Fpdf;
 use Illuminate\Http\Response;
 use App\Imports\ProductImport;
+use App\Models\grosir;
+use DateTime;
+use Exception;
 use Maatwebsite\Excel\Excel as ExcelExcel;
 use Maatwebsite\Excel\Facades\Excel;
+use SpreadsheetReader;
+
+require('excel/php-excel-reader/excel_reader2.php');
+
+require('excel/SpreadsheetReader.php');
 
 class ProductController extends Controller
 {
@@ -367,9 +375,75 @@ class ProductController extends Controller
         }
     }
 
+    public function revisi(Request $req)
+    {
+        $file = $req->file('uploaded_file');
+        $dts = new  DateTime();
+        $result = $dts->format('Y-m-d-H-i-s');
+        $exten = $file->getClientOriginalExtension();
+        $nama = 'files' . $result . '.' . $exten;
+        $tujuan_upload = 'data/';
+        $file->move($tujuan_upload, $nama);
+        // dd($tujuan_upload.$nama);
+        if (file_exists($tujuan_upload . $nama)) {
+            echo 'ada';
+        } else {
+            echo 'tiada';
+        }
+        try {
+            $Spreadsheet = new SpreadsheetReader($tujuan_upload . $nama);
+            // dd($Spreadsheet);
+            // $Sheets = $Spreadsheet->Sheets();
+            // dd($Sheets);
+            $index = 0;
+            foreach ($Spreadsheet as  $row) {
+                // dd($row);
+                $index++;
+                if ($index > 1) {
+                    $string = uniqid(rand());
+                    $randomString = substr($string, 0, 8);
+                    // dd($row);
+                    if ($row) {
+                        $data = [
+                            'type' => $row[1],
+                            'metal' => $row[2],
+                            'carat' => $row[3],
+                            'weight1' => $row[4],
+                            'pearls' => $row[5],
+                            'color' => $row[6],
+                            'shape' => $row[7],
+                            'grade' => $row[8],
+                            'weight2' => $row[9],
+                            'size' => $row[10],
+                            'price' => $row[11],
+                            'price_sell' => $row[12],
+                            'price_discount' => $row[12]
+                        ];
+                        // dd($data);
+                        try {
+                            if ($row[0] != '') {
+                                Product::updateOrCreate(
+                                    ['barcode' => $row[13]],
+                                    $data);
+                            }
+                        } catch (Exception $err) {
+                            echo 'Message: ' . $err->getMessage();
+                        }
+                    } else {
+                        echo "kosong";
+                        // return "tidak";
+                    }
+                }
+            }
+        } catch (Exception $E) {
+            echo $E->getMessage();
+        }
+        return redirect(route('grosir'));
+    }
+
     public function exportProduct()
     {
-
-        return Excel::download(new ExportsProduct, 'product.xlsx');
+        // dd('ayo');
+        return Excel::download(new ExportsProduct, 'product.csv', ExcelExcel::CSV);
     }
 }

@@ -19,6 +19,8 @@
 
             <button class="btn btn-primary float-right mr-3" data-toggle="modal" data-target="#upload">Upload</button>
 
+            <button class="btn btn-primary float-right mr-3" data-toggle="modal" data-target="#revisi">Revisi</button>
+
 
         </div>
         <!-- /.card-header -->
@@ -307,6 +309,48 @@
         <!-- /.modal-dialog -->
     </div>
 
+    <div class="modal fade" id="revisi">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Revisi Produk</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('revisi.product') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        {{-- Download Template <a href="">disini</a> --}}
+                        {{-- <div class="form-group">
+                            <label for="name">File</label>
+                            <input type="file" name="uploaded_file" class="form-control">
+                        </div> --}}
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Pilih File</label>
+                            <div class="col-sm-10">
+                                <input type="file" name="uploaded_file" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <p>Download file disini</p>
+                            <button type="button" class="btn btn-sm btn-primary m-3" onclick="pergi('{{ route('export.product') }}')">unduh</button>
+                        </div>
+
+                        <div class="flex justify-content-between">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary float-right">Submit</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
     <div class="modal fade" id="edit">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -485,6 +529,9 @@
 
     <script>
        
+       function pergi(link) {
+        window.location.href = link;
+       }
 
         function lempar(data) {
             console.log(data['id']);
