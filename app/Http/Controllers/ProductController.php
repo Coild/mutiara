@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Exports\product as ExportsProduct;
+use App\Exports\riwayat as exportRiwayat;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Codedge\Fpdf\Fpdf\Fpdf;
 use Illuminate\Http\Response;
 use App\Imports\ProductImport;
-use App\Models\grosir;
 use DateTime;
 use Exception;
 use Maatwebsite\Excel\Excel as ExcelExcel;
@@ -444,6 +444,14 @@ class ProductController extends Controller
     public function exportProduct()
     {
         // dd('ayo');
-        return Excel::download(new ExportsProduct, 'product.csv', ExcelExcel::CSV);
+        return Excel::download(new ExportsProduct, 'product.xlsx', ExcelExcel::XLSX);
+    }
+
+    public function exportRiwayat(Request $req)
+    {
+        // dd('ayo');
+        $start = $req['start_date'];
+        $end = $req['end_date'];
+        return Excel::download(new exportRiwayat($start, $end), 'riwayat.xlsx', ExcelExcel::XLSX);
     }
 }

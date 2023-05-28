@@ -277,14 +277,16 @@ class kasir extends Controller
 
     public function riwayat(Request $req)
     {
+        $start = $req['start_date'];
+        $end = $req['end_date'];
         if (isset($req['filter'])) {
             // dd($req);
-            $data = Order::whereBetween('date', [$req['start_date'], $req['end_date']])
+            $data = Order::whereBetween('date', [$start, $end])
                 ->get();
         } else {
             $data = Order::all();
         }
-        return view('kasir.jual', compact('data'));
+        return view('kasir.jual', compact('data','start','end'));
     }
 
     public function edit_payment(Request $req){

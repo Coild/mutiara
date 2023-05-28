@@ -91,6 +91,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/product/upload-content', [ProductController::class, 'import'])->name('import.product');
     Route::post('/product/revisi-content', [ProductController::class, 'revisi'])->name('revisi.product');
     Route::get('/export/xls', [ProductController::class, 'exportProduct'])->name('export.product');
+    Route::post('/export/riwayat', [ProductController::class, 'exportRiwayat'])->name('export.riwayat');
 
     // Route::post('/order/agregat', [OrderController::class, 'agregat'])->name('order.agregat');
     // Route::get('/order/invoice/{id}', [OrderController::class, 'print_invoice'])->name('order.print_invoice');
