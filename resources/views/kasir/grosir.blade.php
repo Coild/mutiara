@@ -7,8 +7,7 @@
         <div class="card-header">
             <h2 class="card-title">List Produk</h2>
 
-            <button class="btn btn-primary float-right mr-3"
-                onclick="cetak_barcode()">Cetak Barcode</button>
+            <button class="btn btn-primary float-right mr-3" onclick="cetak_barcode()">Cetak Barcode</button>
             <select class="form-control float-right mr-3" style="width: 200px; float: right;" id="tanggals">
                 <option value="">Pilih Tanggal</option>
                 {{-- @foreach ($tanggal as $item)
@@ -68,8 +67,8 @@
                             <td>
                                 <a data-toggle="modal" data-target="#edit" class="btn btn-primary"
                                     onclick='lempar(@json($product))'><i class="fas fa-edit"></i></a>
-                                <button class="btn btn-success"
-                                    onclick="window.location.href='/product/sertificate/{{ $product->id }}'"><i
+                                <button class="btn btn-success" data-toggle="modal" data-target="#print"
+                                onclick="print_id({{$product->id}})"><i
                                         class="fas fa-print"></i></button>
                                 <button class="btn btn-danger btn-delete"
                                     onclick="window.location.href='produkhapus?id={{ $product->id }}'"><i
@@ -273,11 +272,42 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
+    <div class="modal fade" id="print">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Print Barcode</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('grosir.print') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="print_id" id="print_id">
+                        <div class="form-group">
+                            <label for="name">Total</label>
+                            <input type="text" name="jumlah"
+                                class="form-control">
+                        </div>
+
+                        <div class="flex justify-content-between">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary float-right">print</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
     <div class="modal fade" id="upload">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Upload Produk</h4>
+                    <h4 class="modal-title">Upload Produk Grosir</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -482,13 +512,11 @@
         <!-- /.modal-dialog -->
     </div>
 
-    <form action="{{route('print_all.barcode')}}" method="post" id='cetak'>
+    <form action="{{ route('print_all.barcode') }}" method="post" id='cetak'>
         <input type="hidden" name="tanggal" id="kirim">
     </form>
 
     <script>
-       
-
         function lempar(data) {
             console.log(data['id']);
             document.getElementById("xid").value = data['id'];

@@ -70,8 +70,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/grosir', [grosir::class, 'grosir'])->name('grosir');
     Route::post('/grosir', [grosir::class, 'tambah_grosir'])->name('grosir.post');
     Route::get('/grosir_edit', [grosir::class, 'edit_grosir'])->name('grosir.edit');
-    Route::get('/grosir_import', [grosir::class, 'import_grosir'])->name('grosir.import');
-    Route::get('/pos_grosir', [grosir::class, 'pos_grosir'])->name('grosir.pos');
+    Route::post('/grosir_import', [grosir::class, 'import_grosir'])->name('grosir.import');
+    Route::get('/pos_grosir', [grosir::class, 'pos_grosir'])->name('pos_grosir');
 
 
     Route::get('/product', [ProductController::class, 'index'])->name('product.index');
