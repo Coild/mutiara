@@ -179,9 +179,9 @@ $_scripts = array(
             });
         });
 
-        $('a').click(function() {
-            return confirm('do you want to proceed')
-        })
+        // $('a').click(function() {
+        //     return confirm('do you want to proceed')
+        // })
 
         function cetak_barcode() {
 
