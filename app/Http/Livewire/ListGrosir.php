@@ -36,6 +36,8 @@ class ListGrosir extends Component
             // dd($count);
             if ($count != 0) {
                 $isi = grosir::where('barcode', $this->id_produk)->first();
+                $isi['jumlah'] = 1;
+                $isi['total'] = $isi['jumlah'] * $isi['price_sell'];
                 // dd($isi);
                 // $data = $this->val ?? [];
                 $key_to_check = 2;
@@ -54,8 +56,8 @@ class ListGrosir extends Component
                     $this->total += $isi['price_sell'];
                     $this->total_s = number_format($this->total, 0, ',', '.');
 
-                    Session::put('total', $this->total);
-                    Session::put('data',  $this->val);
+                    Session::put('total_grosir', $this->total);
+                    Session::put('data_grosir',  $this->val);
                     $this->id_produk = '';
                 } else {
                     $this->dispatchBrowserEvent('swal:success', [
@@ -108,25 +110,29 @@ class ListGrosir extends Component
     public function addproduct($key)
     {
 
-        $this->total -= $this->val[$key]['price_discount'];
+        $this->total -= $this->val[$key]['total'];
         $this->total_s = number_format($this->total, 0, ',', '.');
         unset($this->val[$key]);
 
         // array_push($data, $isi);
 
-        Session::put('data', $this->val);
-        Session::put('total', $this->total);
+        Session::put('data_grosir', $this->val);
+        Session::put('total_grosir', $this->total);
     }
 
     public function get_diskon()
     {
         $this->total = 0;
         foreach ($this->val as $key => $item) {
-            $this->val[$key]['price_discount'] = intval($this->val[$key]['price_sell'] - (($this->val[$key]['discount'] / 100) * $this->val[$key]['price_sell']));
-            $this->total += $this->val[$key]['price_discount'];
+            if($this->val[$key]['jumlah'] > $this->val[$key]['stok']) {
+                $this->val[$key]['jumlah'] = $this->val[$key]['stok'];
+            }
+            $this->val[$key]['total'] = $this->val[$key]['jumlah'] * $this->val[$key]['price_sell'];
+            $this->val[$key]['total'] = intval($this->val[$key]['total'] - (($this->val[$key]['discount'] / 100) * $this->val[$key]['total']));
+            $this->total += $this->val[$key]['total'];
             $this->total_s = number_format($this->total, 0, ',', '.');
         }
-        Session::put('data', $this->val);
+        Session::put('data_grosir', $this->val);
         // dd($this->val);
         $this->render();
     }
@@ -137,9 +143,9 @@ class ListGrosir extends Component
         $this->kembali = 0;
         $this->kembali_s = number_format($this->kembali, 0, ',', '.');
         $this->bayar = 0;
-        $this->total = Session::get('total') ?? 0;
+        $this->total = Session::get('total_grosir') ?? 0;
         $this->total_s = number_format($this->total, 0, ',', '.');
-        $this->val = Session::get('data') ?? [];
+        $this->val = Session::get('data_grosir') ?? [];
 
         // $this->content = $post->content;
     }

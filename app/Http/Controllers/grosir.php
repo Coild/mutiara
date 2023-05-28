@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\grosir as x;
-use App\Models\grosir as ModelsGrosir;
+use App\Models\grosir_sell;
+use App\Models\Order;
+use App\Models\order_grosir;
+use Carbon\Carbon;
 use SpreadsheetReader;
 
 require('excel/php-excel-reader/excel_reader2.php');
@@ -14,6 +17,7 @@ require('excel/SpreadsheetReader.php');
 use Exception;
 use Hamcrest\Core\HasToString;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\Session;
 
 class grosir extends Controller
 {
@@ -58,24 +62,25 @@ class grosir extends Controller
         $data = x::firstWhere('id', $request['id']);
         // dd($data);
         $data->type = $request->type;
-            $data->metal = $request->metal;
-            $data->carat = $request->carat;
-            $data->weight1 = $request->weight1;
-            $data->pearls = $request->pearls;
-            $data->color = $request->color;
-            $data->shape = $request->shape;
-            $data->grade = $request->grade;
-            $data->weight2 = $request->weight2;
-            $data->size = $request->size;
-            $data->price = $request->price;
-            $data->price_sell = $request->price_sell;
-            $data->price_discount = $request->price_sell;
-            $data->update();
+        $data->metal = $request->metal;
+        $data->carat = $request->carat;
+        $data->weight1 = $request->weight1;
+        $data->pearls = $request->pearls;
+        $data->color = $request->color;
+        $data->shape = $request->shape;
+        $data->grade = $request->grade;
+        $data->weight2 = $request->weight2;
+        $data->size = $request->size;
+        $data->price = $request->price;
+        $data->price_sell = $request->price_sell;
+        $data->price_discount = $request->price_sell;
+        $data->update();
 
-            return redirect(route('grosir'));
+        return redirect(route('grosir'));
     }
 
-    public function hapus_grosir(Request $request) {
+    public function hapus_grosir(Request $request)
+    {
         $data = x::findOrFail($request['id']);
         $data->delete();
 
@@ -125,12 +130,12 @@ class grosir extends Controller
                         ];
                         // dd($data);
                         try {
-                            if($row[0] != '') {
-                                ModelsGrosir::create($data);
+                            if ($row[1] != '') {
+                                // dd($data);
+                                $cek = x::create($data);
                             }
-                            
                         } catch (Exception $err) {
-                            echo 'Message: ' .$err->getMessage();
+                            echo 'Message: ' . $err->getMessage();
                         }
                     } else {
                         echo "kosong";
@@ -149,26 +154,104 @@ class grosir extends Controller
         return view('kasir.pos_grosir');
     }
 
-    public function print_grosir(Request $req) {
+    public function beli_grosir(Request $req)
+    {
+        // dd(Session::get('data_grosir'));
+        // dd($req);
+        $barang = [];
+
+        foreach (Session::get('data_grosir') as  $key => $item) {
+            array_push($barang, [
+                'product_id' => $item['id'],
+                'discount' =>  $req['diskon' . $key] ?? 0,
+                'jumlah' =>  $req['jumlah' . $key] ?? 0,
+                'total' =>  $req['total' . $key] ?? 0,
+            ]);
+        }
+
+        $beli = [
+            'name' => $req['nama'],
+            'uang' =>  intval(str_replace('.', '', $req['diterima'])),
+            'order' => $barang
+        ];
+
+
+        // return $barang;
+
+        $today = Carbon::now()->format('Y-m-d');
+        $data = new order_grosir();
+
+        $data->name = $req['nama'];
+        $data->phone = $req['nohp'];
+        $data->address = $req['alamat'];
+        $data->payment = $req['metode'];
+        $data->bill_code = $this->rand_bill();
+        $data->code = $req['code'];
+        $data->uang =  intval(str_replace('.', '', $req['diterima']));
+        $data->date = $today;
+        $data->save();
+
+        $total = 0;
+        // dd($barang);
+        foreach ($barang as $r) {
+
+            $product = x::where('id', '=', $r['product_id'])->first();
+            // return $product;
+
+            $total += $r['total'];
+
+            // return $product->price;
+            $product->stok = $product->stok - $r['jumlah'];
+            $inputdata = [
+                'order_id' => $data->id,
+                'grosir_id' => $r['product_id'],
+                'diskon' => $r['discount'],
+                'jumlah' => $r['jumlah'],
+                'total' => $r['total'],
+            ];
+            grosir_sell::insert($inputdata);
+            $product->update();
+        }
+        $data->total = $total;
+        $data->kembalian = $data->uang - $total;
+        $data->update();
+
+
+        Session::forget('data_grosir');
+        Session::forget('total_grosir');
+        return redirect(route('pos_grosir'))->with('message', 'Berhasil disimpan');
+    }
+
+    public function print_grosir(Request $req)
+    {
         // dd($req);
         $data = x::find($req['print_id']);
         // dd($data['id']);
         $jumlah = $req['jumlah'];
-        
+
         return view('kasir.barcode', compact('data', 'jumlah'));
-        
     }
 
-    public function plus_grosir(Request $req) {
+    public function plus_grosir(Request $req)
+    {
         // dd($req);
         // $data = x::find($req['plus_id']);
         // dd($data);
         x::where('id', $req['plus_id'])
-        ->increment('stok', $req['jumlah']);
+            ->increment('stok', $req['jumlah']);
         // dd($data['id']);
         // $jumlah = $req['jumlah'];
-        
+
         return redirect(route('grosir'));
-        
+    }
+
+    function rand_bill()
+    {
+        $stringSpace = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $stringLength = strlen($stringSpace);
+        $string = str_repeat($stringSpace, ceil(4 / $stringLength));
+        $shuffledString = str_shuffle($string);
+        $randomString = substr($shuffledString, 1, 4);
+        return $randomString;
     }
 }

@@ -272,7 +272,7 @@ class kasir extends Controller
 
         Session::forget('data');
         Session::forget('total');
-        return redirect(route('jual'))->with('message', 'Berhasil disimpan');;
+        return redirect(route('jual'))->with('message', 'Berhasil disimpan');
     }
 
     public function riwayat(Request $req)

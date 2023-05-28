@@ -1,6 +1,6 @@
 <div class="card">
     <div class="row">
-        <form action="{{ route('beli') }}" class="form-penjualan" method="post">
+        <form action="{{ route('beli_grosir') }}" class="form-penjualan" method="post">
             <div class="box">
                 <div class="box-body">
                     <div class="row ml-3">
@@ -30,6 +30,8 @@
                                     <th>Weight</th>
                                     <th>Harga</th>
                                     <th>Diskon</th>
+                                    <th>Total</th>
+                                    <th>Jumlah</th>
                                     <th>Aksi</th>
                                     {{-- <th width="15%"><i class="fa fa-cog"></i></th> --}}
                                 </thead>
@@ -45,9 +47,15 @@
                                             <td>{{ $product['grade'] }}</td>
                                             <td>{{ $product['weight2'] . ' gram' }} </td>
                                             <td>{{ number_format($product['price_discount'], 0, ',', '.') }}</td>
-                                            <td><input type="text" name="diskon{{ $key }}"
+                                            <td><input type="text" style="width:75px" name="diskon{{ $key }}"
                                                     wire:model="val.{{ $key }}.{{ 'discount' }}"
                                                     value="val.{{ $key }}.{{ 'discount' }}"></td>
+                                            <td><input type="text" style="width:75px" name="jumlah{{ $key }}"
+                                                    wire:model="val.{{ $key }}.{{ 'jumlah' }}"
+                                                    value="val.{{ $key }}.{{ 'jumlah' }}"></td>
+                                            <td><input type="text" style="width:75px" name="total{{ $key }}"
+                                                    wire:model="val.{{ $key }}.{{ 'total' }}"
+                                                    value="val.{{ $key }}.{{ 'total' }}"></td>
                                             <td><button type="button" class="btn btn-danger"
                                                     wire:click="addproduct({{ $key }})"
                                                     onclick="console.log('click')"><i class="fas fa-trash"></i></button>
@@ -119,7 +127,8 @@
                             <div class="form-group row">
                                 <label for="kembali" class="col-lg-2 control-label">Code</label>
                                 <div class="col-lg-8">
-                                    <input type="text" id="code" name="code" class="form-control" required>
+                                    <input type="text" id="code" name="code" class="form-control"
+                                        required>
                                 </div>
                             </div>
 
@@ -152,7 +161,7 @@
             });
         });
     </script>
-   @if (session()->has('message'))
+    @if (session()->has('message'))
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 swal({

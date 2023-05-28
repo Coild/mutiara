@@ -75,6 +75,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/grosir_plus', [grosir::class, 'plus_grosir'])->name('grosir.plus');
     Route::post('/grosir_import', [grosir::class, 'import_grosir'])->name('grosir.import');
     Route::get('/pos_grosir', [grosir::class, 'pos_grosir'])->name('pos_grosir');
+    Route::post('/beli_grosir', [grosir::class, 'beli_grosir'])->name('beli_grosir');
     // Route::post('/grosir/print_barcode', [ProductController::class, 'print_barcode'])->name('grosir.barcode');
 
 
