@@ -24,12 +24,62 @@ class grosir extends Controller
         return view('kasir.grosir', compact('data'));
     }
 
-    public function tambah_grosir()
+    public function tambah_grosir(Request $request)
     {
+        $string = uniqid(rand());
+        $randomString = substr($string, 0, 8);
+
+        $data = new x();
+        $data->type = $request->type;
+        $data->metal = $request->metal;
+        $data->carat = $request->carat;
+        $data->weight1 = $request->weight1;
+        $data->pearls = $request->pearls;
+        $data->color = $request->color;
+        $data->shape = $request->shape;
+        $data->grade = $request->grade;
+        $data->weight2 = $request->weight2;
+        $data->size = $request->size;
+        $data->price = $request->price;
+        $data->price_sell = $request->price_sell;
+        $data->price_discount = $request->price_sell;
+        $data->barcode = $randomString;
+        $data->discount = 0;
+        // $data->status = 0;
+
+        $data->save();
+
+        return redirect(route('grosir'));
     }
 
-    public function edit_grosir()
+    public function edit_grosir(Request $request)
     {
+        // dd($request);
+        $data = x::firstWhere('id', $request['id']);
+        // dd($data);
+        $data->type = $request->type;
+            $data->metal = $request->metal;
+            $data->carat = $request->carat;
+            $data->weight1 = $request->weight1;
+            $data->pearls = $request->pearls;
+            $data->color = $request->color;
+            $data->shape = $request->shape;
+            $data->grade = $request->grade;
+            $data->weight2 = $request->weight2;
+            $data->size = $request->size;
+            $data->price = $request->price;
+            $data->price_sell = $request->price_sell;
+            $data->price_discount = $request->price_sell;
+            $data->update();
+
+            return redirect(route('grosir'));
+    }
+
+    public function hapus_grosir(Request $request) {
+        $data = x::findOrFail($request['id']);
+        $data->delete();
+
+        return redirect(route('grosir'));
     }
 
     public function import_grosir(Request $req)
@@ -97,5 +147,28 @@ class grosir extends Controller
     public function pos_grosir()
     {
         return view('kasir.pos_grosir');
+    }
+
+    public function print_grosir(Request $req) {
+        // dd($req);
+        $data = x::find($req['print_id']);
+        // dd($data['id']);
+        $jumlah = $req['jumlah'];
+        
+        return view('kasir.barcode', compact('data', 'jumlah'));
+        
+    }
+
+    public function plus_grosir(Request $req) {
+        // dd($req);
+        // $data = x::find($req['plus_id']);
+        // dd($data);
+        x::where('id', $req['plus_id'])
+        ->increment('stok', $req['jumlah']);
+        // dd($data['id']);
+        // $jumlah = $req['jumlah'];
+        
+        return redirect(route('grosir'));
+        
     }
 }

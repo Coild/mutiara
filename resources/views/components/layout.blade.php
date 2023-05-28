@@ -179,6 +179,10 @@ $_scripts = array(
             });
         });
 
+        $('a').click(function() {
+            return confirm('do you want to proceed')
+        })
+
         function cetak_barcode() {
 
             data = document.getElementById("tanggals").value;

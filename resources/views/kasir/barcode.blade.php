@@ -1,36 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Cetak Barcode</title>
+<html>
 
-    <style>
-        .text-center {
-            text-align: center;
-        }
-    </style>
+<head>
+    <meta charset="utf-8">
+    <title>Generate Barcode</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('dist/css/a4.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
+
 <body>
-    <table width="100%">
-        <tr>
-            {{-- @foreach ($dataproduk as $produk) --}}
-                <td class="text-center" style="border: 1px solid #333;">
-                    {{-- <p>{{ $produk->nama_produk }} - Rp. {{ format_uang($produk->harga_jual) }}</p> --}}
-                    <p>{{ "produk->nama_produk" }} - Rp. {{ format_uang(10000) }}</p>
-                    <img src="data:image/png;base64,{{ DNS1D::getBarcodePNG('$produk->kode_produk', 'C39') }}" 
-                        alt="{{ '$produk->kode_produk' }}"
-                        width="180"
-                        height="60">
-                    <br>
-                    {{ '$produk->kode_produk' }}
-                </td>
-                {{-- @if ($no++ % 3 == 0)
-                    </tr><tr>
-                @endif --}}
-            {{-- @endforeach --}}
-        </tr>
-    </table>
+
+
+    @for ($i = 1; $i <= $jumlah; $i++)
+       
+        @if ($i == 1)
+            <div class="page">
+        @endif
+        <div class="column">
+            <table class="col-md-4">
+
+                <thead class="balik" style="width: 150px; height: 15px; font-size: 10px;">
+                    <th style=" float:left">
+                        {{ $data['barcode'] }}
+                    </th>
+                </thead style="width: 150px">
+                <tr class="balik" style="width: 150px; height:15px">
+                    <td>
+                        {!! '<img src="data:image/png;base64,' .
+                            DNS1D::getBarcodePNG($data['barcode'], 'C128', 1, 11) .
+                            '" alt="barcode"   />' !!}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="border-bottom: 1px solid black;">
+
+                    </td>
+                </tr>
+                <tr style="height: 15px; font-size: 10px; border-bottom: 1px solid black;">
+                    <td style="width: 100px;">
+                        <div style="width: 80px;  margin-top: 2px;">
+                            <small style="float:left">{{ rtrim(number_format( floatval($data->carat), 2), '0')  }}</small>
+                            <small style="float:right">%</small>
+                        </div>
+
+                    </td>
+                </tr>
+                <tr style="height: 15px; font-size: 10px; border-bottom: 1px solid black;">
+                    <td style="width: 100px;">
+                        <div style="width: 80px">
+                            <small style="float:left">{{ $data->weight1 }}</small>
+                            <small style="float:right">.gr</small>
+                        </div>
+
+                    </td>
+                </tr>
+                <tr style="height: 15px; font-size: 10px; border-bottom: 1px solid black;">
+                    <td style="width: 100px;">
+                        <div style="width: 80px">
+                            <small style="float:left">{{ $data->weight2 }}</small>
+                            <small style="float:right">.gr</small>
+                        </div>
+
+                    </td>
+                </tr>
+                <tr style="height: 15px; font-size: 10px;">
+                    <td style="width: 100px;">
+                        <div style="width: 80px">
+                            <small style="float:left">Rp</small>
+                            <small style="float:right">{{ number_format($data->price_sell, 0, ',', '.') }}</small>
+                        </div>
+
+                    </td>
+                </tr>
+            </table>
+        </div>
+        @if ($i % 48 == 0)
+            </div>
+            <div class="page">
+        @endif
+    @endfor
+
+    </div>
 </body>
+
 </html>

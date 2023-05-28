@@ -69,10 +69,13 @@ Route::group(['middleware' => 'auth'], function () {
     //grosir
     Route::get('/grosir', [grosir::class, 'grosir'])->name('grosir');
     Route::post('/grosir', [grosir::class, 'tambah_grosir'])->name('grosir.post');
-    Route::get('/grosir_edit', [grosir::class, 'edit_grosir'])->name('grosir.edit');
+    Route::post('/grosir_edit', [grosir::class, 'edit_grosir'])->name('grosir.edit');
+    Route::get('/grosir_hapus', [grosir::class, 'hapus_grosir'])->name('grosir.hapus');
     Route::post('/grosir_print', [grosir::class, 'print_grosir'])->name('grosir.print');
+    Route::post('/grosir_plus', [grosir::class, 'plus_grosir'])->name('grosir.plus');
     Route::post('/grosir_import', [grosir::class, 'import_grosir'])->name('grosir.import');
     Route::get('/pos_grosir', [grosir::class, 'pos_grosir'])->name('pos_grosir');
+    // Route::post('/grosir/print_barcode', [ProductController::class, 'print_barcode'])->name('grosir.barcode');
 
 
     Route::get('/product', [ProductController::class, 'index'])->name('product.index');

@@ -7,10 +7,10 @@
         <div class="card-header">
             <h2 class="card-title">List Produk</h2>
 
-            <button class="btn btn-primary float-right mr-3" onclick="cetak_barcode()">Cetak Barcode</button>
-            <select class="form-control float-right mr-3" style="width: 200px; float: right;" id="tanggals">
-                <option value="">Pilih Tanggal</option>
-                {{-- @foreach ($tanggal as $item)
+            {{-- <button class="btn btn-primary float-right mr-3" onclick="cetak_barcode()">Cetak Barcode</button> --}}
+            {{-- <select class="form-control float-right mr-3" style="width: 200px; float: right;" id="tanggals">
+                <option value="">Pilih Tanggal</option> --}}
+            {{-- @foreach ($tanggal as $item)
                     <option value="{{ $item['created_at'] }}">{{ $item['created_at'] }}</option>
                 @endforeach --}}
             </select>
@@ -68,11 +68,14 @@
                                 <a data-toggle="modal" data-target="#edit" class="btn btn-primary"
                                     onclick='lempar(@json($product))'><i class="fas fa-edit"></i></a>
                                 <button class="btn btn-success" data-toggle="modal" data-target="#print"
-                                onclick="print_id({{$product->id}})"><i
+                                    onclick="print_id({{ $product->id }}, 'print_id')"><i
                                         class="fas fa-print"></i></button>
-                                <button class="btn btn-danger btn-delete"
-                                    onclick="window.location.href='produkhapus?id={{ $product->id }}'"><i
-                                        class="fas fa-trash"></i></button>
+                                <button class="btn btn-success" data-toggle="modal" data-target="#plus"
+                                    onclick="print_id({{ $product->id }}, 'plus_id')"><i
+                                        class="fas fa-plus"></i></button>
+                                <a class="btn btn-danger btn-delete" href="grosir_hapus?id={{ $product->id }}"
+                                    onclick="return confirm('Are you sure want to delete {{ $product->type }}')"><i
+                                        class="fas fa-trash"></i></a>
                             </td>
                         </tr>
                     @endforeach
@@ -282,18 +285,48 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('grosir.print') }}" method="POST" enctype="multipart/form-data">
+                    <form target="_blank" action="{{ route('grosir.print') }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="print_id" id="print_id">
                         <div class="form-group">
                             <label for="name">Total</label>
-                            <input type="text" name="jumlah"
-                                class="form-control">
+                            <input type="text" name="jumlah" class="form-control">
                         </div>
 
                         <div class="flex justify-content-between">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary float-right">print</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <div class="modal fade" id="plus">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Tambah Stok</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('grosir.plus') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="plus_id" id="plus_id">
+                        <div class="form-group">
+                            <label for="name">Total</label>
+                            <input type="number" name="jumlah" class="form-control">
+                        </div>
+
+                        <div class="flex justify-content-between">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary float-right">tambah</button>
                         </div>
                     </form>
                 </div>
@@ -517,6 +550,12 @@
     </form>
 
     <script>
+        function print_id(id, target) {
+            document.getElementById(target).value = id;
+        }
+
+        
+
         function lempar(data) {
             console.log(data['id']);
             document.getElementById("xid").value = data['id'];
