@@ -452,6 +452,6 @@ class ProductController extends Controller
         // dd('ayo');
         $start = $req['start_date'];
         $end = $req['end_date'];
-        return Excel::download(new exportRiwayat($start, $end), 'riwayat.xlsx', ExcelExcel::XLSX);
+        return Excel::download(new exportRiwayat($start, $end, 1), 'riwayat.xlsx', ExcelExcel::XLSX);
     }
 }

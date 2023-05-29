@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\grosir as x;
 use App\Models\grosir_sell;
-use App\Models\Order;
 use App\Models\order_grosir;
 use Carbon\Carbon;
+use Maatwebsite\Excel\Excel as ExcelExcel;
+use App\Exports\riwayat as exportRiwayat;
 use SpreadsheetReader;
 
 require('excel/php-excel-reader/excel_reader2.php');
@@ -18,6 +19,7 @@ use Exception;
 use Hamcrest\Core\HasToString;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
 
 class grosir extends Controller
 {
@@ -85,6 +87,20 @@ class grosir extends Controller
         $data->delete();
 
         return redirect(route('grosir'));
+    }
+
+    public function riwayat_grosir(Request $req)
+    {
+        $start = $req['start_date'];
+        $end = $req['end_date'];
+        if (isset($req['filter'])) {
+            // dd($req);
+            $data = order_grosir::whereBetween('date', [$start, $end])
+                ->get();
+        } else {
+            $data = order_grosir::all();
+        }
+        return view('kasir.riwayat_grosir', compact('data','start','end'));
     }
 
     public function import_grosir(Request $req)
@@ -222,6 +238,13 @@ class grosir extends Controller
         return redirect(route('pos_grosir'))->with('message', 'Berhasil disimpan');
     }
 
+    public function edit_payment_grosir(Request $req){
+        // dd($req);
+        $produk = order_grosir::find($req->id);
+        $produk->update(["payment" => $req->metode]);
+        return redirect(route('grosir.riwayat'));
+    }
+
     public function print_grosir(Request $req)
     {
         // dd($req);
@@ -243,6 +266,24 @@ class grosir extends Controller
         // $jumlah = $req['jumlah'];
 
         return redirect(route('grosir'));
+    }
+
+    public function exportRiwayat(Request $req)
+    {
+        // dd('ayo');
+        $start = $req['start_date'];
+        $end = $req['end_date'];
+        return Excel::download(new exportRiwayat($start, $end,2), 'riwayat.xlsx', ExcelExcel::XLSX);
+    }
+    public function detil_transaksi_grosir(Request $req)
+    {
+        // dd($req);
+        $data = order_grosir::join('grosir_sells', 'grosir_sells.order_id', '=', 'order_grosirs.id')
+            ->join('grosirs', 'grosirs.id', '=', 'grosir_sells.grosir_id')
+            ->where('order_grosirs.id', '=', $req['id'])
+            ->get();
+        // dd($data);
+        return view('kasir.detil_transaksi_grosir', compact('data'));
     }
 
     function rand_bill()
