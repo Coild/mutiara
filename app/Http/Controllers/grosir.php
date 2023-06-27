@@ -9,6 +9,7 @@ use App\Models\order_grosir;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Excel as ExcelExcel;
 use App\Exports\riwayat as exportRiwayat;
+use App\Models\grosir as ModelsGrosir;
 use SpreadsheetReader;
 
 require('excel/php-excel-reader/excel_reader2.php');
@@ -23,6 +24,138 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class grosir extends Controller
 {
+
+    public function dashboard(Request $req)
+    {
+        // dd(Auth::user());
+        $startDate = date('Y-m-d', strtotime('-7 days'));
+        $currentMonth = now()->month;
+        $currentYear = date('Y');
+        $today = date("Y-m-d"); // Get today's date in YYYY-MM-DD format
+        $fs = $today;
+        $fe = $today;
+        $pelanggan = order_grosir::whereMonth('date', '=', $currentMonth)
+            ->count();
+        $barang = grosir_sell::whereMonth('updated_at', '=', $currentMonth)
+            ->count();
+
+        // dd($barang);
+
+        $todaycash = order_grosir::where('payment', 'Cash')
+            ->whereMonth('date', '=', $currentMonth)
+            ->sum("total");
+        $todayqris = order_grosir::where('payment', 'Qris')
+            ->whereMonth('date', '=', $currentMonth)
+            ->sum("total");
+        $todaytf = order_grosir::where('payment', 'Transfer')
+            ->whereMonth('date', '=', $currentMonth)
+            ->sum("total");
+        $todaycard = order_grosir::where('payment', 'Card')
+            ->whereMonth('date', '=', $currentMonth)
+            ->sum("total");
+
+        $filtercash = $todaycash;
+        $filterqris = $todayqris;
+        $filtertf = $todaytf;
+        $filtercard = $todaycard;
+
+        if (isset($req['filter'])) {
+            // dd($req);
+            $fs = $req['start_date'];
+            $fe = $req['end_date'];
+            $startDate = Carbon::parse($fs)->startOfDay()->timestamp;
+            $sdate = Carbon::createFromTimestamp($startDate);
+            $endDate = Carbon::parse($fe)->endOfDay()->timestamp;
+            $edate = Carbon::createFromTimestamp($endDate);
+            // dd($edate);
+            $filtercash =  order_grosir::where('payment', 'Cash')
+                ->whereBetween('date', [$req['start_date'], $req['end_date']])
+                ->sum("total");
+            $filterqris =  order_grosir::where('payment', 'Qris')
+                ->whereBetween('date', [$req['start_date'], $req['end_date']])
+                ->sum("total");
+            $filtertf =  order_grosir::where('payment', 'Transfer')
+                ->whereBetween('date', [$req['start_date'], $req['end_date']])
+                ->sum("total");
+            $filtercard =  order_grosir::where('payment', 'Card')
+                ->whereBetween('date', [$req['start_date'], $req['end_date']])
+                ->sum("total");
+
+            //fillter card dashboard
+            $pelanggan = order_grosir::whereBetween('date', [$req['start_date'], $req['end_date']])
+                ->count();
+            $barang = grosir_sell::whereBetween('updated_at', [$sdate, $edate])
+                ->count();
+            // dd($barang->get());
+
+            // dd($barang);
+
+            $todaycash = order_grosir::where('payment', 'Cash')
+                ->whereBetween('date', [$req['start_date'], $req['end_date']])
+                ->sum("total");
+            $todayqris = order_grosir::where('payment', 'Qris')
+                ->whereBetween('date', [$req['start_date'], $req['end_date']])
+                ->sum("total");
+            $todaytf = order_grosir::where('payment', 'Transfer')
+                ->whereBetween('date', [$req['start_date'], $req['end_date']])
+                ->sum("total");
+            $todaycard = order_grosir::where('payment', 'Card')
+                ->whereBetween('date', [$req['start_date'], $req['end_date']])
+                ->sum("total");
+        }
+
+        $lastcash = order_grosir::where('payment', 'Cash')
+            ->whereBetween('date', [$startDate, $today])
+            ->sum("total");
+        $lastqris = order_grosir::where('payment', 'Qris')
+            ->whereBetween('date', [$startDate, $today])
+            ->sum("total");
+        $lasttf = order_grosir::where('payment', 'Transfer')
+            ->whereBetween('date', [$startDate, $today])
+            ->sum("total");
+        $lastcard = order_grosir::where('payment', 'Card')
+            ->whereBetween('date', [$startDate, $today])
+            ->sum("total");
+
+
+        $monthcash = order_grosir::where('payment', 'Cash')
+            ->whereMonth('date', '=', $currentMonth)
+            ->sum("total");
+        $monthqris = order_grosir::where('payment', 'Qris')
+            ->whereMonth('date', '=', $currentMonth)
+            ->sum("total");
+        $monthtf = order_grosir::where('payment', 'Transfer')
+            ->whereMonth('date', '=', $currentMonth)
+            ->sum("total");
+        $monthcard = order_grosir::where('payment', 'Card')
+            ->whereMonth('date', '=', $currentMonth)
+            ->sum("total");
+
+        $grafiks = order_grosir::selectRaw('MONTH(date) as month, SUM(total) as total')
+            ->whereYear('created_at', $currentYear)
+            ->groupBy('month')
+            ->get();
+        $bulan = [];
+        $jumlah = [];
+        foreach ($grafiks as $grafik) {
+            $monthNumber = $grafik->month;
+            $monthName = Carbon::createFromDate(null, $monthNumber, null)->format('F');
+            $grafik->month = $monthName;
+            array_push($bulan, $monthName);
+            array_push($jumlah, $grafik->total);
+        }
+
+        $stok = ModelsGrosir::orderBy('updated_at', 'asc')
+        ->limit(5)
+        ->get();
+
+        // dd($bulan);
+
+
+        // dd($barang);
+
+        return view('dashboard_grosir', compact('stok','pelanggan', 'barang', 'todaycash', 'todayqris', 'todaytf', 'todaycard', 'lastcash', 'lastqris', 'lasttf', 'lastcard', 'monthqris', 'monthcash', 'monthtf', 'monthcard', 'filtercash', 'filterqris', 'filtertf', 'filtercard', 'bulan', 'jumlah', 'fs', 'fe'));
+    }
 
     public function grosir()
     {
@@ -185,6 +318,8 @@ class grosir extends Controller
             ]);
         }
 
+        // dd($barang);
+
         $beli = [
             'name' => $req['nama'],
             'uang' =>  intval(str_replace('.', '', $req['diterima'])),
@@ -225,7 +360,8 @@ class grosir extends Controller
                 'jumlah' => $r['jumlah'],
                 'total' => $r['total'],
             ];
-            grosir_sell::insert($inputdata);
+            // dd($inputdata);
+            grosir_sell::create($inputdata);
             $product->update();
         }
         $data->total = $total;

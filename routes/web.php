@@ -67,6 +67,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/dummy', [Cproduk::class, 'cetakBarcode'])->name('cetak');
 
     //grosir
+    Route::get('/dashboard_grosir', [grosir::class, 'dashboard'])->name('dashboard_grosir');
     Route::get('/grosir', [grosir::class, 'grosir'])->name('grosir');
     Route::post('/grosir', [grosir::class, 'tambah_grosir'])->name('grosir.post');
     Route::post('/grosir_edit', [grosir::class, 'edit_grosir'])->name('grosir.edit');

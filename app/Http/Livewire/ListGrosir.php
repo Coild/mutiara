@@ -74,10 +74,10 @@ class ListGrosir extends Component
         if ($propertyName === 'bayar') {
             // Convert the formatted number back to an integer
             $this->bayar_i = intval(str_replace('.', '', $this->bayar));
-            $this->kembali = intval($this->bayar_i) - intval($this->total);
+            $this->kembali = $this->bayar_i - $this->total;
             // Format the input number with dots every three digits
             $this->bayar = number_format($this->bayar_i, 0, ',', '.');
-
+ 
             
             $this->kembali_s = number_format($this->kembali, 0, '.', ',');
         }
