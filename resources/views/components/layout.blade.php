@@ -192,6 +192,17 @@ $_scripts = array(
             // Submit the form using JavaScript
             myForm.submit();
         }
+
+        function redirectToNewPage(id) {
+            if (confirm("Are you sure you want to delete?")) {
+                // User clicked "OK" (yes) in the confirmation dialog
+                // window.location.href = "https://www.example.com"; // Replace with the URL you want to redirect to
+                window.location.href='hapus_transaksi?id='+id;
+            } else {
+                // User clicked "Cancel" (no) in the confirmation dialog
+                // You can optionally do something else or simply do nothing
+            }
+        }
     </script>
     @yield('js')
 

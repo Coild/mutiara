@@ -304,6 +304,13 @@ class kasir extends Controller
         return view('kasir.detil_transaksi', compact('data'));
     }
 
+    public function hapus_transaksi(Request $req)
+    {
+        $data = Order::find($req['id']);
+        $data->delete();
+        return redirect(route('riwayat'));
+    }
+
     function rand_bill()
     {
         $stringSpace = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';

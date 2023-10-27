@@ -91,5 +91,7 @@ class Cproduk extends Controller
         // $pdf->setPaper('a4', 'potrait');
         // return $pdf->stream('produk.pdf');
         return view('kasir.barcode', compact('data'));
+        
     }
 }
+

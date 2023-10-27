@@ -62,6 +62,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/riwayat', [kasir::class, 'riwayat'])->name('riwayat.filter');
     Route::post('/edit_payment', [kasir::class, 'edit_payment'])->name('edit_payment');
     Route::get('/detil_transaksi', [kasir::class, 'detil_transaksi'])->name('detil.transaksi');
+    Route::get('/hapus_transaksi', [kasir::class, 'hapus_transaksi'])->name('hapus.transaksi');
     Route::get('/setting', [kasir::class, 'setting'])->name('setting');
     Route::post('/buy', [kasir::class, 'beli'])->name('beli');
     Route::get('/dummy', [Cproduk::class, 'cetakBarcode'])->name('cetak');

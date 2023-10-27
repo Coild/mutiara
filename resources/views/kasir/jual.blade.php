@@ -77,14 +77,21 @@
                             <td>{{ $item['date'] }}</td>
                             <td>
                                 {{-- /order/invoice/{id_order} --}}
-                                <button class="btn btn-success"
-                                    onclick="window.location.href='{{ route('detil.transaksi') }}?id={{ $item['id'] }}'"><i
-                                        class="fa fa-eye">Lihat</i></button>
-                                <button class="btn btn-primary"
-                                    onclick="window.location.href='{{ '/order/invoice/' . $item['id'] }}'"><i
-                                        class="fa fa-book">Cetak</i></button>
-                                <button class="btn btn-warning" onclick='isi_id(@json($item))'
-                                    data-toggle="modal" data-target="#tambah"><i class="fa fa-pen">Edit</i></button>
+                                <div class="row">
+                                    <button class="ml-1 btn btn-sm btn-success"
+                                        onclick="window.location.href='{{ route('detil.transaksi') }}?id={{ $item['id'] }}'"><i
+                                            class="fa fa-eye">Lihat</i></button>
+                                    <button class="ml-1 btn btn-sm btn-primary"
+                                        onclick="window.location.href='{{ '/order/invoice/' . $item['id'] }}'"><i
+                                            class="fa fa-book">Cetak</i></button>
+                                    <button class="ml-1 btn btn-sm btn-warning"
+                                        onclick='isi_id(@json($item))' data-toggle="modal"
+                                        data-target="#tambah"><i class="fa fa-pen">Edit</i></button>
+                                    <button class="ml-1 btn btn-sm btn-danger"
+                                        onclick="redirectToNewPage({{ $item['id'] }})"><i
+                                            class="fa fa-trash">Hapus</i></button>
+                                </div>
+
                             </td>
                         </tr>
                     @endforeach
