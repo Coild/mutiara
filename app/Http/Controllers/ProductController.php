@@ -221,6 +221,7 @@ class ProductController extends Controller
         }
     }
 
+    //lama
     public function print_sertificate($id)
     {
         // return $id;
@@ -272,6 +273,58 @@ class ProductController extends Controller
         $pdf->Output();
         exit;
     }
+
+    //baru
+//     public function print_sertificate($id)
+//     {
+//         // return $id;
+//         $data = Product::where('id', $id)->first();
+//         // return $data;
+//         $pdf = new Fpdf('L', 'mm', array(102, 140));
+
+//         $pdf->SetFont('Arial', 'B', 15);
+//         $pdf->AddPage();
+
+//         $pdf->Image("public/storage/img/sertif2.jpg", 0, 0, 140, 102);
+//         $pdf->SetMargins(0, 0, 0);
+
+
+//         $pdf->SetFont('Times', '', 9);
+//         // $pdf->SetXY(96, 34);
+//         $pdf->Ln(18);
+//         $pdf->Cell(76, 5, '', 0, 0, 'L');
+//         $pdf->Cell(20, 5, 'Product Type', 0, 0, 'L');
+//         $pdf->Cell(44, 5, ': ' . $data->type, 0, 1, 'L');
+//         $pdf->Cell(76, 5, '', 0, 0, 'L');
+//         $pdf->Cell(20, 5, 'Metal', 0, 0, 'L');
+//         $pdf->Cell(44, 5, ': ' . $data->metal, 0, 1, 'L');
+//         $pdf->Cell(76, 5, '', 0, 0, 'L');
+//         $pdf->Cell(20, 5, 'Carat', 0, 0, 'L');
+//         $pdf->Cell(44, 5, ': ' . $data->carat . ' crt', 0, 1, 'L');
+//         $pdf->Cell(76, 5, '', 0, 0, 'L');
+//         $pdf->Cell(20, 5, 'Weight', 0, 0, 'L');
+//         $pdf->Cell(44, 5, ': ' . $data->weight1 . ' gr', 0, 1, 'L');
+//         $pdf->Cell(76, 5, '', 0, 0, 'L');
+//         $pdf->Cell(20, 5, 'Pearls', 0, 0, 'L');
+//         $pdf->Cell(44, 5, ': ' . $data->pearls, 0, 1, 'L');
+//         $pdf->Cell(76, 5, '', 0, 0, 'L');
+//         $pdf->Cell(20, 5, 'Color', 0, 0, 'L');
+//         $pdf->Cell(44, 5, ': ' . $data->color, 0, 1, 'L');
+//         $pdf->Cell(76, 5, '', 0, 0, 'L');
+//         $pdf->Cell(20, 5, 'Shape', 0, 0, 'L');
+//         $pdf->Cell(44, 5, ': ' . $data->shape, 0, 1, 'L');
+//         $pdf->Cell(76, 5, '', 0, 0, 'L');
+//         $pdf->Cell(20, 5, 'Grade', 0, 0, 'L');
+//         $pdf->Cell(44, 5, ': ' . $data->grade, 0, 1, 'L');
+//         $pdf->Cell(76, 5, '', 0, 0, 'L');
+//         $pdf->Cell(20, 5, 'Weight', 0, 0, 'L');
+//         $pdf->Cell(44, 5, ': ' . $data->weight2 . ' gr', 0, 1, 'L');
+//         $pdf->Cell(76, 5, '', 0, 0, 'L');
+//         $pdf->Cell(20, 5, 'Size', 0, 0, 'L');
+//         $pdf->Cell(44, 5, ': ' . $data->size . ' mm', 0, 1, 'L');
+//         $pdf->Output();
+//         exit;
+//     }
 
     public function import(Request $request)
     {
