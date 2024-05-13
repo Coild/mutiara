@@ -101,7 +101,7 @@
 
 
                 </tbody>
-                <tfoot>
+                {{-- <tfoot>
                     <tr>
                         <th></th>
                         <th></th>
@@ -113,8 +113,9 @@
                         <th></th>
                         <th></th>
                     </tr>
-                </tfoot>
+                </tfoot> --}}
             </table>
+            <p>Total : {{ 'Rp' }} {{ number_format($total, 0, ',', '.') }}</p>
             {{-- {{ $orders->render() }} --}}
         </div>
     </div>
