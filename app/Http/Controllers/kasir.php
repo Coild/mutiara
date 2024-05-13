@@ -280,17 +280,22 @@ class kasir extends Controller
         $start = $req['start_date'];
         $end = $req['end_date'];
         $kode = $req['kode'];
+        // dd($kode);
         if (isset($req['filter'])) {
             // dd($req);
-            $data = Order::where(function ($query) use ($start, $end) {
-                $query->whereBetween('date', [$start, $end]);
-            })
+            if($kode != null) {
+                $data = Order::whereBetween('date', [$start, $end])
                 ->orWhere('bill_code', 'like', '%' . $kode . '%')
                 ->get();
+            } else {
+                $data = Order::whereBetween('date', [$start, $end])
+                ->get();
+            }
+            
         } else {
             $data = Order::all();
         }
-        return view('kasir.jual', compact('data', 'start', 'end'));
+        return view('kasir.jual', compact('data', 'start', 'end', 'kode'));
     }
 
     public function edit_payment(Request $req)

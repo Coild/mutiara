@@ -37,7 +37,7 @@
                                     value="{{ $end ?? date('Y-m-d') }}" required />
                             </div>
                             <div class="col-md-3">
-                                <input type="text" name="kode" class="form-control" placeholder="Kode" />
+                                <input type="text" name="kode" class="form-control" placeholder="Kode" value="{{ $kode ?? ''}}"/>
                             </div>
                             <div class="col-md-2">
                                 <button class="btn btn-outline-primary" type="submit">Filter</button>
@@ -46,7 +46,7 @@
                     </form>
                 </div>
             </div>
-            <table class="table">
+            <table class="table" id="example2">
                 <thead>
                     <tr>
                         <th>No</th>
