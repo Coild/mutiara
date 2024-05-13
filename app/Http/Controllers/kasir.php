@@ -282,8 +282,10 @@ class kasir extends Controller
         $kode = $req['kode'];
         if (isset($req['filter'])) {
             // dd($req);
-            $data = Order::whereBetween('date', [$start, $end])
-                ->where('code', 'like', '%'.$kode.'%')
+            $data = Order::where(function ($query) use ($start, $end) {
+                $query->whereBetween('date', [$start, $end]);
+            })
+                ->orWhere('bill_code', 'like', '%' . $kode . '%')
                 ->get();
         } else {
             $data = Order::all();
