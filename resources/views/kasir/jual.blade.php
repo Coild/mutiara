@@ -5,7 +5,7 @@
     <div class="card">
         <div class="card-body">
             <div class="row">
-                <div class="col-md-5">
+                <div class="col-md-3">
                     @if (isset($start))
                         <form action="{{ route('export.riwayat') }}" method="post">
                             <div class="row">
@@ -23,18 +23,21 @@
                     @endif
 
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-9">
                     <form action="{{ route('riwayat.filter') }}" method="post">
                         <div class="row">
                             @csrf
                             <input type="hidden" name="filter" value="1">
-                            <div class="col-md-5">
+                            <div class="col-md-3">
                                 <input type="date" name="start_date" class="form-control"
                                     value="{{ $start ?? date('Y-m-d') }}" required />
                             </div>
-                            <div class="col-md-5">
+                            <div class="col-md-3">
                                 <input type="date" name="end_date" class="form-control"
                                     value="{{ $end ?? date('Y-m-d') }}" required />
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" name="kode" class="form-control" placeholder="Kode" />
                             </div>
                             <div class="col-md-2">
                                 <button class="btn btn-outline-primary" type="submit">Filter</button>

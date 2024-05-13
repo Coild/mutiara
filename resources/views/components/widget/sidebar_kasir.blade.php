@@ -53,6 +53,12 @@
                     </a>
                 </li>
                 <li class="nav-item has-treeview">
+                    <a href="{{ route('grosir.riwayat') }}" class="nav-link ">
+                        <i class="nav-icon fas fa-cart-plus"></i>
+                        <p>Riwayat</p>
+                    </a>
+                </li>
+                <li class="nav-item has-treeview">
                     <a href="{{ route('ganti') }}" class="nav-link ">
                         <i class="nav-icon fas fa-cogs"></i>
                         <p>Ganti Password</p>
