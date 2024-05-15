@@ -1,0 +1,48 @@
+No;type;metal;carat;weight1;pearls;color;shape;grade;weight2;size;price;price_sell
+1;Bracelet;Strap;-;-;South Sea Pearl;Gold & Silver;Semi Baroque;B;4.67;10.4-10.8;0;1500000
+2;Bracelet;Strap;-;-;South Sea Pearl;Gold & White;Round & Button;B;4.89;7.4-11.4;0;1918000
+3;Bracelet;Strap;-;-;South Sea Pearl;White;Round;B;2.79;12.5;0;1156000
+4;Bracelet;Strap;-;-;South Sea Pearl;Gold & White;Semi Baroque;B;4.06;9.4-9.9;0;1617000
+5;Bracelet;Strap;-;-;South Sea Pearl;White;Round;B;2.37;11.8;0;832000
+6;Bracelet;Strap;-;-;South Sea Pearl;White;Button;A;2.67;12.5;0;1306000
+7;Bracelet;Strap;-;-;South Sea Pearl;White;Circle;B;2.30;11.7;0;812000
+8;Bracelet;Strap;-;-;Tahitian Sea Pearl;Black;Semi Round;B;2.44;12;0;1030000
+9;Bracelet;Strap;-;-;Tahitian Sea Pearl;Black;Round;B;2.53;12.1;0;1062000
+10;Bracelet;Strap;-;-;South Sea Pearl;White;Round;B;2.39;11.7;0;1011000
+11;Bracelet;Strap;-;-;South Sea Pearl;Gold;Circle;B+;2.18;10.6;0;1015000
+12;Bracelet;Strap;-;-;South Sea Pearl;Gold;Oval;B+;1.66;10.5;0;783000
+13;Bracelet;Strap;-;-;South Sea Pearl;Gold;Circle;B;2.65;13;0;914000
+14;Bracelet;Strap;-;-;South Sea Pearl;Gold;Oval;B+;1.78;9.8;0;855000
+15;Bracelet;Strap;-;-;South Sea Pearl;White;Semi Round;B;2.80;12.7;0;1160000
+16;Bracelet;Strap;-;-;South Sea Pearl;Gold;Round;B;2.27;11;0;968000
+17;Bracelet;Strap;-;-;South Sea Pearl;Champagne;Oval;B+;1.87;10.1;0;890000
+18;Bracelet;Strap;-;-;South Sea Pearl;Gold;Round;B;2.68;12.3;0;1097000
+19;Bracelet;Strap;-;-;South Sea Pearl;Champagne;Oval;B;2.00;11;0;870000
+20;Bracelet;Strap;-;-;South Sea Pearl;Gold & White;Button;B;3.96;11.5-12;0;1440000
+21;Bracelet;Strap;-;-;South Sea Pearl;White & Champagne;Semi Round;B;3.22;10.1-10.5;0;1080000
+22;Bracelet;Strap;-;-;South Sea Pearl;White & Champagne;Round;B;3.49;8.2-10.6;0;1410000
+23;Ring;Rhodium;-;-;South Sea Pearl;Gold;Round;B;3.31;13.1;0;1417000
+24;Ring;Rhodium;-;-;South Sea Pearl;Gold;Round;B;2.08;11.2;0;972000
+25;Ring;Rhodium;-;-;South Sea Pearl;Gold;Round;B;1.05;9.1;0;526000
+26;Ring;Rhodium;-;-;South Sea Pearl;Champagne;Round;B;2.00;11.2;0;986000
+27;Ring;Rhodium;-;-;South Sea Pearl;Champagne;Round;B+;2.08;11.1;0;1050000
+28;Ring;Rhodium;-;-;South Sea Pearl;White;Round;B;1.92;10.9;0;914000
+29;Ring;Rhodium;-;-;South Sea Pearl;White;Round;B;2.64;12.2;0;1232000
+30;Ring;Rhodium;-;-;South Sea Pearl;White;Round;B;2.74;12.3;0;1210000
+31;Ring;Rhodium;-;-;Tahitian Sea Pearl;Black;Round;B;2.53;12.1;0;1062000
+32;Ring;Rhodium;-;-;Tahitian Sea Pearl;Black;Round;B;2.49;11.9;0;850000
+33;Ring;Rhodium;-;-;South Sea Pearl;White;Round;B;2.52;12;0;1131000
+34;Ring;Rhodium;-;-;South Sea Pearl;White Pink;Round;B;2.57;12.1;0;1150000
+35;Ring;Rhodium;-;-;South Sea Pearl;White;Round;B;2.55;12.1;0;1142000
+36;Ring;Rhodium;-;-;South Sea Pearl;Gold;Round;B;2.51;12;0;1127000
+37;Ring;Rhodium;-;-;South Sea Pearl;White;Semi Round;B;3.76;13.7;0;1308000
+38;Bracelet;Rhodium;-;-;South Sea Pearl;White;Round;B;2.31;11.6;0;982000
+39;Bracelet;Rhodium;-;-;South Sea Pearl;Gold;Round;B;2.61;12.1;0;1381000
+40;Bracelet;Rhodium;-;-;South Sea Pearl;Gold;Round;B;4.16;13.9;0;2010000
+41;Necklace;Rhodium;-;-;South Sea Pearl;Gold;Round;B;1.32;9.6;0;915000
+42;Bracelet;Rhodium;-;-;South Sea Pearl;White;Round;B;6.00;10.9-11.3;0;2538000
+43;Bracelet;Rhodium;-;-;South Sea Pearl;Gold;Button;B+;1.05;9.2;0;595000
+44;Bracelet;Rhodium;-;-;South Sea Pearl;White;Semi Round;B;0.98;8.8;0;600000
+45;Bracelet;Rhodium;-;-;South Sea Pearl;Gold & White;Semi Round;B;4.18;8.2-8.4;0;1715000
+46;Earrings;Rhodium;-;-;South Sea Pearl;Gold;Oval;B;2.12;8.6-8.8;0;1060000
+47;One Set Jewelry;Rhodium;-;-;South Sea Pearl;Gold;Round;B;5.96;9.2-10.7;0;2595000

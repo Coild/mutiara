@@ -14,8 +14,8 @@ class Cproduk extends Controller
         $data = Product::all();
         $tanggal = Product::select('created_at')
         ->groupBy('created_at')
-        ->orderBy('created_at')
-        ->limit(5)->get();
+        ->orderBy('created_at', 'desc')
+        ->limit(10)->get();
         // dd($tanggal);
         return view('kasir.produk', compact('data','tanggal'));
     }
