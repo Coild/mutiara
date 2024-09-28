@@ -147,25 +147,6 @@ class kasir extends Controller
     public function agregat(Request $request)
     {
 
-        // dd($request);
-        // $validator = Validator::make($request->all(), [
-        //     "start_date" => "required",
-        //     "end_date" => "required",
-        // ]);
-
-        // if ($validator->fails()) {
-        //     return response()->json([
-        //         'status' => 'Error',
-        //         'message' => $validator->messages()->all()
-        //     ], 501);
-        // }
-
-        // return $order->product;
-        // $pro = [];
-        // foreach($order as $or){
-        //     array_push($pro, $product->name);
-        // }
-        // return $pro;
 
         $start = $request->start_date;
         $end = new DateTime($request->end_date);
@@ -174,17 +155,6 @@ class kasir extends Controller
 
         $data = Order::whereBetween('date', [$start, $end]);
         $order = $data->get();
-        // return $start;
-        // if (count($order) == 0) {
-        //     return response()->json([
-        //         'status' => 'error',
-        //         'message' => 'Order Not found',
-        //         'data' => null
-        //     ], 404);
-        // }
-
-        // return $order[0]->product[0]->price;
-
         $total = 0;
         $modal = 0;
         foreach ($order as $or) {
@@ -195,6 +165,65 @@ class kasir extends Controller
         }
 
         return view('kasir.agregat', compact('total', 'modal', 'order'));
+    }
+
+    // Mengambil data dengan server-side processing tanpa Yajra
+    public function getData(Request $request)
+    {
+        // Ambil parameter pencarian, urutan, dan jumlah data per halaman dari request DataTables
+        $search = $request->input('search.value');
+        $orderColumn = $request->input('order.0.column');
+        $orderDirection = $request->input('order.0.dir');
+        $start = $request->input('start');
+        $length = $request->input('length');
+
+        // Query dasar untuk mengambil data Order
+        $query = Order::query();
+
+        // Filter data berdasarkan pencarian
+        if (!empty($search)) {
+            $query->where('name', 'like', "%{$search}%")
+                ->orWhere('total', 'like', "%{$search}%")
+                ->orWhere('date', 'like', "%{$search}%");
+        }
+
+        // Urutkan data berdasarkan kolom yang diinginkan
+        $columns = ['id', 'name', 'total', 'date'];
+        if (isset($columns[$orderColumn])) {
+            $query->orderBy($columns[$orderColumn], $orderDirection);
+        }
+
+        // Hitung total record dan record yang difilter
+        $totalRecords = $query->count();
+        $filteredRecords = $query->count();
+
+        // Ambil data sesuai dengan paginasi
+        $orders = $query->skip($start)->take($length)->get();
+
+        // Format data untuk dikirim ke DataTables
+        $data = $orders->map(function ($order, $index) use ($start) {
+            return [
+                'id' => $start + $index + 1,
+                'name' => $order->name,
+                'total' => 'Rp ' . number_format($order->total, 0, ',', '.'),
+                'date' => Carbon::parse($order->date)->format('d-m-Y'),
+                'action' => '
+                    <button class="btn btn-success" onclick="window.location.href=\'' . route('detil.transaksi', ['id' => $order->id]) . '\'">
+                        <i class="fa fa-eye"></i> Lihat
+                    </button>
+                    <button class="btn btn-primary" onclick="window.location.href=\'' . url('/order/invoice/' . $order->id) . '\'">
+                        <i class="fa fa-book"></i> Cetak
+                    </button>',
+            ];
+        });
+
+        // Kembalikan data dalam format JSON yang sesuai dengan DataTables
+        return response()->json([
+            'draw' => intval($request->input('draw')),
+            'recordsTotal' => $totalRecords,
+            'recordsFiltered' => $filteredRecords,
+            'data' => $data,
+        ]);
     }
 
     public function produk()
@@ -283,15 +312,14 @@ class kasir extends Controller
         // dd($kode);
         if (isset($req['filter'])) {
             // dd($req);
-            if($kode != null) {
+            if ($kode != null) {
                 $data = Order::whereBetween('date', [$start, $end])
-                ->orWhere('bill_code', 'like', '%' . $kode . '%')
-                ->get();
+                    ->orWhere('bill_code', 'like', '%' . $kode . '%')
+                    ->get();
             } else {
                 $data = Order::whereBetween('date', [$start, $end])
-                ->get();
+                    ->get();
             }
-            
         } else {
             $data = Order::all();
         }

@@ -45,6 +45,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/dashboard', [kasir::class, 'dashboard'])->name('home');
         Route::post('/dashboard', [kasir::class, 'dashboard'])->name('post.home');
         Route::get('/order/agregat', [kasir::class, 'agregat'])->name('agregat');
+        Route::get('/order/agregatdata', [kasir::class, 'getData'])->name('kasir.agregat.data');
         Route::post('/order/agregat', [kasir::class, 'agregat'])->name('order.agregat');
     });
 
@@ -105,6 +106,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('/order', [OrderController::class, 'store'])->name('order.store');
     Route::get('/order/invoice/{id}', [OrderController::class, 'print_invoice'])->name('order.print_invoice');
+    Route::get('/order_grosir/invoice/{id}', [OrderController::class, 'print_invoice2'])->name('order_grosir.print_invoice');
 
     Route::get('/product/sertificate/{id}', [ProductController::class, 'print_sertificate'])->name('user.print.sertificate');
 });

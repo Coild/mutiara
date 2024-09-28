@@ -53,59 +53,31 @@
                     </div>
                 </div>
             </div>
-            <table class="table">
+            
+
+            <table id="orders-table" class="display responsive nowrap" style="width: 100%;">
                 <thead>
                     <tr>
                         <th>No</th>
                         <th>Nama Pembeli</th>
                         <th>Total</th>
-                        {{-- <th>Received Amount</th> --}}
-                        {{-- <th>Status</th> --}}
-                        {{-- <th>To Pay</th> --}}
                         <th>Tanggal Transaksi</th>
                         <th>Detail</th>
                     </tr>
                 </thead>
-                <tbody>
-                    @php
-                        $total = 0;
-                    @endphp
-                    @foreach ($order as $item)
-                        <tr>
-                            @php
-                                $total += $item['total'];
-                            @endphp
-                            <td>{{ $loop->index + 1 }}</td>
-                            <td>{{ $item['name'] }}</td>
-                            <td>{{ 'Rp' }} {{ $item['total'] }}</td>
-                            <td>{{ $item['date'] }}</td>
-                            <td>
-                                {{-- /order/invoice/{id_order} --}}
-                                <button class="btn btn-success"
-                                    onclick="window.location.href='{{ route('detil.transaksi') }}?id={{ $item['id'] }}'"><i
-                                        class="fa fa-eye">Lihat</i></button>
-                                <button class="btn btn-primary"
-                                    onclick="window.location.href='{{ '/order/invoice/' . $item['id'] }}'"><i
-                                        class="fa fa-book">Cetak</i></button>
-                            </td>
-                        </tr>
-                    @endforeach
-
-
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th></th>
-                        <th></th>
-                        <th>{{ 'Rp' }} {{ $total }}</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </tfoot>
             </table>
-            {{-- {{ $orders->render() }} --}}
+            <table class="table">
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th>{{ 'Rp' }} {{ $total }}</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </tfoot>
+        </table>
         </div>
     </div>
 </x-layout>

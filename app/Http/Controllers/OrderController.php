@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\grosir_sell;
 use App\Models\Order;
+use App\Models\order_grosir;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -181,7 +183,7 @@ class OrderController extends Controller
         for ($i = 0; $i < sizeof($order->product); $i++) {
             $pdf->SetFont('Arial', 'b', 12);
             $pdf->AddPage();
-            $pdf->Image("public/storage/img/nota2.jpg", 0, 0, 200, 110);
+            $pdf->Image("storage/img/nota2.jpg", 0, 0, 200, 110);
             $pdf->SetFont('Arial', '', 10);
             $pdf->Cell(120, 5, '', 0, 0, 'L');
             $pdf->Cell(20, 5, 'Date', 0, 0, 'L');
@@ -266,6 +268,115 @@ class OrderController extends Controller
         }
         $pdf->Output();
         exit();
+
+}
+public function print_invoice2($id)
+{
+    // return "tes";
+    $order = order_grosir::with('grosir_sells:total')->get();
+    // $order = grosir_sell::with('order_grosir:uang')->get();
+    dd($order);
+    // return sizeof($order->product);
+    if (!$order) {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Order Not found',
+            'data' => null
+        ], 404);
+    }
+
+
+    $pdf = new FPDF('L', 'mm', array(200, 110));
+    $date = new Carbon();
+
+    for ($i = 0; $i < sizeof($order->product); $i++) {
+        $pdf->SetFont('Arial', 'b', 12);
+        $pdf->AddPage();
+        $pdf->Image("asset/nota2.jpg", 0, 0, 200, 110);
+        $pdf->SetFont('Arial', '', 10);
+        $pdf->Cell(120, 5, '', 0, 0, 'L');
+        $pdf->Cell(20, 5, 'Date', 0, 0, 'L');
+        $pdf->Cell(40, 5, ': ' . date_format(date_create($order->date), "d M Y"), 0, 1, 'L');
+        $pdf->Cell(120, 5, '', 0, 0, 'L');
+        $pdf->Cell(20, 5, 'Name', 0, 0, 'L');
+        $pdf->Cell(40, 5, ': ' . $order->name, 0, 1, 'L');
+        $pdf->Cell(120, 5, '', 0, 0, 'L');
+        $pdf->Cell(20, 5, 'Phone', 0, 0, 'L');
+        $pdf->Cell(40, 5, ': ' . $order->phone, 0, 1, 'L');
+        $pdf->Cell(120, 5, '', 0, 0, 'L');
+        $pdf->Cell(20, 5, 'Address', 0, 0, 'L');
+        $pdf->Cell(40, 5, ': ' . $order->address, 0, 1, 'L');
+        $pdf->Cell(120, 5, '', 0, 0, 'L');
+        $pdf->Cell(20, 5, 'Bill No', 0, 0, 'L');
+        $pdf->Cell(40, 5, ': ' . $order->bill_code, 0, 1, 'L');
+        $pdf->Cell(120, 5, '', 0, 0, 'L');
+        $pdf->Cell(20, 5, 'Payment', 0, 0, 'L');
+        $pdf->Cell(40, 5, ': ' . $order->payment, 0, 1, 'L');
+        $pdf->Cell(120, 5, '', 0, 0, 'L');
+        $pdf->Cell(20, 5, 'Code', 0, 0, 'L');
+        $pdf->Cell(40, 5, ': ' . $order->code, 0, 1, 'L');
+        $pdf->Ln(5);
+        $pdf->Cell(20, 5, 'PRODUCT', 0, 0, 'L');
+        $pdf->Cell(10, 5, 'QTY', 0, 0, 'L');
+        $pdf->Cell(90, 5, 'DESCRIPTION', 0, 0, 'L');
+        $pdf->Cell(25, 5, 'UNIT PRICE', 0, 0, 'L');
+        $pdf->Cell(10, 5, 'DISC', 0, 0, 'L');
+        $pdf->Cell(25, 5, 'AMOUNT', 0, 1, 'L');
+        $pdf->Cell(
+            200,
+            1,
+            '---------------------------------------------------' .
+                '------------------------------------------------' .
+                '-------------------------------------------------',
+            0,
+            1,
+            'L'
+        );
+
+
+        $pdf->Cell(20, 5, $order->product[$i]->barcode, 0, 0, 'L');
+        $pdf->Cell(10, 5, '1', 0, 0, 'L');
+        $pdf->Cell(
+            90,
+            5,
+            $order->product[$i]->type . ", " .
+                $order->product[$i]->metal . ", " .
+                $order->product[$i]->carat . " crt, " .
+                $order->product[$i]->weight1 . " gr, " .
+                $order->product[$i]->pearls . ", ",
+            0,
+            0,
+            'L'
+        );
+        $pdf->Cell(25, 5, number_format($order->product[$i]->price_sell, 0, ',', '.'), 0, 0, 'L');
+        $pdf->Cell(10, 5, $order->product[$i]->discount . '%', 0, 0, 'L');
+        $pdf->Cell(25, 5, number_format($order->product[$i]->price_discount, 0, ',', '.'), 0, 1, 'L');
+        $pdf->Cell(20, 5, '', 0, 0, 'L');
+        $pdf->Cell(10, 5, '', 0, 0, 'L');
+        $pdf->Cell(
+            90,
+            5,
+            $order->product[$i]->color . ", " .
+                $order->product[$i]->shape . ", " .
+                $order->product[$i]->grade . ", " .
+                $order->product[$i]->weight2 . " gr, " .
+                $order->product[$i]->size . " mm",
+            0,
+            0,
+            'L'
+        );
+        $pdf->Cell(25, 5, '', 0, 0, 'L');
+        $pdf->Cell(10, 5, '', 0, 0, 'L');
+        $pdf->Cell(25, 5, '', 0, 1, 'L');
+        $pdf->ln(10);
+        $pdf->Cell(20, 5, '', 0, 0, 'L');
+        $pdf->Cell(10, 5, '', 0, 0, 'L');
+        $pdf->Cell(90, 5, '', 0, 0, 'L');
+        $pdf->Cell(35, 5, 'TOTAL :', 0, 0, 'R');
+        $pdf->Cell(25, 5, 'Rp. ' . number_format($order->product[$i]->price_discount, 0, ',', '.'), 0, 1, 'L');
+    }
+    $pdf->Output();
+    exit();
 
 }
 

@@ -55,7 +55,7 @@
                 <li class="nav-item has-treeview">
                     <a href="{{ route('grosir.riwayat') }}" class="nav-link ">
                         <i class="nav-icon fas fa-cart-plus"></i>
-                        <p>Riwayat</p>
+                        <p>Riwayat Grossir</p>
                     </a>
                 </li>
                 <li class="nav-item has-treeview">

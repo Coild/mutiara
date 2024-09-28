@@ -204,6 +204,30 @@ $_scripts = array(
             }
         }
     </script>
+    <script>
+        $(document).ready(function() {
+            $('#orders-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: '{{ route('kasir.agregat.data') }}',
+                columns: [
+                    { data: 'id', name: 'id' },
+                    { data: 'name', name: 'name' },
+                    { data: 'total', name: 'total' },
+                    { data: 'date', name: 'date' },
+                    { data: 'action', name: 'action', orderable: false, searchable: false },
+                ],
+                columnDefs: [
+                    {
+                        targets: 0, // Kolom pertama untuk nomor urut
+                        render: function (data, type, row, meta) {
+                            return meta.row + 1; // Menampilkan nomor urut
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
     @yield('js')
 
 </body>

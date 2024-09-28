@@ -65,12 +65,12 @@
                         <p>Riwayat</p>
                     </a>
                 </li>
-                {{-- <li class="nav-item has-treeview">
-                  <a href="{{ '' }}" class="nav-link ">
-                      <i class="nav-icon fas fa-users"></i>
-                      <p>Customers</p>
-                  </a>
-              </li> --}}
+                <li class="nav-item has-treeview">
+                    <a href="{{ route('grosir.riwayat') }}" class="nav-link ">
+                        <i class="nav-icon fas fa-cart-plus"></i>
+                        <p>Riwayat Grossir</p>
+                    </a>
+                </li>
                 <li class="nav-item has-treeview">
                     <a href="{{ route('agregat') }}" class="nav-link ">
                         <i class="nav-icon fas fa-book"></i>

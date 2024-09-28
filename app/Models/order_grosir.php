@@ -9,6 +9,10 @@ class order_grosir extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name', 'phone', 'address', 'payment', 'bill_code', 'date', 'total', 'uang', 'kembalian'
+        'id','name', 'phone', 'address', 'payment', 'bill_code', 'date', 'total', 'uang', 'kembalian'
     ];
+    public function grosir_sells()
+    {
+        return $this->hasMany(grosir_sell::class, 'id','order_id');
+    }
 }

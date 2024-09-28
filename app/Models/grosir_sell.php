@@ -17,4 +17,10 @@ class grosir_sell extends Model
         'total'
        
     ];
+
+    public function order_grosir()
+    {
+        return $this->belongsTo(order_grosir::class, 'order_id', 'id');
+    }
+
 }

@@ -80,9 +80,9 @@
                                 <button class="btn btn-success"
                                     onclick="window.location.href='{{ route('detil.transaksi_grosir') }}?id={{ $item['id'] }}'"><i
                                         class="fa fa-eye">Lihat</i></button>
-                                {{-- <button class="btn btn-primary"
-                                    onclick="window.location.href='{{ '/order/invoice/' . $item['id'] }}'"><i
-                                        class="fa fa-book">Cetak</i></button> --}}
+                                <button class="btn btn-primary"
+                                    onclick="window.location.href='{{ '/order_grosir/invoice/' . $item['id'] }}'"><i
+                                        class="fa fa-book">Cetak</i></button>
                                 <button class="btn btn-warning" onclick='isi_id(@json($item))'
                                     data-toggle="modal" data-target="#tambah"><i class="fa fa-pen">Edit</i></button>
                             </td>
