@@ -18,9 +18,9 @@ class grosir_sell extends Model
        
     ];
 
-    public function order_grosir()
+    public function product()
     {
-        return $this->belongsTo(order_grosir::class, 'order_id', 'id');
+        return $this->hasMany(grosir::class, 'id', 'grosir_id');
     }
 
 }

@@ -273,9 +273,10 @@ class OrderController extends Controller
 public function print_invoice2($id)
 {
     // return "tes";
-    $order = order_grosir::with('grosir_sells:total')->get();
+    $order = order_grosir::find($id);
+    $order->load('grosir_sells');
     // $order = grosir_sell::with('order_grosir:uang')->get();
-    dd($order);
+    // dd($order);
     // return sizeof($order->product);
     if (!$order) {
         return response()->json([
@@ -289,7 +290,9 @@ public function print_invoice2($id)
     $pdf = new FPDF('L', 'mm', array(200, 110));
     $date = new Carbon();
 
-    for ($i = 0; $i < sizeof($order->product); $i++) {
+    for ($i = 0; $i < sizeof($order->grosir_sells); $i++) {
+        $data = $order->grosir_sells[$i]->load('product')->product[0];
+        // dd($data);
         $pdf->SetFont('Arial', 'b', 12);
         $pdf->AddPage();
         $pdf->Image("asset/nota2.jpg", 0, 0, 200, 110);
@@ -334,33 +337,33 @@ public function print_invoice2($id)
         );
 
 
-        $pdf->Cell(20, 5, $order->product[$i]->barcode, 0, 0, 'L');
-        $pdf->Cell(10, 5, '1', 0, 0, 'L');
+        $pdf->Cell(20, 5, $data->barcode, 0, 0, 'L');
+        $pdf->Cell(10, 5, $order->grosir_sells[$i]->jumlah, 0, 0, 'L');
         $pdf->Cell(
             90,
             5,
-            $order->product[$i]->type . ", " .
-                $order->product[$i]->metal . ", " .
-                $order->product[$i]->carat . " crt, " .
-                $order->product[$i]->weight1 . " gr, " .
-                $order->product[$i]->pearls . ", ",
+            $data->type . ", " .
+                $data->metal . ", " .
+                $data->carat . " crt, " .
+                $data->weight1 . " gr, " .
+                $data->pearls . ", ",
             0,
             0,
             'L'
         );
-        $pdf->Cell(25, 5, number_format($order->product[$i]->price_sell, 0, ',', '.'), 0, 0, 'L');
-        $pdf->Cell(10, 5, $order->product[$i]->discount . '%', 0, 0, 'L');
-        $pdf->Cell(25, 5, number_format($order->product[$i]->price_discount, 0, ',', '.'), 0, 1, 'L');
+        $pdf->Cell(25, 5, number_format($data->price_sell, 0, ',', '.'), 0, 0, 'L');
+        $pdf->Cell(10, 5, $data->discount . '%', 0, 0, 'L');
+        $pdf->Cell(25, 5, number_format($data->price_discount, 0, ',', '.'), 0, 1, 'L');
         $pdf->Cell(20, 5, '', 0, 0, 'L');
         $pdf->Cell(10, 5, '', 0, 0, 'L');
         $pdf->Cell(
             90,
             5,
-            $order->product[$i]->color . ", " .
-                $order->product[$i]->shape . ", " .
-                $order->product[$i]->grade . ", " .
-                $order->product[$i]->weight2 . " gr, " .
-                $order->product[$i]->size . " mm",
+            $data->color . ", " .
+                $data->shape . ", " .
+                $data->grade . ", " .
+                $data->weight2 . " gr, " .
+                $data->size . " mm",
             0,
             0,
             'L'
@@ -373,7 +376,7 @@ public function print_invoice2($id)
         $pdf->Cell(10, 5, '', 0, 0, 'L');
         $pdf->Cell(90, 5, '', 0, 0, 'L');
         $pdf->Cell(35, 5, 'TOTAL :', 0, 0, 'R');
-        $pdf->Cell(25, 5, 'Rp. ' . number_format($order->product[$i]->price_discount, 0, ',', '.'), 0, 1, 'L');
+        $pdf->Cell(25, 5, 'Rp. ' . number_format($data->price_discount, 0, ',', '.'), 0, 1, 'L');
     }
     $pdf->Output();
     exit();

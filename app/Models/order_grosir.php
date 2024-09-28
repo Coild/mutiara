@@ -13,6 +13,6 @@ class order_grosir extends Model
     ];
     public function grosir_sells()
     {
-        return $this->hasMany(grosir_sell::class, 'id','order_id');
+        return $this->hasMany(grosir_sell::class, 'order_id','id');
     }
 }
